@@ -27,3 +27,21 @@ nav {
     top: 100px;
     left: 0px;
 }
+
+.tab {
+    background-color: #F7F8F3;
+    width: 75px;
+    height: 60px;
+    position: fixed;
+    top: 115px;
+    left: 5px;
+}
+
+.tab2 {
+    background-color: #F7F8F3;
+    width: 75px;
+    height: 60px;
+    position: fixed;
+    top: 115px;
+    left: 65px;
+}

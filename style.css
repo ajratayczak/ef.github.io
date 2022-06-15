@@ -4,28 +4,38 @@ body {
     font-size: 14px;
 }
   
-h1 {
-    font-size: 35px;
-    font-weight: normal;
-    margin-top: 5px;
+#farmos {
+    font-size: 45px;
+    font-weight: bold;
+    position: fixed;
+    top: 0px;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
 }
   
 .header { 
-    background-color: #7BC143;
+    background-color: #F7F8F3;
     width: 100%;
     height: 100px;
     position: fixed;
     top: 0px;
     left: 0px; 
+    border: 2px solid;
+    border-style: groove;
 }
 
 nav {
-    background-color: #8ACCEE;
+    background-color: #F7F8F3;
     width: 100%;
     height: 75px;
     position: fixed;
     top: 100px;
     left: 0px;
+    border: 2px solid;
+    border-style: groove;
 }
 
 .tab {
@@ -141,4 +151,80 @@ p {
     top: 10px;
     right: 100px;
     position: fixed;
+}
+
+#time {
+    top: 50px;
+    right: 30px;
+    font-weight: bold;
+    position: fixed;
+    font-size: 18px;
+}
+
+.tab-div {
+    position: fixed;
+    width: 100%;
+    top: 175px;
+    opacity: 0;
+    z-index: 2;
+    background-color: #F7F8F3;
+    height: 100%;
+    border: 2px solid;
+    border-style: groove;
+    left: 0px;
+}
+
+#home {
+    position: fixed;
+    width: 100%;
+    top: 175px;
+    left: 0px;
+    background-color: #F7F8F3;
+    z-index: 1;
+    height: 100%;
+    border: 2px solid;
+    border-style: groove;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0px;
+}
+
+.tasks {
+    background-color: #F7F8F3;
+    text-align: center;
+    margin: 10px 50px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.label {
+    border: 2px solid;
+    height: 50px;
+    padding: 5px 10px;
+    padding-top: 0px;
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.big-label {
+    border: 2px solid;
+    height: 50px;
+    padding: 5px 10px;
+    padding-top: 0px;
+    margin-top: 10px;
+    margin: 0px;
+}
+
+#task-list-box {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    overflow: auto;
+    position: fixed;
+    top: 275px;
+    flex-direction: column;
+    width: 50%;
+    height: 400px;
 }

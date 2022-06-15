@@ -6,45 +6,126 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Supervisor Home Page</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="time.js"></script>
   </head>
 
   <body>
     <header class="header">
-      <img src="ernessifarmslogocropped.gif" alt="Ernessi Farms Logo" width="294" height="50" style="vertical-align:middle;margin:25px 25px">
+      <img src="ernessifarmslogocropped.gif" alt="Ernessi Farms Logo" width="294" height="50" style="vertical-align:middle;margin:25px 25px" onclick="reset()">
+      <div id="title"><h1 id="farmos">FarmOS</h1></div>
       <div id="about-super">
         <h3 id="supervisor">SUPERVISOR</h3>
-        <button id="log-out"></button>
+        <button id="log-out" onclick="logout()"></button><br>
+        <span id="time"> </span>
       </div>
     </header>
     <nav>
       <ul>
         <li>
-          <div class="tab" id="t1">
+          <div class="tab" id="t1" onclick="elevate('flagged')">
             <p>Flagged Issues</p>
           </div>
         </li>
         <li>
-          <div class="tab" id="t2">
+          <div class="tab" id="t2" onclick="elevate('data')">
             <p>Data</p>
           </div>
         </li>
         <li>
-          <div class="tab" id="t3">
+          <div class="tab" id="t3" onclick="elevate('all')">
             <p>All Tasks</p>
           </div>
         </li>
         <li>
-          <div class="tab" id="t4">
+          <div class="tab" id="t4" onclick="elevate('staff')">
             <p>Staff Duties</p>
           </div>
         </li>
         <li>
-          <div class="tab" id="t5">
+          <div class="tab" id="t5" onclick="elevate('my')">
             <p>My Tasks</p>
           </div>
         </li>
       </ul>
     </nav>
+
+    <div id="home">
+      <div class="tasks" id="assigned">
+        <div class="big-label">
+          <h2>ASSIGNED TASKS</h2>
+        </div>
+        <div id="task-list-box">
+          <div class="label">
+            <h4>Task 1</h4>
+          </div>
+          <div class="label">
+            <h4>Task 2</h4>
+          </div>
+          <div class="label">
+            <h4>Task 3</h4>
+          </div>
+          <div class="label">
+            <h4>Task 4</h4>
+          </div>
+          <div class="label">
+            <h4>Task 5</h4>
+          </div>
+          <div class="label">
+            <h4>Task 6</h4>
+          </div>
+          <div class="label">
+            <h4>Task 7</h4>
+          </div>
+          <div class="label">
+            <h4>Task 8</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="tasks" id="other">
+        <div class="big-label">
+          <h2>TASKS & LOGS</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-div" id="flagged">
+      <p>Flagged - There's nothing here right now.</p>
+    </div>
+
+    <div class="tab-div" id="data">
+      <p>Data - There's nothing here right now.</p>
+    </div>
+
+    <div class="tab-div" id="all">
+      <p>All - There's nothing here right now.</p>
+    </div>
+
+    <div class="tab-div" id="staff">
+      <p>Staff - There's nothing here right now.</p>
+    </div>
+
+    <div class="tab-div" id="my">
+      <p>My - There's nothing here right now.</p>
+    </div>
   </body>
 
+  <script>
+    function logout() {
+      window.location.replace("./login.html");
+    }
+
+    function elevate(id) {
+      reset()
+      document.getElementById(id).style.opacity = 1;
+    }
+
+    function reset() {
+      document.getElementById("flagged").style.opacity = 0;
+      document.getElementById("data").style.opacity = 0;
+      document.getElementById("all").style.opacity = 0;
+      document.getElementById("staff").style.opacity = 0;
+      document.getElementById("my").style.opacity = 0;
+    }
+  </script>
 </html>

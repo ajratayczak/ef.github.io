@@ -1,0 +1,43 @@
+<!DOCTYPE html>    
+<html>    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Login Form</title>    
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="login-page.js"></script>    
+</head>    
+<body>    
+    <center>
+    <div id="logo">
+        <img src="ernessifarmslogocropped.gif" alt="Ernessi Farms Logo" width="294" height="50" style="vertical-align:middle;margin:25px 25px">
+    </div>
+    <h2>Login Page</h2><br>
+    
+    <div id="login-error-msg-holder">
+        <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+    </div>
+
+    <div class="login">    
+    <form id="login-form" method="get" action="login.php">    
+        <label><b>User Name     
+        </b>    
+        </label>    
+        <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">   
+        <br><br>    
+        <label><b>Password     
+        </b>    
+        </label>    
+        <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password"> 
+        <br><br>    
+        <input type="submit" value="Login" id="login-form-submit">        
+        <br><br>    
+        <input type="checkbox" id="check">    
+        <span>Remember me</span>    
+        <br><br>    
+        Forgot <a href="#">Password</a>    
+    </form>     
+</div>
+</center>    
+</body>    
+</html>     

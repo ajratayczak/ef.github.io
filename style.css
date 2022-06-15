@@ -78,6 +78,7 @@ nav {
 
 p {
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 #login-error-msg-holder {
@@ -206,6 +207,14 @@ p {
     margin-top: 10px;
     margin-left: 100px;
     margin-right: 100px;
+    position: sticky;
+}
+
+.grid-label {
+    border: 2px solid;
+    height: 50px;
+    padding: 5px 10px;
+    margin: 20px;
 }
 
 .big-label {
@@ -213,18 +222,28 @@ p {
     height: 50px;
     padding: 5px 10px;
     padding-top: 0px;
-    margin-top: 10px;
-    margin: 0px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 #task-list-box {
     display: flex;
     flex-grow: 1;
     justify-content: center;
-    overflow: auto;
+    overflow-y: scroll;
     position: fixed;
     top: 275px;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     height: 400px;
+}
+
+#task-grid-box {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    height: 400px;
+    overflow-y: scroll;
+    position: fixed;
+    top: 275px;
+    width: 40%;
 }

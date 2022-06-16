@@ -356,8 +356,92 @@ h2 {
 
 #completed-pop-up {
     display: none;
-    width: 200px;
-    height: 200px;
-    margin: 200px auto auto auto;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 4;
+    position: fixed;
+    border: 2px solid;
+    background-color: #F7F8F3;
+}
+
+#save-pop-up {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    position: fixed;
+    border: 2px solid;
+    background-color: #F7F8F3;
+}
+
+.q {
+    border: 2px solid;
+    margin: 10px auto 0 auto;
+    text-align: center;
+    width: 250px;
+}
+
+.yes {
+    border: 2px solid;
+    margin: 10px auto 0 auto;
+    text-align: center;
+    width: 100px;
+    font-weight: bold;
+}
+
+.no {
+    border: 2px solid;
+    margin: 10px auto 0 auto;
+    text-align: center;
+    width: 100px;
+    font-weight: bold;
+}
+
+#report-pop-up {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 300px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    position: fixed;
+    border: 2px solid;
+    background-color: #F7F8F3;
+}
+
+#issue-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+#yesno {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#cansub {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#upload {
+    margin: 0 auto 20px auto;
 }

@@ -118,10 +118,10 @@
         <div id="log">
             <h3>TASK LOG</h3>
         </div>
-        <div id="report">
+        <div id="report" onclick="report('report')">
             <h3>REPORT</h3>
         </div>
-        <div id="save">
+        <div id="save" onclick="save('save')">
             <h3>SAVE PROGRESS</h3>
         </div>
         <div id="complete" onclick="complete('complete')">
@@ -130,9 +130,42 @@
     </div>
 
     <div id="completed-pop-up">
-        <h2>TASK IS COMPLETE?</h2>
+        <div class="q">
+            <h2 id="complete-message">TASK IS COMPLETE?</h2>
+        </div>
         <div class="yes">YES</div>
-        <div class="no">NO</div>
+        <div class="no" onclick="close('completed-pop-up', 'complete')">NO</div>
+    </div>
+
+    <div id="save-pop-up">
+        <div class="q">
+            <h2 id="save-message">DO YOU WANT TO SAVE YOUR PROGRESS IN TASK?</h2>
+        </div>
+        <div class="yes">YES</div>
+        <div class="no" onclick="close('save-pop-up', 'save')">NO</div>
+    </div>
+
+    <div id="report-pop-up">
+        <div class="q" id="report-message-box">
+            <h2 id="report-message">REPORT AN ISSUE WITH: TASK</h2>
+        </div>
+        <div id="issue-input">
+            <form action="/action-page.php">
+                <label for="issue">ISSUE:</label>
+                <input type="text" id="issue" name="issue">
+            </form>
+        </div>
+        <h2>CAN THE TASK STILL BE COMPLETED?</h2>
+        <div id="yesno">
+            <div class="yes">YES</div>
+            <div class="no">NO</div>
+        </div>
+        <h2>UPLOAD A PHOTO</h2>
+        <div class="yes" id="upload">UPLOAD</div>
+        <div id="cansub">
+            <div class="no" id="cancel">CANCEL</div>
+            <div class="no" id="submit">SUBMIT</div>
+        </div>
     </div>
 
   </body>
@@ -149,16 +182,43 @@
         box.style.justifyContent = "center";
         var filler = document.getElementById("fill-me");
         filler.innerHTML = document.getElementById(id).innerHTML;
-        document.getElementById(id2).style.backgroundColor = "#8ACCEE"
+        document.getElementById(id2).style.backgroundColor = "#8ACCEE";
         // I want the selected element to turn blue, but I don't want it to stay blue when I click on a new element.
     }
 
     function complete(id) {
         var button = document.getElementById(id);
         button.style.backgroundColor = "#7BC143";
+        var task = document.getElementById("fill-me").innerHTML;
+        document.getElementById("complete-message").innerHTML = task + " IS COMPLETE?";
         var popup = document.getElementById("completed-pop-up");
-        console.log("flexed");
         popup.style.display = "flex";
+    }
+
+    function save(id) {
+        var button = document.getElementById(id);
+        button.style.backgroundColor = "#7BC143";
+        var task = document.getElementById("fill-me").innerHTML;
+        document.getElementById("save-message").innerHTML = "DO YOU WANT TO SAVE YOUR PROGRESS IN " + task + "?";
+        var popup = document.getElementById("save-pop-up");
+        popup.style.display = "flex";
+    }
+
+    function report(id) {
+        var button = document.getElementById(id);
+        button.style.backgroundColor = "#7BC143";
+        var task = document.getElementById("fill-me").innerHTML;
+        document.getElementById("report-message").innerHTML = "REPORT ISSUE WITH: " + task;
+        var popup = document.getElementById("report-pop-up");
+        popup.style.display = "flex";
+    }
+
+    function close(id, id2) {
+        var toclose = document.getElementById(id);
+        toclose.style.display = "none";
+        console.log("I am working");
+        var button = document.getElementById(id2);
+        button.style.backgroundColor = "#F7F8F3";
     }
   </script>
 </html>

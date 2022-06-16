@@ -199,6 +199,16 @@ p {
     height: 100%;
 }
 
+#assigned {
+    top: 175px;
+    margin-left: 0px;
+}
+
+#other {
+    top: 175px;
+    margin-right: 100px;
+}
+
 .label {
     border: 2px solid;
     height: 50px;
@@ -230,12 +240,12 @@ p {
     display: flex;
     flex-grow: 1;
     justify-content: center;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: fixed;
     top: 275px;
     flex-direction: column;
     width: 40%;
-    height: 400px;
+    max-height: 400px;
 }
 
 #task-grid-box {

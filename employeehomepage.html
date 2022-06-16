@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Employee Home Page</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="time.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <img src="ernessifarmslogocropped.gif" alt="Ernessi Farms Logo" width="294" height="50" style="vertical-align:middle;margin:25px 25px">
+      <div id="title"><h1 id="farmos">FarmOS</h1></div>
+      <div id="about">
+        <h3 id="user">EMPLOYEE</h3>
+        <button id="log-out" onclick="logout()"></button><br>
+        <span id="time"> </span>
+      </div>
+    </header>
+
+    <div id="emp-home">
+      <div class="tasks" id="emp-assigned">
+        <div class="big-label">
+          <h2>ASSIGNED TASKS</h2>
+        </div>
+        <div id="emp-task-list-box">
+          <div class="label">
+            <h4>Placeholder</h4>
+          </div>
+          <div class="label">
+            <h4>Placeholder</h4>
+          </div>
+          <div class="label" id="holder-1" onclick="select('tk1', 'holder-1')">
+            <h4 id="tk1">Task 1</h4>
+          </div>
+          <div class="label" id="holder-2" onclick="select('tk2', 'holder-2')">
+            <h4 id="tk2">Task 2</h4>
+          </div>
+          <div class="label" id="holder-3" onclick="select('tk3', 'holder-3')">
+            <h4 id="tk3">Task 3</h4>
+          </div>
+          <div class="label" id="holder-4" onclick="select('tk4', 'holder-4')">
+            <h4 id="tk4">Task 4</h4>
+          </div>
+          <div class="label" id="holder-5" onclick="select('tk5', 'holder-5')">
+            <h4 id="tk5">Task 5</h4>
+          </div>
+          <div class="label" id="holder-6" onclick="select('tk6', 'holder-6')">
+            <h4 id="tk6">Task 6</h4>
+          </div>
+          <div class="label" id="holder-7" onclick="select('tk7', 'holder-7')">
+            <h4 id="tk7">Task 7</h4>
+          </div>
+          <div class="label" id="holder-8" onclick="select('tk8', 'holder-8')">
+            <h4 id="tk8">Task 8</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="tasks" id="emp-other">
+        <div class="big-label">
+          <h2>TASKS & LOGS</h2>
+        </div>
+        <div id="emp-task-grid-box">
+          <div class="grid-label">
+            <h4>Task 1</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 2</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 3</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 4</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 5</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 6</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 7</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 8</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 9</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 10</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 11</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 12</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 13</h4>
+          </div>
+          <div class="grid-label">
+            <h4>Task 14</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="task-selected">
+        <div class="big-label" id="selected">
+            <h2 id="fill-me">FILL ME</h2>
+        </div>
+        <h4 id="est-time">EST. COMPLETION: 1:45</h4>
+        <div id="log">
+            <h3>TASK LOG</h3>
+        </div>
+        <div id="report">
+            <h3>REPORT</h3>
+        </div>
+        <div id="save">
+            <h3>SAVE PROGRESS</h3>
+        </div>
+        <div id="complete" onclick="complete('complete')">
+            <h3>COMPLETE</h3>
+        </div>
+    </div>
+
+    <div id="completed-pop-up">
+        <h2>TASK IS COMPLETE?</h2>
+        <div class="yes">YES</div>
+        <div class="no">NO</div>
+    </div>
+
+  </body>
+
+  <script>
+    function logout() {
+      window.location.replace("./login.html");
+    }
+
+    function select(id, id2) {
+        var box = document.getElementById("task-selected");
+        box.style.display = "flex";
+        box.style.flexDirection = "column";
+        box.style.justifyContent = "center";
+        var filler = document.getElementById("fill-me");
+        filler.innerHTML = document.getElementById(id).innerHTML;
+        document.getElementById(id2).style.backgroundColor = "#8ACCEE"
+        // I want the selected element to turn blue, but I don't want it to stay blue when I click on a new element.
+    }
+
+    function complete(id) {
+        var button = document.getElementById(id);
+        button.style.backgroundColor = "#7BC143";
+        var popup = document.getElementById("completed-pop-up");
+        console.log("flexed");
+        popup.style.display = "flex";
+    }
+  </script>
+</html>

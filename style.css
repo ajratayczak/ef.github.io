@@ -131,7 +131,7 @@ p {
     outline: none;
 }
 
-#supervisor {
+#user {
     color: black;
     font-weight: bold;
     position: fixed;
@@ -148,7 +148,7 @@ p {
     position: fixed;
 }
 
-#about-super {
+#about {
     top: 10px;
     right: 100px;
     position: fixed;
@@ -190,6 +190,21 @@ p {
     grid-gap: 0px;
 }
 
+#emp-home {
+    position: fixed;
+    width: 100%;
+    top: 100px;
+    left: 0px;
+    background-color: #F7F8F3;
+    z-index: 1;
+    height: 100%;
+    border: 2px solid;
+    border-style: groove;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0px;
+}
+
 .tasks {
     background-color: #F7F8F3;
     text-align: center;
@@ -204,8 +219,18 @@ p {
     margin-left: 0px;
 }
 
+#emp-assigned {
+    top: 100px;
+    margin-left: 0px;
+}
+
 #other {
     top: 175px;
+    margin-right: 100px;
+}
+
+#emp-other {
+    top: 100px;
     margin-right: 100px;
 }
 
@@ -248,6 +273,18 @@ p {
     max-height: 400px;
 }
 
+#emp-task-list-box {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    overflow-y: auto;
+    position: fixed;
+    top: 200px;
+    flex-direction: column;
+    width: 40%;
+    max-height: 414px;
+}
+
 #task-grid-box {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -256,4 +293,71 @@ p {
     position: fixed;
     top: 275px;
     width: 40%;
+}
+
+#emp-task-grid-box {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    height: 400px;
+    overflow-y: scroll;
+    position: fixed;
+    top: 200px;
+    width: 40%;
+}
+
+#task-selected {
+    display: none;
+    position: fixed;
+    text-align: center;
+    width: 45%;
+    height: 500px;
+    top: 125px;
+    right: 75px;
+    z-index: 3;
+    background-color: #F7F8F3;
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+#selected {
+    width: 50%;
+    margin: 0 auto 0 auto;
+}
+
+#log {
+    border: 2px solid;
+    width: 30%;
+    height: 30%;
+    margin: 0 auto 0 auto;
+}
+
+#report {
+    border: 2px solid;
+    width: 20%;
+    margin: 10px auto 0 auto;
+    height: 50px;
+}
+
+#save {
+    border: 2px solid;
+    width: 20%;
+    margin: 10px auto 0 auto;
+    height: 70px;
+}
+
+#complete {
+    border: 2px solid;
+    width: 20%;
+    margin: 10px auto 0 auto;
+    height: 50px;
+}
+
+#completed-pop-up {
+    display: none;
+    width: 200px;
+    height: 200px;
+    margin: 200px auto auto auto;
+    z-index: 4;
 }

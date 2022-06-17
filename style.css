@@ -399,20 +399,13 @@ h2 {
     width: 250px;
 }
 
-.yes {
+.yn {
     border: 2px solid;
     margin: 10px auto 0 auto;
     text-align: center;
     width: 100px;
     font-weight: bold;
-}
-
-.no {
-    border: 2px solid;
-    margin: 10px auto 0 auto;
-    text-align: center;
-    width: 100px;
-    font-weight: bold;
+    cursor: pointer;
 }
 
 #report-pop-up {

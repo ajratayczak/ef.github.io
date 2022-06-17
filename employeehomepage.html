@@ -133,16 +133,16 @@
         <div class="q">
             <h2 id="complete-message">TASK IS COMPLETE?</h2>
         </div>
-        <div class="yes">YES</div>
-        <div class="no" onclick="close_me('completed-pop-up', 'complete')">NO</div>
+        <div class="yn">YES</div>
+        <div class="yn" onclick="close_me('completed-pop-up', 'complete')">NO</div>
     </div>
 
     <div id="save-pop-up">
         <div class="q">
             <h2 id="save-message">DO YOU WANT TO SAVE YOUR PROGRESS IN TASK?</h2>
         </div>
-        <div class="yes">YES</div>
-        <div class="no" onclick="close_me('save-pop-up', 'save')">NO</div>
+        <div class="yn">YES</div>
+        <div class="yn" onclick="close_me('save-pop-up', 'save')">NO</div>
     </div>
 
     <div id="report-pop-up">
@@ -157,14 +157,14 @@
         </div>
         <h2>CAN THE TASK STILL BE COMPLETED?</h2>
         <div id="yesno">
-            <div class="yes">YES</div>
-            <div class="no">NO</div>
+            <div class="yn">YES</div>
+            <div class="yn">NO</div>
         </div>
         <h2>UPLOAD A PHOTO</h2>
-        <div class="yes" id="upload">UPLOAD</div>
+        <div class="yn" id="upload">UPLOAD</div>
         <div id="cansub">
-            <div class="no" id="cancel">CANCEL</div>
-            <div class="no" id="submit">SUBMIT</div>
+            <div class="yn" id="cancel" onclick="close_me('report-pop-up', 'report')">CANCEL</div>
+            <div class="yn" id="submit">SUBMIT</div>
         </div>
     </div>
 

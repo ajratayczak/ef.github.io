@@ -134,7 +134,7 @@
             <h2 id="complete-message">TASK IS COMPLETE?</h2>
         </div>
         <div class="yes">YES</div>
-        <div class="no" onclick="close('completed-pop-up', 'complete')">NO</div>
+        <div class="no" onclick="close_me('completed-pop-up', 'complete')">NO</div>
     </div>
 
     <div id="save-pop-up">
@@ -142,7 +142,7 @@
             <h2 id="save-message">DO YOU WANT TO SAVE YOUR PROGRESS IN TASK?</h2>
         </div>
         <div class="yes">YES</div>
-        <div class="no" onclick="close('save-pop-up', 'save')">NO</div>
+        <div class="no" onclick="close_me('save-pop-up', 'save')">NO</div>
     </div>
 
     <div id="report-pop-up">
@@ -182,8 +182,15 @@
         box.style.justifyContent = "center";
         var filler = document.getElementById("fill-me");
         filler.innerHTML = document.getElementById(id).innerHTML;
-        document.getElementById(id2).style.backgroundColor = "#8ACCEE";
-        // I want the selected element to turn blue, but I don't want it to stay blue when I click on a new element.
+        for (let i=1; i<=8; i++) {
+            var holder =  "holder-" + i;
+            if (holder != id2) {
+                document.getElementById(holder).style.backgroundColor = "#F7F8F3";
+            }
+            else {
+                document.getElementById(id2).style.backgroundColor = "#8ACCEE";
+            }
+        }
     }
 
     function complete(id) {
@@ -213,7 +220,7 @@
         popup.style.display = "flex";
     }
 
-    function close(id, id2) {
+    function close_me(id, id2) {
         var toclose = document.getElementById(id);
         toclose.style.display = "none";
         console.log("I am working");

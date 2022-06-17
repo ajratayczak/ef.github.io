@@ -81,6 +81,13 @@ p {
     font-weight: bold;
 }
 
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #login-error-msg-holder {
     width: 100%;
     height: 100%;
@@ -120,7 +127,7 @@ p {
 }
   
 #login-form-submit {
-    width: 15%;
+    width: 30%;
     padding: 7px;
     border: none;
     border-radius: 5px;
@@ -129,6 +136,7 @@ p {
     background-color: #3a3a3a;
     cursor: pointer;
     outline: none;
+    margin: auto auto auto auto;
 }
 
 #user {
@@ -270,7 +278,7 @@ p {
     top: 275px;
     flex-direction: column;
     width: 40%;
-    max-height: 400px;
+    max-height: 414px;
 }
 
 #emp-task-list-box {
@@ -298,7 +306,7 @@ p {
 #emp-task-grid-box {
     display: grid;
     grid-template-columns: auto auto auto;
-    height: 400px;
+    height: 414px;
     overflow-y: scroll;
     position: fixed;
     top: 200px;
@@ -444,4 +452,11 @@ h2 {
 
 #upload {
     margin: 0 auto 20px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

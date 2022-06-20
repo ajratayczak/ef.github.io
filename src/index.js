@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore,
+         collection,
+         addDoc } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,4 +24,37 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-console.log("Hello there, firestore!");
+console.log("Hello, firestore!");
+
+try {
+  const docRef = await addDoc(collection(db, "employees"), {
+    name: "Alex Hanke",
+    schedule: {
+      monday: {
+        start: "7:00",
+        end: "17:00"
+      },
+      tuesday: {
+        start: "8:00",
+        end: "16:00"
+      },
+      wednesday: {
+        start: "8:00",
+        end: "16:00"
+      },
+      thursday: {
+        start: "7:00",
+        end: "17:00"
+      },
+      friday: {
+        start: "8:00",
+        end: "17:00"
+      }
+    },
+    supervisor: true
+  });
+
+  console.log("Document written with ID: ", docRef.id) ;
+} catch (e) {
+  console.error("Error adding document: ", e) ;
+}

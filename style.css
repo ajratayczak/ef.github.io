@@ -139,6 +139,19 @@ p {
     margin: auto auto auto auto;
 }
 
+#signup-form-submit {
+    width: 30%;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: #3a3a3a;
+    cursor: pointer;
+    outline: none;
+    margin: auto auto auto auto;
+}
+
 #user {
     color: black;
     font-weight: bold;

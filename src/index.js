@@ -26,9 +26,9 @@ const db = getFirestore(app);
 
 console.log("Hello, firestore!");
 
-try {
+/*try {
   const docRef = await addDoc(collection(db, "employees"), {
-    name: "Alex Hanke",
+    name: "Hailey Drager",
     schedule: {
       monday: {
         start: "7:00",
@@ -57,4 +57,4 @@ try {
   console.log("Document written with ID: ", docRef.id) ;
 } catch (e) {
   console.error("Error adding document: ", e) ;
-}
+}*/

@@ -42,7 +42,10 @@ const createAccount = async () => {
   }
 }
 
-btnSignUp.addEventListener("click", createAccount);
+if (btnSignUp) {
+  console.log("it exists");
+  btnSignUp.addEventListener("click", createAccount);
+}
 
 /*try {
   const docRef = await addDoc(collection(db, "employees"), {

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore,
          collection,
          addDoc } from 'firebase/firestore';
@@ -25,6 +25,24 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 console.log("Hello, firestore!");
+
+const loginForm = document.getElementById("login-form")
+const btnSignUp = document.getElementById("signup-form-submit")
+
+const createAccount = async () => {
+  const loginEmail = loginForm.email.value;
+  const loginPassword = loginForm.password.value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+    console.log(userCredential.user);
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
+btnSignUp.addEventListener("click", createAccount);
 
 /*try {
   const docRef = await addDoc(collection(db, "employees"), {

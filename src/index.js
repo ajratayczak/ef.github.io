@@ -6,7 +6,10 @@ import { getAuth,
          updateProfile } from 'firebase/auth';
 import { getFirestore,
          collection,
-         addDoc } from 'firebase/firestore';
+         addDoc,
+         getDocs,
+         query,
+         where } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -108,3 +111,70 @@ const profileUpdate = async () => {
 if(btnSetup) {
   btnSetup.addEventListener("click", profileUpdate);
 }
+
+const taskList = [];
+
+try {
+  const querySnapshot = await getDocs(collection(db, "tasks"));
+  querySnapshot.forEach((doc) => {
+    const task = doc.get("task");
+    taskList.push(task);
+  })
+}
+catch(error) {
+  console.log(error);
+}
+
+const holder = document.getElementById('all-task-box');
+const fragment = document.createDocumentFragment();
+
+var i = 0;
+
+taskList.forEach(function(task) {
+  i = i + 1;
+  const taskHolder = document.createElement('div');
+  taskHolder.id = 't'+i;
+  taskHolder.className = 'grid-label';
+  taskHolder.innerHTML = '<h4>'+task+'</h4>';
+  fragment.appendChild(taskHolder);
+})
+
+holder.appendChild(fragment);
+
+const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+
+const d = new Date();
+let today = weekday[d.getDay()];
+
+const dayDisplay = document.getElementById("today");
+dayDisplay.innerHTML = '<h2>Today is '+today+'</h2>';
+
+const q = query(collection(db, "tasks"), where(today, "==", "X"));
+
+const todayList = [];
+
+try {
+  const todaySnapshot = await getDocs(q);
+  todaySnapshot.forEach((doc) => {
+    const task2 = doc.get("task");
+    todayList.push(task2);
+  });
+}
+catch(error) {
+  console.log(error);
+}
+
+const todayTask = document.getElementById("todays-task-list");
+const todayFragment = document.createDocumentFragment();
+var i2 = 0;
+
+todayList.forEach(function(task) {
+  i2 = i2 + 1;
+  const todayHolder = document.createElement('div');
+  todayHolder.id = 'd'+i2;
+  todayHolder.className = 'grid-label';
+  todayHolder.innerHTML = '<h4>'+task+'</h4>';
+  todayFragment.appendChild(todayHolder);
+})
+
+todayTask.appendChild(todayFragment);

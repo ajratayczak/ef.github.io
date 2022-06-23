@@ -221,6 +221,10 @@ p {
     border: 2px solid;
     border-style: groove;
     left: 0px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #home {
@@ -295,9 +299,11 @@ p {
 
 .grid-label {
     border: 2px solid;
-    height: 50px;
-    padding: 5px 10px;
+    height: 65px;
+    padding: auto auto auto auto;
     margin: 20px;
+    line-height: 1.25;
+    text-align: center;
 }
 
 .big-label {
@@ -307,6 +313,7 @@ p {
     padding-top: 0px;
     margin-top: 15px;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 #task-list-box {
@@ -350,6 +357,34 @@ p {
     overflow-y: scroll;
     position: fixed;
     top: 200px;
+    width: 40%;
+}
+
+#all-task-box {
+    grid-template-columns: auto auto auto;
+    height: 400px;
+    overflow-y: scroll;
+    position: fixed;
+    top: 275px;
+    width: 40%;
+}
+
+#all-tasks {
+    top: 200px;
+    position: fixed;
+}
+
+#today {
+    top: 200px;
+    position: fixed;
+}
+
+#todays-task-list {
+    grid-template-columns: auto auto auto;
+    height: 400px;
+    overflow-y: scroll;
+    position: fixed;
+    top: 275px;
     width: 40%;
 }
 

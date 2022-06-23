@@ -19,7 +19,6 @@
         <span id="time"> </span>
       </div>
     </header>
-    <!--
     <nav>
       <ul>
         <li>
@@ -49,14 +48,13 @@
         </li>
       </ul>
     </nav>
-    -->
 
-    <div id="emp-home">
-      <div class="tasks" id="emp-assigned">
+    <div id="home">
+      <div class="tasks" id="assigned">
         <div class="big-label">
           <h2>ASSIGNED TASKS</h2>
         </div>
-        <div id="emp-task-list-box">
+        <div id="task-list-box">
           <div class="label">
             <h4>Placeholder</h4>
           </div>
@@ -90,54 +88,11 @@
         </div>
       </div>
 
-      <div class="tasks" id="emp-other">
+      <div class="tasks" id="other">
         <div class="big-label">
           <h2>TASKS & LOGS</h2>
         </div>
-        <div id="emp-task-grid-box">
-          <div class="grid-label">
-            <h4>Task 1</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 2</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 3</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 4</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 5</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 6</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 7</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 8</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 9</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 10</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 11</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 12</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 13</h4>
-          </div>
-          <div class="grid-label">
-            <h4>Task 14</h4>
-          </div>
-        </div>
+        <div id="task-grid-box"></div>
       </div>
     </div>
 
@@ -150,11 +105,17 @@
     </div>
 
     <div class="tab-div" id="all">
-      <p>All - There's nothing here right now.</p>
+      <div class="big-label" id="all-tasks">
+        <h2>ALL TASKS</h2>
+      </div>
+      <div id="all-task-box"></div>
     </div>
 
     <div class="tab-div" id="staff">
-      <p>Staff - There's nothing here right now.</p>
+      <div class="big-label" id="today">
+      </div>
+      <div id="todays-task-list">
+      </div>
     </div>
 
     <div class="tab-div" id="my">
@@ -170,6 +131,7 @@
     function elevate(id) {
       reset()
       document.getElementById(id).style.opacity = 1;
+      document.getElementById(id).style.display = "flex";
     }
 
     function reset() {
@@ -178,10 +140,17 @@
       document.getElementById("all").style.opacity = 0;
       document.getElementById("staff").style.opacity = 0;
       document.getElementById("my").style.opacity = 0;
+
+      document.getElementById("flagged").style.display = "none";
+      document.getElementById("data").style.display = "none";
+      document.getElementById("all").style.display = "none";
+      document.getElementById("staff").style.display = "none";
+      document.getElementById("my").style.display = "none";
     }
 
     function hello() {
       console.log("hello");
     }
   </script>
+  <script src="dist/bundle.js"></script>    
 </html>

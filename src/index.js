@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, 
+         createUserWithEmailAndPassword,
+         signInWithEmailAndPassword,
+         updateProfile } from 'firebase/auth';
 import { getFirestore,
          collection,
          addDoc } from 'firebase/firestore';
@@ -27,6 +30,7 @@ const db = getFirestore(app);
 console.log("Hello, firestore!");
 
 const loginForm = document.getElementById("login-form")
+const btnLogIn = document.getElementById("login-form-submit")
 const btnSignUp = document.getElementById("signup-form-submit")
 
 const createAccount = async () => {
@@ -36,6 +40,7 @@ const createAccount = async () => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
     console.log(userCredential.user);
+    window.location.replace("./setupaccount.html")
   }
   catch(error) {
     console.log(error);
@@ -43,39 +48,49 @@ const createAccount = async () => {
 }
 
 if (btnSignUp) {
-  console.log("it exists");
   btnSignUp.addEventListener("click", createAccount);
 }
 
-/*try {
-  const docRef = await addDoc(collection(db, "employees"), {
-    name: "Hailey Drager",
-    schedule: {
-      monday: {
-        start: "7:00",
-        end: "17:00"
-      },
-      tuesday: {
-        start: "8:00",
-        end: "16:00"
-      },
-      wednesday: {
-        start: "8:00",
-        end: "16:00"
-      },
-      thursday: {
-        start: "7:00",
-        end: "17:00"
-      },
-      friday: {
-        start: "8:00",
-        end: "17:00"
-      }
-    },
-    supervisor: true
-  });
+const logIntoAccount = async () => {
+  const loginEmail = loginForm.email.value;
+  const loginPassword = loginForm.password.value;
 
-  console.log("Document written with ID: ", docRef.id) ;
-} catch (e) {
-  console.error("Error adding document: ", e) ;
-}*/
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+    window.location.replace("./employeehomepage.html")
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
+if(btnLogIn) {
+  btnLogIn.addEventListener("click", logIntoAccount);
+}
+
+const setupForm = document.getElementById("setup-form");
+const btnSetup = document.getElementById("setup-form-submit")
+
+const profileUpdate = async () => {
+  const displayName = setupForm.displayName.value;
+  const photoURL = setupForm.photourl.value;
+
+  try {
+    const userInfo = await updateProfile(auth.currentUser, {displayName: displayName, photoURL: photoURL});
+    const user = auth.currentUser;
+    if (user) {
+      console.log("user is logged in");
+      console.log(user);
+    }
+    else {
+      console.log("user is NOT logged in");
+    }
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
+if(btnSetup) {
+  btnSetup.addEventListener("click", profileUpdate);
+}

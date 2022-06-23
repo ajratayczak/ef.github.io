@@ -172,6 +172,13 @@ p {
     align-items: center;
 }
 
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #user {
     color: black;
     font-weight: bold;

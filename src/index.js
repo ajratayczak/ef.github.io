@@ -69,7 +69,8 @@ if(btnLogIn) {
 }
 
 const setupForm = document.getElementById("setup-form");
-const btnSetup = document.getElementById("setup-form-submit")
+const btnSetup = document.getElementById("setup-form-submit");
+
 
 const profileUpdate = async () => {
   const displayName = setupForm.displayName.value;
@@ -79,6 +80,19 @@ const profileUpdate = async () => {
     const userInfo = await updateProfile(auth.currentUser, {displayName: displayName, photoURL: photoURL});
     const user = auth.currentUser;
     if (user) {
+      const profileName = user.displayName;
+      const profilePic = user.photoURL;
+      const emailAddress = user.email;
+
+      const profilePicHolder = document.getElementById("profile-pic");
+      const displayNameHolder = document.getElementById("display-name");
+      const emailHolder = document.getElementById("email-address")
+
+      /*profilePicHolder.src = profilePic;*/
+      displayNameHolder.textContent = "xxx";
+      console.log(displayNameHolder.textContent)
+      /*emailHolder.innerHTML = emailAddress;*/
+      /*window.location.assign("./viewprofile.html");*/
       console.log("user is logged in");
       console.log(user);
     }

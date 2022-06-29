@@ -105,10 +105,86 @@
     </div>
 
     <div class="tab-div" id="all">
-      <div class="big-label" id="all-tasks">
-        <h2>ALL TASKS</h2>
+      <div class="task-table">
+        <div id="mushrooms">
+          <div class="row" id="mlabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="mush">MUSHROOMS</h3>
+          </div>
+          <div class="table" id="mush-task-table"></div>
+        </div>
+        <div id="hydroponics">
+          <div class="row" id="hlabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="hydro">HYDROPONICS</h3>
+          </div>
+          <div class="table" id="hydro-task-table"></div>
+        </div>
+        <div id="cleaning">
+          <div class="row" id="clabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="clean">CLEANING</h3>
+          </div>
+          <div class="table" id="clean-task-table"></div>
+        </div>
+        <div id="production">
+          <div class="row" id="plabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="pro">PRODUCTION</h3>
+          </div>
+          <div class="table" id="pro-task-table"></div>
+        </div>
+        <div id="administration">
+          <div class="row" id="alabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="admin">ADMINISTRATION</h3>
+          </div>
+          <div class="table" id="admin-task-table"></div>
+        </div>
+        <div id="extra-tasks">
+          <div class="row" id="xlabel">
+            <p>Task</p>
+            <p>Weekday</p>
+            <p>Time</p>
+            <p>Number of staff</p>
+            <p></p>
+          </div>
+          <div class="blue-bar">
+            <h3 id="extra">ADDITIONAL TASKS</h3>
+          </div>
+          <div class="xtable" id="x-task-table"></div>
+        </div>
       </div>
-      <div id="all-task-box"></div>
     </div>
 
     <div class="tab-div" id="staff">
@@ -120,6 +196,33 @@
 
     <div class="tab-div" id="my">
       <p>My - There's nothing here right now.</p>
+    </div>
+
+    <div id="edit-task-pop-up">
+      <div id="c0">
+        <p class="gray-word" id="task-label">TASK</p>
+        <h2 id="task-name"></h2>
+      </div>
+      <div id="c1">
+        <p class="gray-word" id="weekday-label">WEEKDAY</p>
+        <div id="weekday-table">
+          <div class="day" id="mon" onclick="highlight('mon')"><p class="center">Mon</p></div>
+          <div class="day" id="tue" onclick="highlight('tue')"><p class="center">Tue</p></div>
+          <div class="day" id="wed" onclick="highlight('wed')"><p class="center">Wed</p></div>
+          <div class="day" id="thu" onclick="highlight('thu')"><p class="center">Thu</p></div>
+          <div class="day" id="fri" onclick="highlight('fri')"><p class="center">Fri</p></div>
+        </div>
+      </div>
+      <div id="c2">
+        <p class="gray-word" id="time-label">TIME</p>
+      </div>
+      <div id="c3">
+        <p class="gray-word" id="staff-label">STAFF</p>
+      </div>
+      <div id="c4">
+        <div class="yn" id="edit-sub">SUBMIT</div>
+        <div class="yn" id="edit-cancel" onclick="leave()">CANCEL</div>
+      </div>
     </div>
   </body>
 
@@ -150,6 +253,42 @@
 
     function hello() {
       console.log("hello");
+    }
+
+    function editTask(task) {
+      document.getElementById("edit-task-pop-up").style.opacity = 1;
+      document.getElementById("edit-task-pop-up").style.display = "grid";
+      const splitter = task.split("=")
+      const newTaskList = splitter[0];
+      const taskHolder = newTaskList.split("_");
+      var f = 0;
+      var newTaskName = "";
+      while (f < taskHolder.length) {
+        newTaskName = newTaskName + taskHolder[f] + " ";
+        f ++;
+      }
+      document.getElementById("task-name").textContent = newTaskName;
+      newWeekdayList = splitter[1];
+      const weekdayHolder = newWeekdayList.split("_");
+      console.log(weekdayHolder);
+    }
+
+    function leave() {
+      document.getElementById("edit-task-pop-up").style.opacity = 0;
+      document.getElementById("edit-task-pop-up").style.display = "none";
+    }
+
+    function highlight(id) {
+      var elem = document.getElementById(id);
+      var style = window.getComputedStyle(elem);
+      var color = style.backgroundColor;
+      console.log(color);
+      if (color == "rgb(123, 193, 67)") {
+        document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
+      }
+      else if (color == "rgb(247, 248, 243)") {
+        document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
+      }
     }
   </script>
   <script src="dist/bundle.js"></script>    

@@ -9,7 +9,11 @@ import { getFirestore,
          addDoc,
          getDocs,
          query,
-         where } from 'firebase/firestore';
+         where,
+         orderBy, 
+         updateDoc,
+         doc,
+         getDoc} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -92,8 +96,6 @@ const profileUpdate = async () => {
       const emailHolder = document.getElementById("email-address")
 
       /*profilePicHolder.src = profilePic;*/
-      displayNameHolder.textContent = "xxx";
-      console.log(displayNameHolder.textContent)
       /*emailHolder.innerHTML = emailAddress;*/
       /*window.location.assign("./viewprofile.html");*/
       console.log("user is logged in");
@@ -112,7 +114,8 @@ if(btnSetup) {
   btnSetup.addEventListener("click", profileUpdate);
 }
 
-const taskList = [];
+/*Query all Tasks*/
+/*const taskList = [];
 
 try {
   const querySnapshot = await getDocs(collection(db, "tasks"));
@@ -139,8 +142,9 @@ taskList.forEach(function(task) {
   fragment.appendChild(taskHolder);
 })
 
-holder.appendChild(fragment);
+holder.appendChild(fragment);*/
 
+/*Task Queries by Dept*/
 const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 
 const d = new Date();
@@ -149,32 +153,315 @@ let today = weekday[d.getDay()];
 const dayDisplay = document.getElementById("today");
 dayDisplay.innerHTML = '<h2>Today is '+today+'</h2>';
 
-const q = query(collection(db, "tasks"), where(today, "==", "X"));
+async function searchForTasks(myQuery, myList, table1) {
+  try {
+    const mySnapshot = await getDocs(myQuery);
+    mySnapshot.forEach((doc) => {
+      var innerList = [];
+      var weekdayList = [];
+      if (doc.get("extra") != null) {
+      }
+      else {
+        const task = doc.get("task");
+        innerList.push(task);
+        if (doc.get("monday") != null) {
+          weekdayList.push("Mon");
+        }
+        else {}
+        if (doc.get("tuesday") != null) {
+          weekdayList.push("Tue");
+        }
+        else {}
+        if (doc.get("wednesday") != null) {
+          weekdayList.push("Wed");
+        }
+        else {}
+        if (doc.get("thursday") != null) {
+          weekdayList.push("Thu");
+        }
+        else {}
+        if (doc.get("friday") != null) {
+          weekdayList.push("Fri");
+        }
+        else {}
+        innerList.push(weekdayList);
+        weekdayList = [];
+        const time = doc.get("time");
+        innerList.push(time);
+        const staff = doc.get("staff");
+        innerList.push(staff);
+        myList.push(innerList);
+        innerList = [];
+      }
+    });
+  }
+  catch(error) {
+    console.log(error);
+  }   
 
-const todayList = [];
+  //[["task name", ["Mon", "Tue"], "time", "# of staff"],]
+
+  const myTask = document.getElementById(table1);
+  const myFragment = document.createDocumentFragment();
+  var i = 0;
+
+  myList.forEach(function(task) {
+    i = i + 1;
+    const myHolder = document.createElement('div');
+    myHolder.className = 'row';
+    const tempList = task[0].split(" ");
+    const listSeparator = ["="];
+    const taskList = tempList.concat(listSeparator, task[1]);
+    var j = 0;
+    var taskString = "";
+    while (j < taskList.length) {
+      taskString = taskString + taskList[j] + "_";
+      j ++;
+    }
+    const testString = "</p><div class='yn' id='edit' onclick=editTask('"+taskString+"')>EDIT</div>";
+    myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p>"+task[3]+testString;
+    myFragment.appendChild(myHolder);
+  });
+
+  myTask.appendChild(myFragment);
+}
+
+const mush = query(collection(db, "tasks"), where("dept", "==", "MUSH"));
+
+const mushList = [];
+
+searchForTasks(mush, mushList, "mush-task-table");
+
+
+const hydro = query(collection(db, "tasks"), where("dept", "==", "HYDRO"));
+
+const hydroList = [];
+
+searchForTasks(hydro, hydroList, "hydro-task-table");
+
+
+const clean = query(collection(db, "tasks"), where("dept", "==", "CLEAN"));
+
+const cleanList = [];
+
+searchForTasks(clean, cleanList, "clean-task-table");
+
+
+const pro = query(collection(db, "tasks"), where("dept", "==", "PRO"));
+
+const proList = [];
+
+searchForTasks(pro, proList, "pro-task-table");
+
+
+const admin = query(collection(db, "tasks"), where("dept", "==", "ADMIN"));
+
+const adminList = [];
+
+searchForTasks(admin, adminList, "admin-task-table");
+
+
+const extra = query(collection(db, "tasks"), where("extra", "!=", null));
+
+const xList = []
 
 try {
-  const todaySnapshot = await getDocs(q);
-  todaySnapshot.forEach((doc) => {
-    const task2 = doc.get("task");
-    todayList.push(task2);
+  const mySnapshot = await getDocs(extra);
+  mySnapshot.forEach((doc) => {
+    var innerList = [];
+    var weekdayList = [];
+    const task = doc.get("task");
+    innerList.push(task);
+    if (doc.get("monday") != null) {
+      weekdayList.push("Mon");
+    }
+    else {}
+    if (doc.get("tuesday") != null) {
+      weekdayList.push("Tue");
+    }
+    else {}
+    if (doc.get("wednesday") != null) {
+      weekdayList.push("Wed");
+    }
+    else {}
+    if (doc.get("thursday") != null) {
+      weekdayList.push("Thu");
+    }
+    else {}
+    if (doc.get("friday") != null) {
+      weekdayList.push("Fri");
+    }
+    else {}
+    innerList.push(weekdayList);
+    weekdayList = [];
+    const time = doc.get("time");
+    innerList.push(time);
+    const staff = doc.get("staff");
+    innerList.push(staff);
+    xList.push(innerList);
+    innerList = [];
+  });
+}
+catch(error) {
+  console.log(error);
+}   
+
+const xTask = document.getElementById("x-task-table");
+const xFragment = document.createDocumentFragment();
+var i = 0;
+
+xList.forEach(function(task) {
+  i = i + 1;
+  const myHolder = document.createElement('div');
+  myHolder.className = 'row';
+  //const innerFunc = "editTask(" + task[0] + ")"
+  myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p>"+task[3]+"</p><div class='yn' id='edit' onclick=editTask()>EDIT</div>";
+  xFragment.appendChild(myHolder);
+});
+
+xTask.appendChild(xFragment);
+
+
+
+/*Query Employees for Working Currently*/
+let hour = d.getHours();
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const capitalizedToday = capitalizeFirstLetter(today);
+
+//Update employee working times
+/*const employeeIDList = [];
+
+try {
+  const employeeSnapshot = await getDocs(collection(db, "employees"));
+  employeeSnapshot.forEach((doc) => {
+    const id = doc.id; 
+    employeeIDList.push(id);
   });
 }
 catch(error) {
   console.log(error);
 }
 
-const todayTask = document.getElementById("todays-task-list");
-const todayFragment = document.createDocumentFragment();
-var i2 = 0;
+employeeIDList.forEach(async function(id) {
+  const employeeRef = doc(db, "employees", id);
 
-todayList.forEach(function(task) {
-  i2 = i2 + 1;
-  const todayHolder = document.createElement('div');
-  todayHolder.id = 'd'+i2;
-  todayHolder.className = 'grid-label';
-  todayHolder.innerHTML = '<h4>'+task+'</h4>';
-  todayFragment.appendChild(todayHolder);
-})
+  try {
+    const employeeSnap = await getDoc(employeeRef);
 
-todayTask.appendChild(todayFragment);
+    if (employeeSnap.exists()) {
+      const mStart = employeeSnap.get("Monday-start");
+      const mFinish = employeeSnap.get("Monday-finish");
+      const tStart = employeeSnap.get("Tuesday-start");
+      const tFinish = employeeSnap.get("Tuesday-finish");
+      const wStart = employeeSnap.get("Wednesday-start");
+      const wFinish = employeeSnap.get("Wednesday-finish");
+      const rStart = employeeSnap.get("Thursday-start");
+      const rFinish = employeeSnap.get("Thursday-finish");
+      const fStart = employeeSnap.get("Friday-start");
+      const fFinish = employeeSnap.get("Friday-finish");
+
+      convertTimes(mStart, mFinish, "Monday-start", "Monday-finish", employeeRef);
+      convertTimes(tStart, tFinish, "Tuesday-start", "Tuesday-finish", employeeRef);
+      convertTimes(wStart, wFinish, "Wednesday-start", "Wednesday-finish", employeeRef);
+      convertTimes(rStart, rFinish, "Thursday-start", "Thursday-finish", employeeRef);
+      convertTimes(fStart, fFinish, "Friday-start", "Friday-finish", employeeRef);
+    } else {
+      console.log("No such document!");
+    }
+  }catch(error) {
+    console.log(error);
+  }
+});
+
+async function convertTimes(start, finish, field1, field2, empRef) {
+  var newStart = 0;
+  var newFinish = 0;
+  if (start != null && finish != null) {
+    if (start.includes("AM") && finish.includes("PM")) {
+      const startArr = start.split(":");
+      newStart = parseInt(startArr[0]);
+
+      const finishArr = finish.split(":");
+      const newFinishp1 = parseInt(finishArr[0]);
+        if (newFinishp1 == 12) {
+          newFinish = 12;
+        }
+        else {
+          newFinish = newFinishp1 + 12;
+        }
+    }
+    else if (start.includes("AM") && finish.includes("AM")) {
+      const startArr = start.split(":");
+      newStart = parseInt(startArr[0]);
+
+      const finishArr = finish.split(":");
+      newFinish = parseInt(finishArr[0]);
+    }
+    else {
+      const startArr = start.split(":");
+      const newStartp1 = parseInt(startArr[0]);
+        if (newStartp1 == 12) {
+          newStart = 12;
+        }
+        else {
+          newStart = newStartp1 + 12;
+        }
+
+      const finishArr = finish.split(":");
+      const newFinishp1 = parseInt(finishArr[0]);
+        if (newFinishp1 == 12) {
+          newFinish = 12;
+        }
+        else {
+          newFinish = newFinishp1 + 12;
+        }
+    }
+
+    try {
+      await updateDoc(empRef, {
+        [field1]: newStart,
+        [field2]: newFinish
+      });
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+  else {
+
+  }
+}*/
+
+/*const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", ">=", "11:00 AM"));
+
+const todaysEmployeeList = [];
+
+try {
+  const todayEmployeeSnapshot = await getDocs(todaysEmployees);
+  todayEmployeeSnapshot.forEach((doc) => {
+    const start = doc.get(capitalizedToday+"-start");
+    todaysEmployeeList.push(start);
+  });
+}
+catch(error) {
+  console.log(error);
+}
+
+console.log(todaysEmployeeList);*/
+
+/*if (pm == false) {
+  const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", "<=", currentTime));
+}
+else {
+  if(currentTime == "12:00 PM") {
+    const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", ""))
+  }
+  else {
+    const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start"))
+  }
+}*/
+

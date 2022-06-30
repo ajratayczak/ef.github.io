@@ -3,7 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth, 
          createUserWithEmailAndPassword,
          signInWithEmailAndPassword,
-         updateProfile } from 'firebase/auth';
+         updateProfile,
+         onAuthStateChanged } from 'firebase/auth';
 import { getFirestore,
          collection,
          addDoc,
@@ -13,7 +14,8 @@ import { getFirestore,
          orderBy, 
          updateDoc,
          doc,
-         getDoc} from 'firebase/firestore';
+         getDoc,
+         serverTimestamp} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,6 +37,20 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 console.log("Hello, firestore!");
+
+var uid;
+var uemail;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    uid = user.uid;
+    uemail = user.email;
+    console.log("User " + uid + " is signed in.");
+  } else {
+    // User is signed out
+    console.log("No user is signed in.");
+  }
+});
 
 const loginForm = document.getElementById("login-form")
 const btnLogIn = document.getElementById("login-form-submit")
@@ -231,6 +247,8 @@ async function searchForTasks(myQuery, myList, table1) {
         innerList.push(time);
         const staff = doc.get("staff");
         innerList.push(staff);
+        const id = doc.id;
+        innerList.push(id);
         myList.push(innerList);
         innerList = [];
       }
@@ -254,12 +272,15 @@ async function searchForTasks(myQuery, myList, table1) {
     const listSeparator = ["="];
     const secListSeparator = ["="];
     const thiListSeparator = ["="];
+    const fouListSeparator = ["="];
     const timeList = [];
     const convertedTime = task[2];
     timeList.push(convertedTime);
     const staffList = [];
     staffList.push(task[3]);
-    const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList);
+    const idList = [];
+    idList.push(task[4]);
+    const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList, fouListSeparator, idList);
     var j = 0;
     var taskString = "";
     while (j < taskList.length) {
@@ -404,20 +425,154 @@ async function submitEdits() {
   });
   const taskTime = document.getElementById("task-time").textContent;
   const possibleStaff = ["one", "two", "three", "four", "five", "six", "undef"];
-  var updatedStaff = '';
+  var updatedStaff = 0;
   possibleStaff.forEach((id) => {
     var elem = document.getElementById(id);
     var style = window.getComputedStyle(elem);
     var color = style.backgroundColor;
     if (color == "rgb(123, 193, 67)") {
-      updatedStaff = id;
+      if (id == "one") {
+        updatedStaff = 1;
+      }
+      else {}
+      if (id == "two") {
+        updatedStaff = 2;
+      }
+      else {}
+      if (id == "three") {
+        updatedStaff = 3;
+      }
+      else {}
+      if (id == "four") {
+        updatedStaff = 4;
+      }
+      else {}
+      if (id == "five") {
+        updatedStaff = 5;
+      }
+      else {}
+      if (id == "six") {
+        updatedStaff = 6;
+      }
+      else {}
+      if (id == "undef") {
+        updatedStaff = "UNDEFINED";
+      }
+      else {}
     }
+    else {}
   });
 
-  console.log(taskName);
-  console.log(updatedWeekdayList);
-  console.log(taskTime);
-  console.log(updatedStaff);
+  var newTaskTotal = "";
+
+  if (updatedStaff == "UNDEFINED") {
+    newTaskTotal = taskTime;
+  }
+  else {
+    var taskTimeList = taskTime.split(":");
+    if (taskTimeList[0] != "0" && taskTimeList[0] != "00") {
+      var taskTime0 = parseInt(taskTimeList[0]) * updatedStaff;
+      var taskTime0 = taskTime0.toString();
+    }
+    else {
+      var taskTime0 = taskTimeList[0];
+    }
+    if (taskTimeList[1] != "00") {
+      var taskTime1 = parseInt(taskTimeList[1]) * updatedStaff;
+      var taskTime1 = taskTime1.toString();
+    }
+    else {
+      var taskTime1 = taskTimeList[1];
+    }
+    if (taskTimeList[2] !== undefined) {
+      var taskTime2 = parseInt(taskTimeList[2]) * updatedStaff;
+      var taskTime2 = taskTime2.toString();
+      console.log(taskTime2);
+      newTaskTotal = taskTime0 + ":" + taskTime1 + ":" + taskTime2;
+    }
+    else {
+      newTaskTotal = taskTime0 + ":" + taskTime1;
+    }
+  }
+
+  const taskID = document.getElementById("id-holder").textContent;
+
+  var originalWeekdays = [];
+
+  var originalStaff = '';
+  var originalTime = '';
+  var originalTotal = '';
+  var originalWeekdayList = [];
+
+  try{
+    const docRef = doc(db, "tasks", taskID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      originalStaff = docSnap.get("staff");
+      originalTime = docSnap.get("time");
+      originalTotal = docSnap.get("total");
+      if (docSnap.get("monday") != null) {
+        originalWeekdayList.push("mon");
+      }
+      else {}
+      if (docSnap.get("tuesday") != null) {
+        originalWeekdayList.push("tue");
+      }
+      else {}
+      if (docSnap.get("wednesday") != null) {
+        originalWeekdayList.push("wed");
+      }
+      else {}
+      if (docSnap.get("thursday") != null) {
+        originalWeekdayList.push("thu");
+      }
+      else {}
+      if (docSnap.get("friday") != null) {
+        originalWeekdayList.push("fri");
+      }
+      else {}
+    } else {
+      console.log("No such document!");
+    }
+  }
+  catch(error){
+    console.log(error);
+  }
+
+  try {
+    const editRef = await addDoc(collection(db, "tasks", taskID, "edits"), {
+      task: taskName,
+      timestamp: serverTimestamp(),
+      ogStaff: originalStaff,
+      ogTime: originalTime,
+      ogTotal: originalTotal,
+      newStaff: updatedStaff,
+      newTime: taskTime,
+      newTotal: newTaskTotal,
+      editor: uemail,
+      newWeekdayList: updatedWeekdayList,
+      ogWeekdayList: originalWeekdayList
+    });
+
+    console.log("Edit added to database!");
+  }
+  catch(error){
+    console.log(error);
+  }
+
+  const pageEditRef = doc(db, "tasks", taskID);
+
+  try {
+    await updateDoc(pageEditRef, {
+      staff: updatedStaff,
+      time: taskTime,
+      total: newTaskTotal
+    });
+  }
+  catch(error) {
+    console.log(error);
+  }
 }
 
 if(editBtn) {

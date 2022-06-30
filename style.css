@@ -874,3 +874,7 @@ h2 {
     opacity: 0;
     z-index: inherit;
 }
+
+.hidden {
+    display: none;
+}

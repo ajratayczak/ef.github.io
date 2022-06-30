@@ -38,25 +38,6 @@ console.log("Hello, firestore!");
 
 const loginForm = document.getElementById("login-form")
 const btnLogIn = document.getElementById("login-form-submit")
-const btnSignUp = document.getElementById("signup-form-submit")
-
-const createAccount = async () => {
-  const loginEmail = loginForm.email.value;
-  const loginPassword = loginForm.password.value;
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
-    window.location.replace("./setupaccount.html")
-  }
-  catch(error) {
-    console.log(error);
-  }
-}
-
-if (btnSignUp) {
-  btnSignUp.addEventListener("click", createAccount);
-}
 
 const logIntoAccount = async () => {
   const loginEmail = loginForm.email.value;
@@ -64,7 +45,7 @@ const logIntoAccount = async () => {
 
   try {
     const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    window.location.replace("./employeehomepage.html")
+    window.location.replace("./supervisorhomepage.html")
   }
   catch(error) {
     console.log(error);
@@ -153,6 +134,66 @@ let today = weekday[d.getDay()];
 const dayDisplay = document.getElementById("today");
 dayDisplay.innerHTML = '<h2>Today is '+today+'</h2>';
 
+function convertTaskTime(time) {
+  if (time == null) {
+    const newTime = "undefined";
+    return newTime;
+  }
+  else {
+    if (time % 1 == 0){
+      const newTime = time + ":00";
+      return newTime;
+    }
+    else {
+      const remainder = time % 1;
+      const excessTime = remainder * 60;
+      if (excessTime % 1 == 0) {
+        const first = Math.floor(time);
+        if (excessTime < 10) {
+          const newTime = first + ":0" + excessTime;
+          return newTime;
+        }
+        else {
+          const newTime = first + ":" + excessTime;
+          return newTime;
+        }
+      }
+      else {
+        if (excessTime < 10) {
+          const secRemainder = excessTime % 1;
+          const seconds = secRemainder * 60;
+          const newSeconds = Math.floor(seconds);
+          const minutes = Math.floor(excessTime);
+          const first = Math.floor(time);
+          if (newSeconds < 10) {
+            const newTime = first + ":0" + minutes + ":0" + newSeconds;
+            return newTime;
+          }
+          else {
+            const newTime = first + ":0" + minutes + ":" + newSeconds;
+            return newTime;
+          }
+        }
+        else {
+          const secRemainder = excessTime % 1;
+          const seconds = secRemainder * 60;
+          const newSeconds = Math.floor(seconds);
+          const minutes = Math.floor(excessTime);
+          const first = Math.floor(time);
+          if (newSeconds < 10) {
+            const newTime = first + ":" + minutes + ":0" + newSeconds;
+            return newTime;
+          }
+          else {
+            const newTime = first + ":" + minutes + ":" + newSeconds;
+            return newTime;
+          }
+        }
+      }
+    }
+  }
+}
+
 async function searchForTasks(myQuery, myList, table1) {
   try {
     const mySnapshot = await getDocs(myQuery);
@@ -211,7 +252,14 @@ async function searchForTasks(myQuery, myList, table1) {
     myHolder.className = 'row';
     const tempList = task[0].split(" ");
     const listSeparator = ["="];
-    const taskList = tempList.concat(listSeparator, task[1]);
+    const secListSeparator = ["="];
+    const thiListSeparator = ["="];
+    const timeList = [];
+    const convertedTime = task[2];
+    timeList.push(convertedTime);
+    const staffList = [];
+    staffList.push(task[3]);
+    const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList);
     var j = 0;
     var taskString = "";
     while (j < taskList.length) {
@@ -219,7 +267,7 @@ async function searchForTasks(myQuery, myList, table1) {
       j ++;
     }
     const testString = "</p><div class='yn' id='edit' onclick=editTask('"+taskString+"')>EDIT</div>";
-    myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p>"+task[3]+testString;
+    myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+convertedTime+"</p><p>"+task[3]+testString;
     myFragment.appendChild(myHolder);
   });
 
@@ -314,13 +362,67 @@ xList.forEach(function(task) {
   i = i + 1;
   const myHolder = document.createElement('div');
   myHolder.className = 'row';
-  //const innerFunc = "editTask(" + task[0] + ")"
-  myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p>"+task[3]+"</p><div class='yn' id='edit' onclick=editTask()>EDIT</div>";
+  const tempList = task[0].split(" ");
+  const listSeparator = ["="];
+  const secListSeparator = ["="];
+  const thiListSeparator = ["="];
+  const timeList = [];
+  const convertedTime = task[2];
+  timeList.push(convertedTime);
+  const staffList = [];
+  staffList.push(task[3]);
+  const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList);
+  var j = 0;
+  var taskString = "";
+  while (j < taskList.length) {
+    taskString = taskString + taskList[j] + "_";
+    j ++;
+  }
+  const testString = "</p><div class='yn' id='edit' onclick=editTask('"+taskString+"')>EDIT</div>";
+  myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+convertedTime+"</p><p>"+task[3]+testString;
   xFragment.appendChild(myHolder);
 });
 
 xTask.appendChild(xFragment);
 
+
+
+//Submit values from edit pop up
+const editBtn = document.getElementById("edit-sub");
+
+async function submitEdits() {
+  const taskName = document.getElementById("task-name").textContent;
+  const possibleWeekdays = ["mon", "tue", "wed", "thu", "fri"];
+  var updatedWeekdayList = [];
+  possibleWeekdays.forEach((id) => {
+    var elem = document.getElementById(id);
+    var style = window.getComputedStyle(elem);
+    var color = style.backgroundColor;
+    if (color == "rgb(123, 193, 67)") {
+      updatedWeekdayList.push(id);
+    }
+  });
+  const taskTime = document.getElementById("task-time").textContent;
+  const possibleStaff = ["one", "two", "three", "four", "five", "six", "undef"];
+  var updatedStaff = '';
+  possibleStaff.forEach((id) => {
+    var elem = document.getElementById(id);
+    var style = window.getComputedStyle(elem);
+    var color = style.backgroundColor;
+    if (color == "rgb(123, 193, 67)") {
+      updatedStaff = id;
+    }
+  });
+
+  console.log(taskName);
+  console.log(updatedWeekdayList);
+  console.log(taskTime);
+  console.log(updatedStaff);
+}
+
+if(editBtn) {
+  editBtn.addEventListener("click", submitEdits);
+}
 
 
 /*Query Employees for Working Currently*/
@@ -465,3 +567,52 @@ else {
   }
 }*/
 
+
+//Convert task times and totals
+/*const taskIDList = [];
+
+try {
+  const taskSnapshot = await getDocs(collection(db, "tasks"));
+  taskSnapshot.forEach((doc) => {
+    const id = doc.id; 
+    taskIDList.push(id);
+  });
+}
+catch(error) {
+  console.log(error);
+}
+
+taskIDList.forEach(async function(id) {
+  const taskRef = doc(db, "tasks", id);
+
+  try {
+    const taskSnap = await getDoc(taskRef);
+
+    if (taskSnap.exists()) {
+      const origTime = taskSnap.get("time")
+      const origTotal = taskSnap.get("total")
+      
+      convertTaskTimes(origTime, origTotal, taskRef);
+      console.log("complete");
+    } else {
+      console.log("No such document!");
+    }
+  }catch(error) {
+    console.log(error);
+  }
+});
+
+async function convertTaskTimes(ogTime, ogTotal, taskRef) {
+  const convertedTime = convertTaskTime(ogTime);
+  const convertedTotal = convertTaskTime(ogTotal);
+
+  try {
+    await updateDoc(taskRef, {
+      time: convertedTime,
+      total: convertedTotal
+    });
+  }
+  catch(error) {
+    console.log(error)
+  }
+}*/

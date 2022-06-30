@@ -110,7 +110,7 @@
           <div class="row" id="mlabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -123,7 +123,7 @@
           <div class="row" id="hlabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -136,7 +136,7 @@
           <div class="row" id="clabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -149,7 +149,7 @@
           <div class="row" id="plabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -162,7 +162,7 @@
           <div class="row" id="alabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -175,7 +175,7 @@
           <div class="row" id="xlabel">
             <p>Task</p>
             <p>Weekday</p>
-            <p>Time</p>
+            <p>Time Per Person</p>
             <p>Number of staff</p>
             <p></p>
           </div>
@@ -214,15 +214,40 @@
         </div>
       </div>
       <div id="c2">
-        <p class="gray-word" id="time-label">TIME</p>
+        <p class="gray-word" id="time-label">TIME PER PERSON</p>
+        <div id="time-table">
+          <h2 id="task-time"></h2>
+          <form id="change-time-form">
+            <label id="time-changer-label">Change Time</label>
+            <input type="text" name="timeChanger1" id="time-changer-1" class="time-changer">
+            <label class="colon">:</label>
+            <input type="text" name="timeChanger2" id="time-changer-2" class="time-changer">
+            <label class="colon">:</label>
+            <input type="text" name="timeChanger3" id="time-changer-3" class="time-changer">
+          </form>
+          <div id="time-changer-sub" class="day" onclick="changeTime('task-time')"><p class="center">CHANGE</p></div>
+        </div>
       </div>
       <div id="c3">
         <p class="gray-word" id="staff-label">STAFF</p>
+        <div id="staff-table">
+          <div class="num" id="one" onclick="highlightOne('one')"><p class="center">1</p></div>
+          <div class="num" id="two" onclick="highlightOne('two')"><p class="center">2</p></div>
+          <div class="num" id="three" onclick="highlightOne('three')"><p class="center">3</p></div>
+          <div class="num" id="four" onclick="highlightOne('four')"><p class="center">4</p></div>
+          <div class="num" id="five" onclick="highlightOne('five')"><p class="center">5</p></div>
+          <div class="num" id="six" onclick="highlightOne('six')"><p class="center">6</p></div>
+          <div class="day" id="undef" onclick="highlightOne('undef')"><p class="center">UNDEF</p></div>
+        </div>
       </div>
       <div id="c4">
         <div class="yn" id="edit-sub">SUBMIT</div>
         <div class="yn" id="edit-cancel" onclick="leave()">CANCEL</div>
       </div>
+    </div>
+
+    <div id="error-message-holder">
+      <h2 id="error-message" class="center">Input may only contain numbers</h2>
     </div>
   </body>
 
@@ -270,7 +295,60 @@
       document.getElementById("task-name").textContent = newTaskName;
       newWeekdayList = splitter[1];
       const weekdayHolder = newWeekdayList.split("_");
-      console.log(weekdayHolder);
+      resetHighlight();
+      if (weekdayHolder.includes("Mon")) {
+        highlight("mon");
+      }
+      else {}
+      if (weekdayHolder.includes("Tue")) {
+        highlight("tue");
+      }
+      else {}
+      if (weekdayHolder.includes("Wed")) {
+        highlight("wed");
+      }
+      else {}
+      if (weekdayHolder.includes("Thu")) {
+        highlight("thu");
+      }
+      else {}
+      if (weekdayHolder.includes("Fri")) {
+        highlight("fri");
+      }
+      else {}
+      const newTimeList = splitter[2];
+      const timeHolder = newTimeList.split("_");
+      document.getElementById("task-time").textContent = timeHolder[1];
+      const newStaffList = splitter[3];
+      const staffHolder = newStaffList.split("_");
+      if (staffHolder.includes("1")) {
+        highlight("one");
+      }
+      else {}
+      if (staffHolder.includes("2")) {
+        highlight("two");
+      }
+      else {}
+      if (staffHolder.includes("3")) {
+        highlight("three");
+      }
+      else {}
+      if (staffHolder.includes("4")) {
+        highlight("four");
+      }
+      else {}
+      if (staffHolder.includes("5")) {
+        highlight("five");
+      }
+      else {}
+      if (staffHolder.includes("6")) {
+        highlight("six");
+      }
+      else {}
+      if (staffHolder.includes("undefined")) {
+        highlight("undef");
+      }
+      else {}
     }
 
     function leave() {
@@ -282,13 +360,116 @@
       var elem = document.getElementById(id);
       var style = window.getComputedStyle(elem);
       var color = style.backgroundColor;
-      console.log(color);
       if (color == "rgb(123, 193, 67)") {
         document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
       }
       else if (color == "rgb(247, 248, 243)") {
         document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
       }
+    }
+
+    function highlightOne(id) {
+      resetHighlightOne();
+      var elem = document.getElementById(id);
+      var style = window.getComputedStyle(elem);
+      var color = style.backgroundColor;
+      if (color == "rgb(123, 193, 67)") {
+        document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
+      }
+      else if (color == "rgb(247, 248, 243)") {
+        document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
+      }
+    }
+
+    function resetHighlight() {
+      document.getElementById("mon").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("tue").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("wed").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("thu").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("fri").style.backgroundColor = "rgb(247, 248, 243)";
+
+      document.getElementById("one").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("two").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("three").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("four").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("five").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("six").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("undef").style.backgroundColor = "rgb(247, 248, 243)";
+    }
+
+    function resetHighlightOne() {
+      document.getElementById("one").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("two").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("three").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("four").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("five").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("six").style.backgroundColor = "rgb(247, 248, 243)";
+      document.getElementById("undef").style.backgroundColor = "rgb(247, 248, 243)";
+    }
+
+    async function changeTime(id) {
+      const timeChangeForm = document.getElementById("change-time-form");
+      var changedTime1 = timeChangeForm.timeChanger1.value;
+      var changedTime2 = timeChangeForm.timeChanger2.value;
+      var changedTime3 = timeChangeForm.timeChanger3.value;
+      const check1 = checkIfStringHasOnlyDigits(changedTime1);
+      const check2 = checkIfStringHasOnlyDigits(changedTime2);
+      const check3 = checkIfStringHasOnlyDigits(changedTime3);
+      const realismCheckMin = changedTime2 < 59;
+      const realismCheckSec = changedTime3 < 59;
+      const timeDisplay = document.getElementById(id);
+      if (changedTime1 != "" && check1 == true && changedTime2 != "" && check2 == true && realismCheckMin == true && changedTime3 != "" && check3 == true && realismCheckSec == true) {
+        if (parseInt(changedTime2) < 10 && changedTime2.length == 1) {
+          changedTime2 = "0" + changedTime2;
+        }
+        else {}
+        if (parseInt(changedTime3) < 10 && changedTime3.length == 1) {
+          changedTime3 = "0" + changedTime3;
+          if (changedTime3 == "00") {
+            timeDisplay.textContent = changedTime1 + ":" + changedTime2;
+            document.getElementById("time-changer-1").value = "";
+            document.getElementById("time-changer-2").value = "";
+            document.getElementById("time-changer-3").value = "";
+            return;
+          }
+          else {}
+        }
+        else if (changedTime3 == "00") {
+          timeDisplay.textContent = changedTime1 + ":" + changedTime2;
+          document.getElementById("time-changer-1").value = "";
+          document.getElementById("time-changer-2").value = "";
+          document.getElementById("time-changer-3").value = "";
+          return;
+        }
+        else {}
+        timeDisplay.textContent = changedTime1 + ":" + changedTime2 + ":" + changedTime3;
+        document.getElementById("time-changer-1").value = "";
+        document.getElementById("time-changer-2").value = "";
+        document.getElementById("time-changer-3").value = "";
+      }
+      else {
+        document.getElementById("error-message-holder").style.display = "grid";
+        document.getElementById("error-message").style.opacity = 1;
+        document.getElementById("time-changer-1").value = "";
+        document.getElementById("time-changer-2").value = "";
+        document.getElementById("time-changer-3").value = "";
+        await sleep(1000);
+        document.getElementById("error-message-holder").style.display = "none";
+        document.getElementById("error-message").style.opacity = 0;
+      }
+    }
+
+    function checkIfStringHasOnlyDigits(_string) {
+      for (let i = _string.length - 1; i >= 0; i--) {
+        const codeValue = _string.charCodeAt(i);
+        if (codeValue < 48 || codeValue > 57) 
+        return false
+      }
+      return true
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
   </script>
   <script src="dist/bundle.js"></script>    

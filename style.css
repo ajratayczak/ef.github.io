@@ -681,7 +681,7 @@ h2 {
 #edit-task-pop-up {
     position: fixed;
     height: 60vh;
-    width: 60vh;
+    width: 70vh;
     background-color: #F7F8F3;
     border: 2px solid;
     top: 50%;
@@ -698,6 +698,7 @@ h2 {
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: auto auto;
+    margin-top: 20px;
 }
 
 #edit-sub {
@@ -751,6 +752,16 @@ h2 {
     flex-direction: row;
 }
 
+#staff-table {
+    display: flex;
+    flex-direction: row;
+}
+
+#time-table {
+    display: flex;
+    flex-direction: row;
+}
+
 .day {
     border: 2px solid;
     width: 3vw;
@@ -760,6 +771,21 @@ h2 {
     margin-bottom: 5px;
     background-color: #F7F8F3;
 }
+
+.num {
+    border: 2px solid;
+    width: 1.5vw;
+    height: 5vh;
+    line-height: 5vh;
+    margin: 0px 3px;
+    margin-bottom: 5px;
+    background-color: #F7F8F3;
+}
+
+#undef {
+    width: 4vw;
+}
+
 
 .center {
     margin-block-end: 0;
@@ -785,4 +811,66 @@ h2 {
 
 #fri {
     background-color: #F7F8F3;
+}
+
+.time-changer {
+    border: none;
+    border-bottom: 1px solid #3a3a3a;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px 0px 5px 5px;
+    height: 3vh;
+    width: 2vw;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#time-changer-label {
+    margin-left: 10px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+#task-time {
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+}
+
+#time-changer-sub {
+    width: 5vw;
+    height: 4vh;
+    line-height: 4vh;
+}
+
+#task-name {
+    margin-block-end: 0px;
+    margin-block-start: 0px;
+}
+
+
+#error-message-holder {
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-items: center;
+    align-items: center;
+    position: fixed;
+    z-index: 7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+  
+#error-message {
+    width: 23%;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #8a0000;
+    border: 1px solid #8a0000;
+    background-color: #e58f8f;
+    opacity: 0;
+    z-index: inherit;
 }

@@ -15,7 +15,8 @@ import { getFirestore,
          updateDoc,
          doc,
          getDoc,
-         serverTimestamp} from 'firebase/firestore';
+         serverTimestamp,
+         deleteField} from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -141,15 +142,103 @@ taskList.forEach(function(task) {
 
 holder.appendChild(fragment);*/
 
-/*Task Queries by Dept*/
+/*Staff Duties Tab*/
 const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 
 const d = new Date();
 let today = weekday[d.getDay()];
+var tomorrow;
 
-const dayDisplay = document.getElementById("today");
-dayDisplay.innerHTML = '<h2>Today is '+today+'</h2>';
+if (today == "friday") {
+  tomorrow = weekday[1];
+}
+else if (today == "saturday") {
+  tomorrow = weekday[1];
+}
+else {
+  tomorrow = weekday[d.getDay() + 1];
+}
 
+const tomorrowDisplay = document.getElementById("tomorrows-tasks");
+tomorrowDisplay.textContent = tomorrow + "'S TASKS";
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const capitalizedTomorrow = capitalizeFirstLetter(tomorrow);
+
+const tomorrowStart = capitalizedTomorrow + "-start";
+const tomorrowFinish = capitalizedTomorrow + "-finish";
+
+var tomEmpList = [];
+const tomorrowsEmployees = query(collection(db, "employees"), orderBy(tomorrowStart));
+
+try{
+  const tomorrowEmpSnapshot = await getDocs(tomorrowsEmployees);
+  tomorrowEmpSnapshot.forEach((doc) => {
+    var innerList = [];
+    const empName = doc.get("name");
+    innerList.push(empName);
+    const empStart = doc.get(tomorrowStart);
+    const empFinish = doc.get(tomorrowFinish);
+    const hrsAvailable = empFinish-empStart;
+    innerList.push(hrsAvailable);
+    tomEmpList.push(innerList);
+  });
+}
+catch(error){
+  console.log(error);
+}
+
+const tomEmpTable = document.getElementById("staff-names");
+const tomEmpFragment = document.createDocumentFragment();
+
+tomEmpList.forEach(function(emp) {
+  const tomEmpHolder = document.createElement("div");
+  tomEmpHolder.className = "emp-holder";
+  tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p>("+emp[1]+" hours)</p>";
+  tomEmpFragment.appendChild(tomEmpHolder);
+});
+
+tomEmpTable.appendChild(tomEmpFragment);
+
+var tomTaskList = [];
+
+const tomorrowsTasks = query(collection(db, "tasks"), where(tomorrow, "==", "X"), orderBy("time", "desc"));
+
+try{
+  const tomorrowTaskSnapshot = await getDocs(tomorrowsTasks);
+  tomorrowTaskSnapshot.forEach((doc) => {
+    var innerList = [];
+    const tomTask = doc.get("task");
+    innerList.push(tomTask);
+    const tomStaff = doc.get("staff");
+    innerList.push(tomStaff);
+    const tomTime = doc.get("time");
+    innerList.push(tomTime);
+    tomTaskList.push(innerList);
+    innerList = [];
+  });
+}
+catch(error){
+  console.log(error);
+}
+
+const tomTable = document.getElementById("staff-task-table");
+const tomFragment = document.createDocumentFragment();
+
+tomTaskList.forEach(function(task) {
+  const tomHolder = document.createElement("div");
+  tomHolder.className = "staff-task-row";
+  tomHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p></p>";
+  tomFragment.appendChild(tomHolder);
+});
+
+tomTable.appendChild(tomFragment);
+
+
+/*Task Queries by Dept*/
 function convertTaskTime(time) {
   if (time == null) {
     const newTime = "undefined";
@@ -367,6 +456,8 @@ try {
     innerList.push(time);
     const staff = doc.get("staff");
     innerList.push(staff);
+    const id = doc.id;
+    innerList.push(id);
     xList.push(innerList);
     innerList = [];
   });
@@ -382,29 +473,45 @@ var i = 0;
 xList.forEach(function(task) {
   i = i + 1;
   const myHolder = document.createElement('div');
-  myHolder.className = 'row';
+  myHolder.className = 'long-row';
   const tempList = task[0].split(" ");
   const listSeparator = ["="];
   const secListSeparator = ["="];
   const thiListSeparator = ["="];
+  const fouListSeparator = ["="];
   const timeList = [];
   const convertedTime = task[2];
   timeList.push(convertedTime);
   const staffList = [];
   staffList.push(task[3]);
-  const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList);
+  const idList = [];
+  idList.push(task[4]);
+  const taskList = tempList.concat(listSeparator, task[1], secListSeparator, timeList, thiListSeparator, staffList, fouListSeparator, idList);
   var j = 0;
   var taskString = "";
   while (j < taskList.length) {
     taskString = taskString + taskList[j] + "_";
     j ++;
   }
-  const testString = "</p><div class='yn' id='edit' onclick=editTask('"+taskString+"')>EDIT</div>";
+  const testString = "</p><div class='yn' id='edit2' onclick=editTask('"+taskString+"')>EDIT</div><div class='yn' id='del'>DELETE</div>";
   myHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+convertedTime+"</p><p>"+task[3]+testString;
   xFragment.appendChild(myHolder);
 });
 
 xTask.appendChild(xFragment);
+
+
+//Delete extra task function
+const delBtn = document.getElementById("del");
+const thisID = document.getElementById("id-holder").textContent;
+
+async function deleteXTask(id) {
+  console.log(id);
+}
+
+if (delBtn) {
+  delBtn.addEventListener("click", deleteXTask(thisID));
+}
 
 
 
@@ -415,12 +522,16 @@ async function submitEdits() {
   const taskName = document.getElementById("task-name").textContent;
   const possibleWeekdays = ["mon", "tue", "wed", "thu", "fri"];
   var updatedWeekdayList = [];
+  var notWeekdayList = [];
   possibleWeekdays.forEach((id) => {
     var elem = document.getElementById(id);
     var style = window.getComputedStyle(elem);
     var color = style.backgroundColor;
     if (color == "rgb(123, 193, 67)") {
       updatedWeekdayList.push(id);
+    }
+    else {
+      notWeekdayList.push(id);
     }
   });
   const taskTime = document.getElementById("task-time").textContent;
@@ -555,7 +666,7 @@ async function submitEdits() {
       ogWeekdayList: originalWeekdayList
     });
 
-    console.log("Edit added to database!");
+    alert("Edit added to database!");
   }
   catch(error){
     console.log(error);
@@ -567,11 +678,67 @@ async function submitEdits() {
     await updateDoc(pageEditRef, {
       staff: updatedStaff,
       time: taskTime,
-      total: newTaskTotal
+      total: newTaskTotal,
+      monday: "X",
+      tuesday: "X",
+      wednesday: "X",
+      thursday: "X",
+      friday: "X"
     });
   }
   catch(error) {
     console.log(error);
+  }
+
+  if (notWeekdayList.includes("mon")) {
+    try {
+      await updateDoc(pageEditRef, {
+        monday: deleteField()
+      });
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+  if (notWeekdayList.includes("tue")) {
+    try {
+      await updateDoc(pageEditRef, {
+        tuesday: deleteField()
+      });
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+  if (notWeekdayList.includes("wed")) {
+    try {
+      await updateDoc(pageEditRef, {
+        wednesday: deleteField()
+      });
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+  if (notWeekdayList.includes("thu")) {
+    try {
+      await updateDoc(pageEditRef, {
+        thursday: deleteField()
+      });
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+  if (notWeekdayList.includes("fri")) {
+    try {
+      await updateDoc(pageEditRef, {
+        friday: deleteField()
+      });
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 }
 
@@ -579,15 +746,6 @@ if(editBtn) {
   editBtn.addEventListener("click", submitEdits);
 }
 
-
-/*Query Employees for Working Currently*/
-let hour = d.getHours();
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-const capitalizedToday = capitalizeFirstLetter(today);
 
 //Update employee working times
 /*const employeeIDList = [];

@@ -116,7 +116,7 @@
         </div>
         <h4 id="est-time">EST. COMPLETION: 1:45</h4>
         <div id="log">
-            <h3>TASK LOG</h3>
+            <h3>EXPAND LOG</h3>
         </div>
         <div id="report" onclick="report('report')">
             <h3>REPORT</h3>
@@ -129,6 +129,503 @@
         </div>
     </div>
 
+    <div id="sau-log-pop-up">
+      <h2 class="log-name" id="soil-amendment-use">SOIL AMENDMENT USE LOG</h2>
+      <div id="sau-form-holder">
+      <form id="soil-amendment-use-form">
+        <br>
+        <label class="sau-label">DATE: </label>
+        <input type="text" name="sauDateMM" id="sau-date-mm" class="mm">
+        <label class="slash">/</label>
+        <input type="text" name="sauDateDD" id="sau-date-dd" class="dd">
+        <label class="slash">/</label>
+        <input type="text" name="sauDateYYYY" id="sau-date-yyyy" class="yyyy">
+        <br><br>
+        <label class="sau-label">CROP: </label>
+        <input type="text" name="sauCrop" id="sau-crop" class="entry">
+        <br><br>
+        <label class="sau-label">AMENDMENT TYPE: </label>
+        <input type="text" name="sauAType" id="sau-a-type" class="entry">
+        <br><br>
+        <label class="sau-label">QUANTITY: </label>
+        <input type="text" name="sauQty" id="sau-qty" class="entry">
+        <br><br>
+        <label class="sau-label">DESCRIPTION: </label>
+        <br>
+        <textarea name="sauDescrip" cols=40 rows=5 id="sau-descrip" class="long-entry"></textarea>
+        <br><br>
+        <label class="sau-label">STAFF INITIALS: </label>
+        <input type="text" name="sauInit" id="sau-init" class="entry">
+        <br><br>
+        <button type="button" id="sau-form-submit">SUBMIT FORM</button>
+        <button type="button" class="cancel">CANCEL</button>
+      </form>
+      </div>
+    </div>
+
+
+    <div id="maintenance-log-pop-up">
+      <h2 class="log-name" id="maintenance">MAINTENANCE LOG</h2>
+      <div id="maint-form-holder">
+      <form id="maintenance-form">
+        <br>
+        <label class="maint-label">DATE: </label>
+        <input type="text" name="maintDateMM" id="maint-date-mm" class="mm">
+        <label class="slash">/</label>
+        <input type="text" name="maintDateDD" id="maint-date-dd" class="dd">
+        <label class="slash">/</label>
+        <input type="text" name="maintDateYYYY" id="maint-date-yyyy" class="yyyy">
+        <br><br>
+        <div class="flex-box-holder">
+          <div id="preventive" class="yn">PREVENTIVE</div>
+          <label class="maint-label" id="or"> OR </label>
+          <div id="active" class="yn">ACTIVE</div>
+        </div>
+        <br><br>
+        <label class="maint-label">ISSUE ADDRESSED/ACTIONS PERFORMED: </label>
+        <input type="text" name="maintIssue" id="maint-issue" class="entry">
+        <br><br>
+        <label class="maint-label">RESOLVED?: </label>
+        <div class="yn">YES</div>
+        <div class="yn">NO</div>
+        <br><br>
+        <label class="maint-label">STAFF INITIALS: </label>
+        <input type="text" name="maintInit" id="maint-init" class="entry">
+        <br><br>
+        <button type="button" id="maint-form-submit">SUBMIT FORM</button>
+        <button type="button" class="cancel">CANCEL</button>
+      </form>
+      </div>
+    </div>
+
+
+    <div id="ngco-pop-up">
+      <h2 class="log-name" id="ngco">NON-GROCERY CUSTOMER ORDERS</h2>
+      <div id="ngco-form-holder">
+        <form id="ngco-form">
+          <br>
+          <label class="ngco-label">DATE PACKED: </label>
+          <input type="text" name="ngcoDateMM" id="ngco-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="ngcoDateDD" id="ngco-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="ngcoDateYYYY" id="ngco-date-yyyy" class="yyyy">
+          <br><br>
+          <label class="ngco-label">CUSTOMER: </label>
+          <input type="text" name="ngcoCustomer" id="ngco-customer" class="entry">
+          <br><br>
+          <label class="ngco-label">PRODUCT: </label>
+          <input type="text" name="ngcoProduct" id="ngco-product" class="entry">
+          <br><br>
+          <label class="ngco-label">WEIGHT: </label>
+          <input type="text" name="ngcoWeight" id="ngco-weight" class="entry">
+          <br><br>
+          <label class="ngco-label">HARVEST DATE: </label>
+          <input type="text" name="ngcoHarvDateMM" id="ngco--harv-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="ngcoHarvDateDD" id="ngco-harv-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="ngcoHarvDateYYYY" id="ngco-harv-date-yyyy" class="yyyy">
+          <br><br>
+          <label class="ngco-label">NEG #: </label>
+          <input type="text" name="ngcoNEG" id="ngco-neg" class="entry">
+          <br><br>
+          <label class="ngco-label">STAFF INITIALS: </label>
+          <input type="text" name="ngcoInit" id="ngco-init" class="entry">
+          <br><br>
+          <label class="ngco-label">INVOICED: </label>
+          <input type="text" name="ngcoInvoiced" id="ngco-invoiced" class="entry">
+          <br><br>
+          <button type="button" id="ngco-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="inputs-log-pop-up">
+      <h2 class="log-name" id="inputs">INPUTS RECEIVING LOG</h2>
+      <div id="inputs-form-holder">
+        <form id="inputs-form">
+          <br>
+          <label class="inputs-label">DATE: </label>
+          <input type="text" name="inputsDateMM" id="inputs-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="inputsDateDD" id="inputs-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="inputsDateYYYY" id="inputs-date-yyyy" class="yyyy">
+          <br><br>
+          <label class="inputs-label">INPUT RECEIVED: </label>
+          <input type="text" name="inputsRec" id="inputs-rec" class="entry">
+          <br><br>
+          <label class="inputs-label">COMPANY: </label>
+          <input type="text" name="inputsCompany" id="inputs-company" class="entry">
+          <br><br>
+          <label class="inputs-label">QUANTITY: </label>
+          <input type="text" name="inputsQty" id="inputs-qty" class="entry">
+          <br><br>
+          <label class="inputs-label">LOT NUMBER: </label>
+          <input type="text" name="inputsLotNum" id="inputs-lot-num" class="entry">
+          <br><br>
+          <label class="inputs-label">USED FOR: </label>
+          <input type="text" name="inputsUsed" id="inputs-used" class="entry">
+          <br><br>
+          <label class="inputs-label">STAFF INITIALS: </label>
+          <input type="text" name="inputsInit" id="inputs-init" class="entry">
+          <br><br>
+          <button type="button" id="inputs-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="dvi-log-pop-up">
+      <h2 class="log-name" id="dvi">DELIVERY VEHICLE INSPECTION LOG</h2>
+      <div id="dvi-form-holder">
+        <form id="dvi-form">
+          <br>
+          <label><b>DRIVER: </b></label>
+          <input type="text" name="dviDriver" id="dvi-driver" class="entry">
+          <br><br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="dviDateMM" id="dvi-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="dviDateDD" id="dvi-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="dviDateYYYY" id="dvi-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>PLATE #: </b></label>
+          <input type="text" name="dviPlate" id="dvi-plate" class="entry">
+          <br><br>
+          <label><b>MILEAGE: </b></label>
+          <input type="text" name="dviMileage" id="dvi-mileage" class="entry">
+          <br><br>
+          <div class="expand" id="op-exp" onclick="expandMe('op-inspect', 'op-exp')"><b>OPERATING INSPECTION: </b></div>
+          <div class="hidden" id="op-inspect">
+            <div class="mini-row">
+              <p id="o1">are the headlights working? </p>
+              <div class="small-yn" id="o1y" onclick="highlight('o1y', 'o1n')">YES</div>
+              <div class="small-yn" id="o1n" onclick="highlight('o1n', 'o1y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o2">are the tail-lights working? </p>
+              <div class="small-yn" id="o2y" onclick="highlight('o2y', 'o2n')">YES</div>
+              <div class="small-yn" id="o2n" onclick="highlight('o2n', 'o2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o3">are the brake lights working? </p>
+              <div class="small-yn" id="o3y" onclick="highlight('o3y', 'o3n')">YES</div>
+              <div class="small-yn" id="o3n" onclick="highlight('o3n', 'o3y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o4">are the back-up lights working? </p>
+              <div class="small-yn" id="o4y" onclick="highlight('o4y', 'o4n')">YES</div>
+              <div class="small-yn" id="o4n" onclick="highlight('o4n', 'o4y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o5">are the interior lights working? </p>
+              <div class="small-yn" id="o5y" onclick="highlight('o5y', 'o5n')">YES</div>
+              <div class="small-yn" id="o5n" onclick="highlight('o5n', 'o5y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o6">are the windshield wipers working properly? </p>
+              <div class="small-yn" id="o6y" onclick="highlight('o6y', 'o6n')">YES</div>
+              <div class="small-yn"id="o6n" onclick="highlight('o6n', 'o6y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o7">is the horn working properly? </p>
+              <div class="small-yn" id="o7y" onclick="highlight('o7y', 'o7n')">YES</div>
+              <div class="small-yn" id="o7n" onclick="highlight('o7n', 'o7y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o8">is the parking brake working properly? </p>
+              <div class="small-yn" id="o8y" onclick="highlight('o8y', 'o8n')">YES</div>
+              <div class="small-yn" id="o8n" onclick="highlight('o8n', 'o8y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o9">do the turn signals work? </p>
+              <div class="small-yn" id="o9y" onclick="highlight('o9y', 'o9n')">YES</div>
+              <div class="small-yn" id="o9n" onclick="highlight('o9n', 'o9y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="o10">is the heating/cooling system working properly? </p>
+              <div class="small-yn" id="o10y" onclick="highlight('o10y', 'o10n')">YES</div>
+              <div class="small-yn" id="o10n" onclick="highlight('o10n', 'o10y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <div class="expand" id="ext-exp" onclick="expandMe('ext-inspect', 'ext-exp')"><b>EXTERIOR INSPECTION (360 WALK-AROUND): </b></div>
+          <div class="hidden" id="ext-inspect">
+            <div class="mini-row">
+              <p id="e1">exterior free of visible damage? </p>
+              <div class="small-yn" id="e1y" onclick="highlight('e1y', 'e1n')">YES</div>
+              <div class="small-yn" id="e1n" onclick="highlight('e1n', 'e1y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="e2">do all four tires look inflated? </p>
+              <div class="small-yn" id="e2y" onclick="highlight('e2y', 'e2n')">YES</div>
+              <div class="small-yn" id="e2n" onclick="highlight('e2n', 'e2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="e3">any signs of fluid leaks? </p>
+              <div class="small-yn" id="e3y" onclick="highlight('e3y', 'e3n')">YES</div>
+              <div class="small-yn" id="e3n" onclick="highlight('e3n', 'e3y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <div class="expand" id="pack-exp" onclick="expandMe('pack-inspect', 'pack-exp')"><b>PACKING INSPECTION: </b></div>
+          <div class="hidden" id="pack-inspect">
+            <div class="mini-row">
+              <p id="p1">do you have the ipad? </p>
+              <div class="small-yn" id="p1y" onclick="highlight('p1y', 'p1n')">YES</div>
+              <div class="small-yn" id="p1n" onclick="highlight('p1n', 'p1y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="p2">do you have the clipboard with gas card? </p>
+              <div class="small-yn" id="p2y" onclick="highlight('p2y', 'p2n')">YES</div>
+              <div class="small-yn" id="p2n" onclick="highlight('p2n', 'p2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="p3">do you have your cellphone? </p>
+              <div class="small-yn" id="p3y" onclick="highlight('p3y', 'p3n')">YES</div>
+              <div class="small-yn" id="p3n" onclick="highlight('p3n', 'p3y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="p4">have you loaded all your locations bins? </p>
+              <div class="small-yn" id="p4y" onclick="highlight('p4y', 'p4n')">YES</div>
+              <div class="small-yn" id="p4n" onclick="highlight('p4n', 'p4y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="p5">do you have your catgrass? </p>
+              <div class="small-yn" id="p5y" onclick="highlight('p5y', 'p5n')">YES</div>
+              <div class="small-yn" id="p5n" onclick="highlight('p5n', 'p5y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="p6">are the bins properly stacked and stowed? </p>
+              <div class="small-yn" id="p6y" onclick="highlight('p6y', 'p6n')">YES</div>
+              <div class="small-yn" id="p6n" onclick="highlight('p6n', 'p6y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <div class="expand" id="int-exp" onclick="expandMe('int-inspect', 'int-exp')"><b>INTERIOR INSPECTION: </b></div>
+          <div class="hidden" id="int-inspect">
+            <div class="mini-row">
+              <p id="i1">vehicle's interior clean of debris? </p>
+              <div class="small-yn" id="i1y" onclick="highlight('i1y', 'i1n')">YES</div>
+              <div class="small-yn" id="i1n" onclick="highlight('i1n', 'i1y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i2">is the vehicle's interior free of visible damage? </p>
+              <div class="small-yn" id="i2y" onclick="highlight('i2y', 'i2n')">YES</div>
+              <div class="small-yn" id="i2n" onclick="highlight('i2n', 'i2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i3">are safety belts working properly? </p>
+              <div class="small-yn" id="i3y" onclick="highlight('i3y', 'i3n')">YES</div>
+              <div class="small-yn" id="i3n" onclick="highlight('i3n', 'i3y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i4">is a first aid kit available? </p>
+              <div class="small-yn" id="i4y" onclick="highlight('i4y', 'i4n')">YES</div>
+              <div class="small-yn" id="i4n" onclick="highlight('i4n', 'i4y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i5">is an emergency kit available? </p>
+              <div class="small-yn" id="i5y" onclick="highlight('i5y', 'i5n')">YES</div>
+              <div class="small-yn" id="i5n" onclick="highlight('i5n', 'i5y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i6">is the vehicle registration easily accessible? </p>
+              <div class="small-yn" id="i6y" onclick="highlight('i6y', 'i6n')">YES</div>
+              <div class="small-yn" id="i6n" onclick="highlight('i6n', 'i6y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="i7">is the vehicle insurance easily accessible? </p>
+              <div class="small-yn" id="i7y" onclick="highlight('i7y', 'i7n')">YES</div>
+              <div class="small-yn" id="i7n" onclick="highlight('i7n', 'i7y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <div class="expand" id="ref-exp" onclick="expandMe('ref-inspect', 'ref-exp')"><b>REFRIGERATION INSPECTION: </b></div>
+          <div class="hidden" id="ref-inspect">
+            <div class="mini-row">
+              <p id="r1">cargo box is pre-cooled? </p>
+              <div class="small-yn" id="r1y" onclick="highlight('r1y', 'r1n')">YES</div>
+              <div class="small-yn" id="r1n" onclick="highlight('r1n', 'r1y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="r2">odors present in cargo area? </p>
+              <div class="small-yn" id="r2y" onclick="highlight('r2y', 'r2n')">YES</div>
+              <div class="small-yn" id="r2n" onclick="highlight('r2n', 'r2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="r3">door seals are in good condition? </p>
+              <div class="small-yn" id="r3y" onclick="highlight('r3y', 'r3n')">YES</div>
+              <div class="small-yn" id="r3n" onclick="highlight('r3n', 'r3y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="r4">walls are free of cracks or holes? </p>
+              <div class="small-yn" id="r4y" onclick="highlight('r4y', 'r4n')">YES</div>
+              <div class="small-yn" id="r4n" onclick="highlight('r4n', 'r4y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="r5">floor drains are open? </p>
+              <div class="small-yn" id="r5y" onclick="highlight('r5y', 'r5n')">YES</div>
+              <div class="small-yn" id="r5n" onclick="highlight('r5n', 'r5y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="r6">refrigeration is operating properly at 38 deg? </p>
+              <div class="small-yn" id="r6y" onclick="highlight('r6y', 'r6n')">YES</div>
+              <div class="small-yn" id="r6n" onclick="highlight('r6n', 'r6y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <div class="expand" id="post-exp" onclick="expandMe('post-inspect', 'post-exp')"><b>POST-TRIP INSPECTION: </b></div>
+          <div class="hidden" id="post-inspect">
+            <div class="mini-row">
+              <p id="po1">did vehicle operate correctly? </p>
+              <div class="small-yn" id="po1y" onclick="highlight('po1y', 'po1n')">YES</div>
+              <div class="small-yn" id="po1n" onclick="highlight('po1n', 'po1y')" >NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="po2">free of warning lights during operations? </p>
+              <div class="small-yn" id="po2y" onclick="highlight('po2y', 'po2n')">YES</div>
+              <div class="small-yn" id="po2n" onclick="highlight('po2n', 'po2y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="po3">is the fuel tank filled up? </p>
+              <div class="small-yn" id="po3y" onclick="highlight('po3y', 'po3n')">YES</div>
+              <div class="small-yn" id="po3n" onclick="highlight('po3n', 'po3y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="po4">catgrass bins sprayed out and drying? </p>
+              <div class="small-yn" id="po4y" onclick="highlight('po4y', 'po4n')">YES</div>
+              <div class="small-yn" id="po4n" onclick="highlight('po4n', 'po4y')">NO</div>
+            </div>
+            <div class="mini-row">
+              <p id="po5">green bins clean and stacked on dolly? </p>
+              <div class="small-yn" id="po5y" onclick="highlight('po5y', 'po5n')">YES</div>
+              <div class="small-yn" id="po5n" onclick="highlight('po5n', 'po5y')">NO</div>
+            </div>
+          </div>
+          <br><br>
+          <label><b>NOTES: </b></label>
+          <input type="text" name="dviNotes" cols=40 rows=5 id="dvi-descrip" class="entry">
+          <br><br>
+          <button type="button" id="dvi-form-submit">SUBMIT FORM</button>
+          <button type="button" id="dvi-form-save">SAVE PROGRESS</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="cha-log-pop-up">
+      <h2 class="log-name" id="cha">CHEMICAL APPLICATION LOG</h2>
+      <div id="cha-form-holder">
+        <form id="cha-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="chaDateMM" id="cha-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="chaDateDD" id="cha-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="chaDateYYYY" id="cha-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>CHEMICAL: </b></label>
+          <input type="text" name="chaChemical" id="cha-chemical" class="entry">
+          <br><br>
+          <label><b>MIX DATE: </b></label>
+          <input type="text" name="chaMixDateMM" id="cha-mix-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="chaMixDateDD" id="cha-mix-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="chaMixDateYYYY" id="cha-mix-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>CONTAINER SIZE: </b></label>
+          <input type="text" name="chaCont" id="cha-cont" class="entry">
+          <br><br>
+          <label><b>CHEMICAL VOLUME: </b></label>
+          <input type="text" name="chaChemVol" id="cha-chem-vol" class="entry">
+          <br><br>
+          <label><b>WATER VOLUME: </b></label>
+          <input type="text" name="chaWaterVol" id="cha-water-vol" class="entry">
+          <br><br>
+          <label><b>PURPOSE OR TARGET PEST: </b></label>
+          <input type="text" name="chaPurpose" id="cha-purpose" class="entry">
+          <br><br>
+          <label><b>APPLICATION LOCATION: </b></label>
+          <input type="text" name="chaLoc" id="cha-loc" class="entry">
+          <br><br>
+          <label><b>CROPS APPLIED: </b></label>
+          <input type="text" name="chaCrops" id="cha-crops" class="entry">
+          <br><br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="chaInit" id="cha-init" class="entry">
+          <br><br>
+          <button type="button" id="cha-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="ci-log-pop-up">
+      <h2 class="log-name" id="ci">COOLER INSPECTION LOG</h2>
+      <div id="ci-form-holder">
+        <form id="ci-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="ciDateMM" id="ci-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="ciDateDD" id="ci-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="ciDateYYYY" id="ci-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>TEMP READING</b></label>
+          <br>
+          <label><b>DIGITAL: </b></label>
+          <input type="text" name="ciDig" id="ci-dig" class="entry">
+          <label><b>ANALOG: </b></label>
+          <input type="text" name="ciAna" id="ci-ana" class="entry">
+          <br><br>
+          <label><b>TIME: </b></label>
+          <input type="text" name="ciTime" id="ci-time" class="entry">
+          <br><br>
+          <label><b>CONDENSATION PRESENT? </b></label>
+          <div class="inline-yn" id="cond-pres-y" onclick="highlight('cond-pres-y', 'cond-pres-n')">YES</div>
+          <div class="inline-yn" id="cond-pres-n" onclick="highlight('cond-pres-n', 'cond-pres-y')">NO</div>
+          <br><br>
+          <label><b>CONDENSATION ON PRODUCE? </b></label>
+          <div class="inline-yn" id="cond-on-y" onclick="highlight('cond-on-y', 'cond-on-n')">YES</div>
+          <div class="inline-yn" id="cond-on-n" onclick="highlight('cond-on-n', 'cond-on-y')">NO</div>
+          <br><br>
+          <label><b>SIGNS OF WILDLIFE? </b></label>
+          <div class="inline-yn" id="sign-y" onclick="highlight('sign-y', 'sign-n')">YES</div>
+          <div class="inline-yn" id="sign-n" onclick="highlight('sign-n', 'sign-y')">NO</div>
+          <br><br>
+          <label><b>HOLES OR CRACKS? </b></label>
+          <div class="inline-yn" id="hole-y" onclick="highlight('hole-y', 'hole-n')">YES</div>
+          <div class="inline-yn" id="hole-n" onclick="highlight('hole-n', 'hole-y')">NO</div>
+          <br><br>
+          <label><b>MAINTENANCE REQUIRED? </b></label>
+          <div class="inline-yn" id="maint-y" onclick="highlight('maint-y', 'maint-n')">YES</div>
+          <div class="inline-yn" id="maint-n" onclick="highlight('maint-n', 'maint-y')">NO</div>
+          <br><br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="ciInit" id="ci-init" class="entry">
+          <br><br>
+          <label><b>NOTES: </b></label>
+          <input type="text" name="ciNotes" id="ci-notes" class="entry">
+          <br><br>
+          <button type="button" id="ci-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
     <div id="completed-pop-up">
         <div class="q">
             <h2 id="complete-message">TASK IS COMPLETE?</h2>
@@ -137,6 +634,7 @@
         <div class="yn" onclick="close_me('completed-pop-up', 'complete')">NO</div>
     </div>
 
+
     <div id="save-pop-up">
         <div class="q">
             <h2 id="save-message">DO YOU WANT TO SAVE YOUR PROGRESS IN TASK?</h2>
@@ -144,6 +642,7 @@
         <div class="yn">YES</div>
         <div class="yn" onclick="close_me('save-pop-up', 'save')">NO</div>
     </div>
+
 
     <div id="report-pop-up">
         <div class="q" id="report-message-box">
@@ -223,9 +722,84 @@
     function close_me(id, id2) {
         var toclose = document.getElementById(id);
         toclose.style.display = "none";
-        console.log("I am working");
         var button = document.getElementById(id2);
         button.style.backgroundColor = "#F7F8F3";
     }
+
+    function expandMe(id, id2) {
+      const toShow = document.getElementById(id2);
+      toShow.style.display = "flex";
+      const toExpand = document.getElementById(id);
+      var currDisplay = toExpand.style.display
+      if (currDisplay == "flex"){
+        toExpand.style.display = "none";
+      }
+      else {
+        resetHidden();
+        toExpand.style.display = "flex";
+      }
+    }
+
+    function resetHidden() {
+      const extInspect = document.getElementById("ext-inspect");
+      const packInspect = document.getElementById("pack-inspect");
+      const intInspect = document.getElementById("int-inspect");
+      const opInspect = document.getElementById("op-inspect");
+      const refInspect = document.getElementById("ref-inspect");
+      const postInspect = document.getElementById("post-inspect");
+
+      extInspect.style.display = "none";
+      packInspect.style.display = "none";
+      intInspect.style.display = "none";
+      opInspect.style.display = "none";
+      refInspect.style.display = "none";
+      postInspect.style.display = "none";
+    }
+
+    function highlight(id, id2) {
+      var elem = document.getElementById(id);
+      var style = window.getComputedStyle(elem);
+      var color = style.backgroundColor;
+      if (color == "rgb(123, 193, 67)") {
+        document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
+        document.getElementById(id2).style.backgroundColor = "rgb(123, 193, 67)";
+      }
+      else if (color == "rgb(247, 248, 243)") {
+        document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
+        document.getElementById(id2).style.backgroundColor = "rgb(247, 248, 243)";
+      }
+    }
+
+    /*function hideAllExpands() {
+      const extExp = document.getElementById("ext-exp");
+      const packExp = document.getElementById("pack-exp");
+      const intExp = document.getElementById("int-exp");
+      const opExp = document.getElementById("op-exp");
+      const refExp = document.getElementById("ref-exp");
+      const postExp = document.getElementById("post-exp");
+
+      extExp.style.display = "none";
+      packExp.style.display = "none";
+      intExp.style.display = "none";
+      opExp.style.display = "none";
+      refExp.style.display = "none";
+      postExp.style.display = "none";
+    }
+
+    function showAllExpands() {
+      const extExp = document.getElementById("ext-exp");
+      const packExp = document.getElementById("pack-exp");
+      const intExp = document.getElementById("int-exp");
+      const opExp = document.getElementById("op-exp");
+      const refExp = document.getElementById("ref-exp");
+      const postExp = document.getElementById("post-exp");
+
+      extExp.style.display = "flex";
+      packExp.style.display = "flex";
+      intExp.style.display = "flex";
+      opExp.style.display = "flex";
+      refExp.style.display = "flex";
+      postExp.style.display = "flex";
+    }*/
   </script>
 </html>

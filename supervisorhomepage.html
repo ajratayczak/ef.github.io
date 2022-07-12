@@ -189,11 +189,14 @@
 
     <div class="tab-div" id="staff">
       <div class="task-table">
+        <div id="refresh-row">
+          <div id="staff-names"></div>
+          <div id="refresh"><b>REFRESH</b></div>
+        </div>
         <div id="staff-label-row">
           <p id="tomorrows-tasks"></p>
           <p>Staff Required</p>
           <p>Time per Employee</p>
-          <div id="staff-names"></div>
         </div>
         <div id="staff-task-holder">
           <div class="table" id="staff-task-table"></div>
@@ -258,6 +261,34 @@
 
     <div id="error-message-holder">
       <h2 id="error-message" class="center">Input may only contain numbers</h2>
+    </div>
+
+    <div id="ca-log-pop-up">
+      <h2 class="log-name" id="ca">CORRECTIVE ACTIONS LOG</h2>
+      <div id="ca-form-holder">
+        <form id="ca-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="caDateMM" id="ca-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="caDateDD" id="ca-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="caDateYYYY" id="ca-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>STAFF MEMBER: </b></label>
+          <input type="text" name="caStaff" id="ca-staff" class="entry">
+          <br><br>
+          <label><b>POLICY VIOLATION & CORRECTIVE ACTION IMPLEMENTED</b></label>
+          <br>
+          <textarea name="caPolVio" cols=40 rows=15 id="ca-pol-vio" class="longer-entry"></textarea>
+          <br><br>
+          <label><b>MANAGEMENT INITIALS: </b></label>
+          <input type="text" name="caInit" id="ca-init" class="entry">
+          <br><br>
+          <button type="button" id="ca-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
     </div>
   </body>
 

@@ -586,9 +586,9 @@
           <label><b>TEMP READING</b></label>
           <br>
           <label><b>DIGITAL: </b></label>
-          <input type="text" name="ciDig" id="ci-dig" class="entry">
+          <input type="text" name="ciDig" id="ci-dig" class="temp-entry">
           <label><b>ANALOG: </b></label>
-          <input type="text" name="ciAna" id="ci-ana" class="entry">
+          <input type="text" name="ciAna" id="ci-ana" class="temp-entry">
           <br><br>
           <label><b>TIME: </b></label>
           <input type="text" name="ciTime" id="ci-time" class="entry">
@@ -612,7 +612,7 @@
           <label><b>MAINTENANCE REQUIRED? </b></label>
           <div class="inline-yn" id="maint-y" onclick="highlight('maint-y', 'maint-n')">YES</div>
           <div class="inline-yn" id="maint-n" onclick="highlight('maint-n', 'maint-y')">NO</div>
-          <br><br>
+          <br><br><br>
           <label><b>STAFF INITIALS: </b></label>
           <input type="text" name="ciInit" id="ci-init" class="entry">
           <br><br>
@@ -620,6 +620,592 @@
           <input type="text" name="ciNotes" id="ci-notes" class="entry">
           <br><br>
           <button type="button" id="ci-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="wa-log-pop-up">
+      <h2 class="log-name" id="wa">WILDLIFE ASSESSMENT LOG</h2>
+      <div id="wa-form-holder">
+        <form id="wa-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="waDateMM" id="wa-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="waDateDD" id="wa-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="waDateYYYY" id="wa-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>ANIMAL ACTIVITY OR SUSPECTED INTRUSION EVENT</b></label>
+          <br>
+          <div class="two-cols">
+          <div class="mini-row">
+            <p id="aa1">FRONT OFFICE: </p>
+            <div class="small-yn" id="aa1y" onclick="highlight('aa1y', 'aa1n')">YES</div>
+            <div class="small-yn" id="aa1n" onclick="highlight('aa1n', 'aa1y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa2">PACKAGING ROOM: </p>
+            <div class="small-yn" id="aa2y" onclick="highlight('aa2y', 'aa2n')">YES</div>
+            <div class="small-yn" id="aa2n" onclick="highlight('aa2n', 'aa2y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa3">GROW ROOM: </p>
+            <div class="small-yn" id="aa3y" onclick="highlight('aa3y', 'aa3n')">YES</div>
+            <div class="small-yn" id="aa3n" onclick="highlight('aa3n', 'aa3y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa4">COOLER: </p>
+            <div class="small-yn" id="aa4y" onclick="highlight('aa4y', 'aa4n')">YES</div>
+            <div class="small-yn" id="aa4n" onclick="highlight('aa4n', 'aa4y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa5">GARAGE BAYS: </p>
+            <div class="small-yn" id="aa5y" onclick="highlight('aa5y', 'aa5n')">YES</div>
+            <div class="small-yn" id="aa5n" onclick="highlight('aa5n', 'aa5y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa6">GARAGE TRAPS: </p>
+            <div class="small-yn" id="aa6y" onclick="highlight('aa6y', 'aa6n')">YES</div>
+            <div class="small-yn" id="aa6n" onclick="highlight('aa6n', 'aa6y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa7">INCUBATION ROOM: </p>
+            <div class="small-yn" id="aa7y" onclick="highlight('aa7y', 'aa7n')">YES</div>
+            <div class="small-yn" id="aa7n" onclick="highlight('aa7n', 'aa7y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa8">FRUITING ROOMS: </p>
+            <div class="small-yn" id="aa8y" onclick="highlight('aa8y', 'aa8n')">YES</div>
+            <div class="small-yn" id="aa8n" onclick="highlight('aa8n', 'aa8y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa9">ROUGH PROCESSING: </p>
+            <div class="small-yn" id="aa9y" onclick="highlight('aa9y', 'aa9n')">YES</div>
+            <div class="small-yn" id="aa9n" onclick="highlight('aa9n', 'aa9y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa10">STORAGE & RECIEVING: </p>
+            <div class="small-yn" id="aa10y" onclick="highlight('aa10y', 'aa10n')">YES</div>
+            <div class="small-yn" id="aa10n" onclick="highlight('aa10n', 'aa10y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa11">STORAGE TRAPS: </p>
+            <div class="small-yn" id="aa11y" onclick="highlight('aa11y', 'aa11n')">YES</div>
+            <div class="small-yn" id="aa11n" onclick="highlight('aa11n', 'aa11y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="aa12">BUILDING EXTERIOR: </p>
+            <div class="small-yn" id="aa12y" onclick="highlight('aa12y', 'aa12n')">YES</div>
+            <div class="small-yn" id="aa12n" onclick="highlight('aa12n', 'aa12y')">NO</div>
+          </div>
+          </div>
+          <br><br>
+          <label><b>CORRECTIVE ACTIONS TAKEN: </b></label>
+          <input type="text" name="waActions" id="wa-actions" class="entry">
+          <br><br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="waInit" id="wa-init" class="entry">
+          <br><br>
+          <button type="button" id="wa-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="clean-log-pop-up">
+      <h2 class="log-name" id="clean-log">MASTER CLEANING LOG</h2>
+      <div id="clean-form-holder">
+        <form id="clean-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="cleanDateMM" id="clean-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="cleanDateDD" id="clean-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="cleanDateYYYY" id="clean-date-yyyy" class="yyyy">
+          <br><br>
+          <label><b>SELECT AN AREA</b></label>
+          <br>
+          <div class="four-by-four">
+            <div class="area" id="front-entry" onclick="highlightOneofMany('front-entry')">
+              <b>FRONT ENTRYWAY</b>
+            </div>
+            <div class="area" id="front-bath" onclick="highlightOneofMany('front-bath')">
+              <b>FRONT BATHROOM</b>
+            </div>
+            <div class="area" id="office" onclick="highlightOneofMany('office')">
+              <b>OFFICE AREA</b>
+            </div>
+            <div class="area" id="emp-break" onclick="highlightOneofMany('emp-break')">
+              <b>EMPLOYEE BREAKROOM</b>
+            </div>
+            <div class="area" id="proc" onclick="highlightOneofMany('proc')">
+              <b>PROCESSING ROOM</b>
+            </div>
+            <div class="area" id="air-shower" onclick="highlightOneofMany('air-shower')">
+              <b>AIR SHOWER ROOM</b>
+            </div>
+            <div class="area" id="mush-store" onclick="highlightOneofMany('mush-store')">
+              <b>MUSHROOM STORAGE ROOM</b>
+            </div>
+            <div class="area" id="gar" onclick="highlightOneofMany('gar')">
+              <b>GARAGE</b>
+            </div>
+            <div class="area" id="mush-fruit" onclick="highlightOneofMany('mush-fruit')">
+              <b>MUSHROOM FRUITING ROOMS</b>
+            </div>
+            <div class="area" id="mush-inoc" onclick="highlightOneofMany('mush-inoc')">
+              <b>MUSHROOM INOCULATION AREA</b>
+            </div>
+            <div class="area" id="rough" onclick="highlightOneofMany('rough')">
+              <b>ROUGH PROCESSING</b>
+            </div>
+            <div class="area" id="power-control" onclick="highlightOneofMany('power-control')">
+              <b>POWER CONTROL ROOM</b>
+            </div>
+            <div class="area" id="grow" onclick="highlightOneofMany('grow')">
+              <b>GROW ROOM</b>
+            </div>
+            <div class="area" id="load-bay" onclick="highlightOneofMany('load-bay')">
+              <b>LOADING BAY</b>
+            </div>
+            <div class="area" id="outside" onclick="highlightOneofMany('outside')">
+              <b>OUTSIDE BUILDING</b>
+            </div>
+            <div class="area" id="misc" onclick="highlightOneofMany('misc')">
+              <b>MISC</b>
+            </div>
+          </div>
+          <br>
+          <button type="button" id="clean-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="subtask-pop-up">
+      <h2 class="log-name" id="subtask"></h2>
+      <div id="subtask-form-holder">
+        <form id="subtask-form">
+          <br>
+          <div id="subtask-list"></div>
+          <br><br>
+          <button type="button" id="subtask-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="preharv-pop-up">
+      <h2 class="log-name" id="preharv">PREHARVEST CHECKLIST</h2>
+      <div id="preharv-form-holder">
+        <form id="preharv-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="preharvDateMM" id="preharv-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="preharvDateDD" id="preharv-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="preharvDateYYYY" id="preharv-date-yyyy" class="yyyy">
+          <br><br>
+          <div class="mini-row">
+            <p id="ph1">SIGNS OF PHYSICAL CONTAMINATION OR FOREIGN MATERIAL (GLASS, METAL, OR OTHER DEBRIS) IN PLANTS? </p>
+            <div class="small-yn" id="ph1y" onclick="highlight('ph1y', 'ph1n')">YES</div>
+            <div class="small-yn" id="ph1n" onclick="highlight('ph1n', 'ph1y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph2">SIGNS OF CHEMICAL CONTAMINATION IN PLANTS? </p>
+            <div class="small-yn" id="ph2y" onclick="highlight('ph2y', 'ph2n')">YES</div>
+            <div class="small-yn" id="ph2n" onclick="highlight('ph2n', 'ph2y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph3">SIGNS OF ANIMAL ACTIVITY IN PLANTS? </p>
+            <div class="small-yn" id="ph3y" onclick="highlight('ph3y', 'ph3n')">YES</div>
+            <div class="small-yn" id="ph3n" onclick="highlight('ph3n', 'ph3y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph4">HARVEST CARTS ARE OPERABLE AND HAVE BEEN CLEANED AND SANITIZED PRIOR TO USE? </p>
+            <div class="small-yn" id="ph4y" onclick="highlight('ph4y', 'ph4n')">YES</div>
+            <div class="small-yn" id="ph4n" onclick="highlight('ph4n', 'ph4y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph5">HARVEST BINS WERE PROPERLY STORED AFTER CLEANING? </p>
+            <div class="small-yn" id="ph5y" onclick="highlight('ph5y', 'ph5n')">YES</div>
+            <div class="small-yn" id="ph5n" onclick="highlight('ph5n', 'ph5y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph6">HARVEST BINS ARE CLEAN, IN GOOD CONDITION, AND ARE FREE OF DEBRIS? </p>
+            <div class="small-yn" id="ph6y" onclick="highlight('ph6y', 'ph6n')">YES</div>
+            <div class="small-yn" id="ph6n" onclick="highlight('ph6n', 'ph6y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph7">HARVEST TOOLS ARE IN GOOD, OPERABLE CONDITION? </p>
+            <div class="small-yn" id="ph7y" onclick="highlight('ph7y', 'ph7n')">YES</div>
+            <div class="small-yn" id="ph7n" onclick="highlight('ph7n', 'ph7y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph8">HARVEST TOOLS HAVE BEEN CLEANED AND SANITIZED PRIOR TO USE? </p>
+            <div class="small-yn" id="ph8y" onclick="highlight('ph8y', 'ph8n')">YES</div>
+            <div class="small-yn" id="ph8n" onclick="highlight('ph8n', 'ph8y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="ph9">FOOD CONTACT SURFACES (TABLES, BOWLS, ETC) HAVE BEEN CLEANED AND SANITIZED PRIOR TO USE? </p>
+            <div class="small-yn" id="ph9y" onclick="highlight('ph9y', 'ph9n')">YES</div>
+            <div class="small-yn" id="ph9n" onclick="highlight('ph9n', 'ph9y')">NO</div>
+          </div>
+          <br><br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="preharvInit" id="preharv-init" class="entry">
+          <br><br>
+          <button type="button" id="preharv-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="postpack-pop-up">
+      <h2 class="log-name" id="postpack">POST-PACKING LOG</h2>
+      <div id="postpack-form-holder">
+        <form id="postpack-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="postpackDateMM" id="postpack-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="postpackDateDD" id="postpack-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="postpackDateYYYY" id="postpack-date-yyyy" class="yyyy">
+          <br><br>
+          <div class="big-button" id="x-prod" onclick="showPopUp('x-prod-pop-up')"><b>EXTRA PRODUCT IN CLAMSHELLS</b></div>
+          <br><br>
+          <div class="big-button" id="neg-prod" onclick="showPopUp('neg-prod-pop-up')"><b>NEG PRODUCTS INVENTORY</b></div>
+          <br><br>
+          <div class="big-button" id="unpacked" onclick="showPopUp('unpacked-pop-up')"><b>UNPACKED ERNESSI PRODUCE (LBS)</b></div>
+          <br><br>
+          <label><b>OTHER NOTES:</b></label>
+          <br>
+          <textarea name="postpackNotes" cols=40 rows=5 id="postpack-notes" class="long-entry"></textarea>
+          <br><br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="postpackInit" id="postpack-init" class="entry">
+          <br><br>
+          <button type="button" id="postpack-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="x-prod-pop-up">
+      <h2 class="log-name" id="x-prod-log">EXTRA PRODUCT IN CLAMSHELLS</h2>
+      <div id="x-prod-form-holder">
+        <form id="x-prod-form">
+          <table class="form-table">
+            <tr>
+              <th>PRODUCT</th>
+              <th>ON HAND</th>
+            </tr>
+            <tr>
+              <td>BASIL</td>
+              <td><input type="text" name="xProdBasil" id="x-prod-basil" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>BASIL-3oz</td>
+              <td><input type="text" name="xProdBasil3" id="x-prod-basil3" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>BAY LEAVES</td>
+              <td><input type="text" name="xProdBay" id="x-prod-bay" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CHIVES</td>
+              <td><input type="text" name="xProdChives" id="x-prod-chives" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CILANTRO</td>
+              <td><input type="text" name="xProdCilantro" id="x-prod-cilantro" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>DILL</td>
+              <td><input type="text" name="xProdDill" id="x-prod-dill" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>LEMONGRASS</td>
+              <td><input type="text" name="xProdLemongrass" id="x-prod-lemongrass" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>MINT</td>
+              <td><input type="text" name="xProdMint" id="x-prod-mint" class="table-entry"></td>
+            </tr> 
+            <tr>
+              <td>OREGANO</td>
+              <td><input type="text" name="xProdOregano" id="x-prod-oregano" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>PARSLEY</td>
+              <td><input type="text" name="xProdParsley" id="x-prod-parsley" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>POULTRY MIX</td>
+              <td><input type="text" name="xProdPoultry" id="x-prod-poultry" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>ROSEMARY</td>
+              <td><input type="text" name="xProdRosemary" id="x-prod-rosemary" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>SAGE</td>
+              <td><input type="text" name="xProdSage" id="x-prod-sage" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>TARRAGON</td>
+              <td><input type="text" name="xProdTarragon" id="x-prod-tarragon" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>THYME</td>
+              <td><input type="text" name="xProdThyme" id="x-prod-thyme" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>ARUGULA</td>
+              <td><input type="text" name="xProdArugula" id="x-prod-arugula" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>BROCCOLI</td>
+              <td><input type="text" name="xProdBroccoli" id="x-prod-broccoli" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>GREENS MIX</td>
+              <td><input type="text" name="xProdGreens" id="x-prod-greens" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>KALE</td>
+              <td><input type="text" name="xProdKale" id="x-prod-kale" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>RADISH</td>
+              <td><input type="text" name="xProdRADISH" id="x-prod-radish" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>SUNFLOWER</td>
+              <td><input type="text" name="xProdSunflower" id="x-prod-sunflower" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>SHIITAKE</td>
+              <td><input type="text" name="xProdShiitake" id="x-prod-shiitake" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>OYSTER</td>
+              <td><input type="text" name="xProdOyter" id="x-prod-oyster" class="table-entry"></td>
+            </tr>
+          </table>
+          <br>
+          <button type="button" id="x-prod-form-submit">SAVE VALUES</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="neg-prod-pop-up">
+      <h2 class="log-name" id="neg-prod-log">NEG PRODUCTS INVENTORY</h2>
+      <div id="neg-prod-form-holder">
+        <form id="neg-prod-form">
+          <table class="form-table">
+            <tr>
+              <th>PRODUCT</th>
+              <th>NEG #</th>
+              <th>LBS</th>
+              <th>NEG #</th>
+              <th>LBS</th>
+              <th>NEG #</th>
+              <th>LBS</th>
+              <th>TOTAL</th>
+            </tr>
+            <tr>
+              <td>BAY LEAVES</td>
+              <td><input type="text" name="negProdBay1" id="neg-prod-bay-1" class="table-entry"></td>
+              <td><input type="text" name="negProdBayLbs1" id="neg-prod-bay-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdBay2" id="neg-prod-bay-2" class="table-entry"></td>
+              <td><input type="text" name="negProdBayLbs2" id="neg-prod-bay-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdBay3" id="neg-prod-bay-3" class="table-entry"></td>
+              <td><input type="text" name="negProdBayLbs3" id="neg-prod-bay-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdBayTotal" id="neg-prod-bay-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CHIVES</td>
+              <td><input type="text" name="negProdChives1" id="neg-prod-chives-1" class="table-entry"></td>
+              <td><input type="text" name="negProdChivesLbs1" id="neg-prod-chives-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdChives2" id="neg-prod-chives-2" class="table-entry"></td>
+              <td><input type="text" name="negProdChivesLbs2" id="neg-prod-chives-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdChives3" id="neg-prod-chives-3" class="table-entry"></td>
+              <td><input type="text" name="negProdChivesLbs3" id="neg-prod-chives-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdChivesTotal" id="neg-prod-chives-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CILANTRO</td>
+              <td><input type="text" name="negProdCilantro1" id="neg-prod-cilantro-1" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantroLbs1" id="neg-prod-cilantro-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantro2" id="neg-prod-cilantro-2" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantroLbs2" id="neg-prod-cilantro-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantro3" id="neg-prod-cilantro-3" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantroLbs3" id="neg-prod-cilantro-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdCilantroTotal" id="neg-prod-cilantro-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>DILL</td>
+              <td><input type="text" name="negProdDill1" id="neg-prod-dill-1" class="table-entry"></td>
+              <td><input type="text" name="negProdDillLbs1" id="neg-prod-dill-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdDill2" id="neg-prod-dill-2" class="table-entry"></td>
+              <td><input type="text" name="negProdDillLbs2" id="neg-prod-dill-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdDill3" id="neg-prod-dill-3" class="table-entry"></td>
+              <td><input type="text" name="negProdDillLbs3" id="neg-prod-dill-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdDillTotal" id="neg-prod-dill-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>LEMONGRASS</td>
+              <td><input type="text" name="negProdLemongrass1" id="neg-prod-lemongrass-1" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrassLbs1" id="neg-prod-lemongrass-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrass2" id="neg-prod-lemongrass-2" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrassLbs2" id="neg-prod-lemongrass-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrass3" id="neg-prod-lemongrass-3" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrassLbs3" id="neg-prod-lemongrass-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdLemongrassTotal" id="neg-prod-lemongrass-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>MINT</td>
+              <td><input type="text" name="negProdMint1" id="neg-prod-mint-1" class="table-entry"></td>
+              <td><input type="text" name="negProdMintLbs1" id="neg-prod-mint-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdMint2" id="neg-prod-mint-2" class="table-entry"></td>
+              <td><input type="text" name="negProdMintLbs2" id="neg-prod-mint-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdMint3" id="neg-prod-mint-3" class="table-entry"></td>
+              <td><input type="text" name="negProdMintLbs3" id="neg-prod-mint-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdMintTotal" id="neg-prod-mint-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>OREGANO</td>
+              <td><input type="text" name="negProdOregano1" id="neg-prod-oregano-1" class="table-entry"></td>
+              <td><input type="text" name="negProdOreganoLbs1" id="neg-prod-oregano-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdOregano2" id="neg-prod-oregano-2" class="table-entry"></td>
+              <td><input type="text" name="negProdOreganoLbs2" id="neg-prod-oregano-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdOregano3" id="neg-prod-oregano-3" class="table-entry"></td>
+              <td><input type="text" name="negProdOreganoLbs3" id="neg-prod-oregano-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdOreganoTotal" id="neg-prod-oregano-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>PARSLEY</td>
+              <td><input type="text" name="negProdParsley1" id="neg-prod-parsley-1" class="table-entry"></td>
+              <td><input type="text" name="negProdParsleyLbs1" id="neg-prod-parsley-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdParsley2" id="neg-prod-parsley-2" class="table-entry"></td>
+              <td><input type="text" name="negProdParsleyLbs2" id="neg-prod-parsley-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdParsley3" id="neg-prod-parsley-3" class="table-entry"></td>
+              <td><input type="text" name="negProdParsleyLbs3" id="neg-prod-parsley-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdParsleyTotal" id="neg-prod-parsley-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>ROSEMARY</td>
+              <td><input type="text" name="negProdRosemary1" id="neg-prod-rosemary-1" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemaryLbs1" id="neg-prod-rosemary-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemary2" id="neg-prod-rosemary-2" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemaryLbs2" id="neg-prod-rosemary-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemary3" id="neg-prod-rosemary-3" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemaryLbs3" id="neg-prod-rosemary-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdRosemaryTotal" id="neg-prod-rosemary-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>SAGE</td>
+              <td><input type="text" name="negProdSage1" id="neg-prod-sage-1" class="table-entry"></td>
+              <td><input type="text" name="negProdSageLbs1" id="neg-prod-sage-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdSage2" id="neg-prod-sage-2" class="table-entry"></td>
+              <td><input type="text" name="negProdSageLbs2" id="neg-prod-sage-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdSage3" id="neg-prod-sage-3" class="table-entry"></td>
+              <td><input type="text" name="negProdSageLbs3" id="neg-prod-sage-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdSageTotal" id="neg-prod-sage-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>TARRAGON</td>
+              <td><input type="text" name="negProdTarragon1" id="neg-prod-tarragon-1" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragonLbs1" id="neg-prod-tarragon-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragon2" id="neg-prod-tarragon-2" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragonLbs2" id="neg-prod-tarragon-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragon3" id="neg-prod-tarragon-3" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragonLbs3" id="neg-prod-tarragon-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdTarragonTotal" id="neg-prod-tarragon-total" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>THYME</td>
+              <td><input type="text" name="negProdThyme1" id="neg-prod-thyme-1" class="table-entry"></td>
+              <td><input type="text" name="negProdThymeLbs1" id="neg-prod-thyme-lbs-1" class="table-entry"></td>
+              <td><input type="text" name="negProdThyme2" id="neg-prod-thyme-2" class="table-entry"></td>
+              <td><input type="text" name="negProdThymeLbs2" id="neg-prod-thyme-lbs-2" class="table-entry"></td>
+              <td><input type="text" name="negProdThyme3" id="neg-prod-thyme-3" class="table-entry"></td>
+              <td><input type="text" name="negProdThymeLbs3" id="neg-prod-thyme-lbs-3" class="table-entry"></td>
+              <td><input type="text" name="negProdThymeTotal" id="neg-prod-thyme-total" class="table-entry"></td>
+            </tr>
+          </table>
+          <br>
+          <button type="button" id="neg-prod-form-submit">SAVE VALUES</button>
+          <button type="button" class="cancel">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="unpacked-pop-up">
+      <h2 class="log-name" id="unpacked-log">UNPACKED ERNESSI PRODUCE (LBS)</h2>
+      <div id="unpacked-form-holder">
+        <form id="unpacked-form">
+          <table class="form-table">
+            <tr>
+              <th>PRODUCT</th>
+              <th>LBS</th>
+            </tr>
+            <tr>
+              <td>BASIL</td>
+              <td><input type="text" name="unpackedBasil" id="unpacked-basil" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CHIVES</td>
+              <td><input type="text" name="unpackedChives" id="unpacked-chives" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>CILANTRO</td>
+              <td><input type="text" name="unpackedCilantro" id="unpacked-cilantro" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>DILL</td>
+              <td><input type="text" name="unpackedDill" id="unpacked-dill" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>MINT</td>
+              <td><input type="text" name="unpackedMint" id="unpacked-mint" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>OREGANO</td>
+              <td><input type="text" name="unpackedOregano" id="unpacked-oregano" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>PARSLEY</td>
+              <td><input type="text" name="unpackedParsley" id="unpacked-parsley" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>SAGE</td>
+              <td><input type="text" name="unpackedSage" id="unpacked-sage" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>TARRAGON</td>
+              <td><input type="text" name="unpackedTarragon" id="unpacked-tarragon" class="table-entry"></td>
+            </tr>
+            <tr>
+              <td>THYME</td>
+              <td><input type="text" name="unpackedThyme" id="unpacked-thyme" class="table-entry"></td>
+            </tr>
+          </table>
+          <br>
+          <button type="button" id="unpacked-form-submit">SAVE VALUES</button>
           <button type="button" class="cancel">CANCEL</button>
         </form>
       </div>
@@ -666,7 +1252,6 @@
             <div class="yn" id="submit">SUBMIT</div>
         </div>
     </div>
-
   </body>
 
   <script>
@@ -740,6 +1325,11 @@
       }
     }
 
+    function showPopUp(id) {
+      const popUp = document.getElementById(id);
+      popUp.style.display = "flex";
+    }
+
     function resetHidden() {
       const extInspect = document.getElementById("ext-inspect");
       const packInspect = document.getElementById("pack-inspect");
@@ -768,6 +1358,26 @@
         document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
         document.getElementById(id2).style.backgroundColor = "rgb(247, 248, 243)";
       }
+    }
+
+    function highlightOneofMany(id) {
+      resetCleanHighlights();
+      var elem = document.getElementById(id);
+      var style = window.getComputedStyle(elem);
+      var color = style.backgroundColor;
+      if (color == "rgb(123, 193, 67)") {
+        document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
+      }
+      else if (color == "rgb(247, 248, 243)") {
+        document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
+      }
+    }
+
+    function resetCleanHighlights() {
+      var elements = document.getElementsByClassName("area");
+      for (let i = 0; i < elements.length; i++) {
+        elements.item(i).style.backgroundColor = "rgb(247, 248, 243)";
+      };
     }
 
     /*function hideAllExpands() {
@@ -802,4 +1412,5 @@
       postExp.style.display = "flex";
     }*/
   </script>
+  <script src="dist/bundle.js"></script> 
 </html>

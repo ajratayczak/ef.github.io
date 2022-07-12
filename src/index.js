@@ -160,7 +160,9 @@ else {
 }
 
 const tomorrowDisplay = document.getElementById("tomorrows-tasks");
-tomorrowDisplay.textContent = tomorrow + "'S TASKS";
+if (tomorrowDisplay) {
+  tomorrowDisplay.textContent = tomorrow + "'S TASKS";
+}
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -194,14 +196,31 @@ catch(error){
 const tomEmpTable = document.getElementById("staff-names");
 const tomEmpFragment = document.createDocumentFragment();
 
+var empNameList = [];
+
 tomEmpList.forEach(function(emp) {
   const tomEmpHolder = document.createElement("div");
   tomEmpHolder.className = "emp-holder";
   tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p>("+emp[1]+" hours)</p>";
+  empNameList.push(emp[0]);
   tomEmpFragment.appendChild(tomEmpHolder);
 });
 
-tomEmpTable.appendChild(tomEmpFragment);
+if (tomEmpTable) {
+  tomEmpTable.appendChild(tomEmpFragment);
+}
+
+var empOption;
+var selectList = [];
+
+for(let i=0; i < empNameList.length; i++) {
+  empOption = "<option value='emp" + i + "'>" + empNameList[i] + "</option>";
+  selectList.push(empOption);
+}
+
+var x = 0;
+var selectString1;
+var selectString2;
 
 var tomTaskList = [];
 
@@ -235,7 +254,9 @@ tomTaskList.forEach(function(task) {
   tomFragment.appendChild(tomHolder);
 });
 
-tomTable.appendChild(tomFragment);
+if (tomTable) {
+  tomTable.appendChild(tomFragment);
+}
 
 
 /*Task Queries by Dept*/
@@ -381,7 +402,9 @@ async function searchForTasks(myQuery, myList, table1) {
     myFragment.appendChild(myHolder);
   });
 
-  myTask.appendChild(myFragment);
+  if (myTask) {
+    myTask.appendChild(myFragment);
+  }
 }
 
 const mush = query(collection(db, "tasks"), where("dept", "==", "MUSH"));
@@ -498,12 +521,18 @@ xList.forEach(function(task) {
   xFragment.appendChild(myHolder);
 });
 
-xTask.appendChild(xFragment);
+if (xTask) {
+  xTask.appendChild(xFragment);
+}
 
 
 //Delete extra task function
+/*var thisID;
+
 const delBtn = document.getElementById("del");
-const thisID = document.getElementById("id-holder").textContent;
+if(document.getElementById("id-holder")) {
+  thisID = document.getElementById("id-holder").textContent;
+}
 
 async function deleteXTask(id) {
   console.log(id);
@@ -511,7 +540,7 @@ async function deleteXTask(id) {
 
 if (delBtn) {
   delBtn.addEventListener("click", deleteXTask(thisID));
-}
+}*/
 
 
 
@@ -746,6 +775,204 @@ if(editBtn) {
   editBtn.addEventListener("click", submitEdits);
 }
 
+
+
+//Master Cleaning Log
+const cleanForm = document.getElementById("clean-form")
+const cleanFormSubmit = document.getElementById("clean-form-submit")
+
+async function chooseArea() {
+  const cleanDateMM = cleanForm.cleanDateMM.value;
+  const cleanDateDD = cleanForm.cleanDateDD.value;
+  const cleanDateYYYY = cleanForm.cleanDateYYYY.value;
+
+  const dateArray = checkDate(cleanDateMM, cleanDateDD, cleanDateYYYY);
+  const cleanDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+  const dayIndex = cleanDate.getDay();
+  const dayofWeek = weekday[dayIndex];
+
+  var areaName;
+
+  const areas = document.getElementsByClassName("area");
+  for (let i = 0; i < areas.length; i++) {
+    var elem = areas[i];
+    var style = window.getComputedStyle(elem);
+    var color = style.backgroundColor;
+    if (color == "rgb(123, 193, 67)") {
+      const text = areas[i].textContent.trim();
+      const output = text.replace(
+      /(\w)(\w*)/g,
+      (_, firstChar, rest) => firstChar + rest.toLowerCase()
+      );
+      areaName = "Clean " + output;
+    }
+    else {}
+  }
+
+  const cleanDoc = query(collection(db, "tasks"), where("task", "==", areaName), where(dayofWeek, "==", "X"));
+  var docID;
+
+  try {
+    const cleanSnapshot = await getDocs(cleanDoc);
+    cleanSnapshot.forEach((doc) => {
+      docID = doc.id;
+    });
+  }
+  catch(error) {
+    console.log(error);
+  }
+
+  const cleanRef = collection(db, "tasks", docID, "subtasks");
+  var subtaskName;
+  var subtaskList = [];
+  var t = 0;
+
+  try {
+    const subtasks = await getDocs(cleanRef);
+    subtasks.forEach((doc) => {
+      subtaskName = doc.get("task");
+      var subtaskID = "st-" + t;
+      var subtaskInput = "ST" + t;
+      var innerString = "<label><b>" + subtaskName + ": </b></label><br><br><input type='text' name='" + subtaskInput + "' id='" + subtaskID + "' class='entry'>";
+      console.log(innerString);
+      subtaskList.push(innerString);
+      t ++;
+    });
+  }
+  catch(error) {
+    console.log(error);
+  }
+
+  const subtaskDisplay = document.getElementById("subtask-list");
+  const subtaskFragment = document.createDocumentFragment();
+
+  for(let i = 0; i < subtaskList.length; i++) {
+    const subtaskHolder = document.createElement("div");
+    subtaskHolder.className = "subtask-row";
+    subtaskHolder.innerHTML = subtaskList[i];
+    subtaskFragment.appendChild(subtaskHolder);
+  }
+
+  subtaskDisplay.appendChild(subtaskFragment);
+
+  const subtaskTitle = document.getElementById("subtask");
+  subtaskTitle.textContent = areaName;
+
+
+  const subtaskPopUp = document.getElementById("subtask-pop-up");
+  subtaskPopUp.style.display = "Flex";
+}
+
+function checkDate(dateMM, dateDD, dateYYYY) {
+  const having31 = [1, 3, 5, 7, 8, 10, 12];
+  const having30 = [4, 6, 9, 11];
+  const leapYears = [2000, 2004, 2008, 2012, 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096, 2100];
+  var dateList = [];
+  var alert;
+
+  if (dateMM != "" && dateDD != "" && dateYYYY != "") {
+    if((dateMM.length == 2 || dateMM.length == 1) && checkIfStringHasOnlyDigits(dateMM) == true) {
+      if(parseInt(dateMM) <= 12){
+        if((dateDD.length == 2 || dateDD.length == 1) && checkIfStringHasOnlyDigits(dateDD) == true) {
+          if(having31.includes(parseInt(dateMM))){
+            if(parseInt(dateDD) <= 31) {
+              if(dateYYYY.length == 4 && checkIfStringHasOnlyDigits(dateYYYY) == true) {
+                dateList = [dateYYYY, dateMM, dateDD];
+                return dateList;
+              }
+              else {
+                alert = "Please enter an appropriate year value.";
+                return alert;
+              }
+            }
+            else {
+              alert = "Please enter an appropriate day value.";
+              return alert;
+            }
+          }
+          else if(having30.includes(parseInt(dateMM))){
+            if(parseInt(dateDD) <= 30) {
+              console.log("day is real");
+              if(dateYYYY.length == 4 && checkIfStringHasOnlyDigits(dateYYYY) == true) {
+                console.log("year is real");
+                dateList = [dateYYYY, dateMM, dateDD];
+                return dateList;
+              }
+              else {
+                alert = "Please enter an appropriate year value.";
+                return alert;
+              }
+            }
+            else {
+              alert = "Please enter an appropriate day value.";
+              return alert;
+            }
+          }
+          else {
+            if(parseInt(dateDD) <= 28) {
+              console.log("day is real");
+              if(dateYYYY.length == 4 && checkIfStringHasOnlyDigits(dateYYYY) == true) {
+                console.log("year is real");
+                dateList = [dateYYYY, dateMM, dateDD];
+                return dateList;
+              }
+              else {
+                alert = "Please enter an appropriate year value.";
+                return alert;
+              }
+            }
+            else if(parseInt(dateDD) == 29) {
+              if(leapYears.includes(parseInt(dateYYYY))){
+                console.log("year is real");
+                dateList = [dateYYYY, dateMM, dateDD];
+                return dateList;
+              }
+              else {
+                alert = "Please enter an appropriate day value.";
+                return alert;
+              }
+            }
+            else {
+              alert = "Please enter an appropriate day value.";
+              return alert;
+            }
+          }
+        }
+        else {
+          alert = "Please enter an appropriate day value.";
+          return alert;
+        }
+      }
+      else {
+        alert = "Please enter an appropriate month value.";
+        return alert;
+      }
+    }
+    else {
+      alert = "Please enter an appropriate month value.";
+      return alert;
+    }
+  }
+  else {
+    alert = "Please enter the date.";
+    return alert;
+  }
+}
+
+if(cleanFormSubmit) {
+  cleanFormSubmit.addEventListener("click", chooseArea);
+}
+
+
+
+function checkIfStringHasOnlyDigits(_string) {
+  for (let i = _string.length - 1; i >= 0; i--) {
+    const codeValue = _string.charCodeAt(i);
+    if (codeValue < 48 || codeValue > 57) 
+    return false
+  }
+  return true
+}
 
 //Update employee working times
 /*const employeeIDList = [];

@@ -158,7 +158,7 @@
         <input type="text" name="sauInit" id="sau-init" class="entry">
         <br><br>
         <button type="button" id="sau-form-submit">SUBMIT FORM</button>
-        <button type="button" class="cancel">CANCEL</button>
+        <button type="button" class="cancel" onclick="cancel('sau-log-pop-up')">CANCEL</button>
       </form>
       </div>
     </div>
@@ -193,7 +193,7 @@
         <input type="text" name="maintInit" id="maint-init" class="entry">
         <br><br>
         <button type="button" id="maint-form-submit">SUBMIT FORM</button>
-        <button type="button" class="cancel">CANCEL</button>
+        <button type="button" class="cancel" onclick="cancel('maintenance-log-pop-up')">CANCEL</button>
       </form>
       </div>
     </div>
@@ -237,7 +237,7 @@
           <input type="text" name="ngcoInvoiced" id="ngco-invoiced" class="entry">
           <br><br>
           <button type="button" id="ngco-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('ngco-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -274,7 +274,7 @@
           <input type="text" name="inputsInit" id="inputs-init" class="entry">
           <br><br>
           <button type="button" id="inputs-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('inputs-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -515,7 +515,7 @@
           <br><br>
           <button type="button" id="dvi-form-submit">SUBMIT FORM</button>
           <button type="button" id="dvi-form-save">SAVE PROGRESS</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('dvi-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -565,7 +565,7 @@
           <input type="text" name="chaInit" id="cha-init" class="entry">
           <br><br>
           <button type="button" id="cha-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('cha-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -620,7 +620,7 @@
           <input type="text" name="ciNotes" id="ci-notes" class="entry">
           <br><br>
           <button type="button" id="ci-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('ci-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -710,7 +710,7 @@
           <input type="text" name="waInit" id="wa-init" class="entry">
           <br><br>
           <button type="button" id="wa-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('wa-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -782,7 +782,7 @@
           </div>
           <br>
           <button type="button" id="clean-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('clean-log-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -796,7 +796,7 @@
           <div id="subtask-list"></div>
           <br><br>
           <button type="button" id="subtask-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('subtask-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -864,7 +864,7 @@
           <input type="text" name="preharvInit" id="preharv-init" class="entry">
           <br><br>
           <button type="button" id="preharv-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('pre-harv-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -896,7 +896,7 @@
           <input type="text" name="postpackInit" id="postpack-init" class="entry">
           <br><br>
           <button type="button" id="postpack-form-submit">SUBMIT FORM</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('postpack-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -1006,7 +1006,7 @@
           </table>
           <br>
           <button type="button" id="x-prod-form-submit">SAVE VALUES</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('x-prod-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -1149,7 +1149,7 @@
           </table>
           <br>
           <button type="button" id="neg-prod-form-submit">SAVE VALUES</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('neg-prod-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -1206,7 +1206,7 @@
           </table>
           <br>
           <button type="button" id="unpacked-form-submit">SAVE VALUES</button>
-          <button type="button" class="cancel">CANCEL</button>
+          <button type="button" class="cancel" onclick="cancel('unpacked-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>
@@ -1284,6 +1284,11 @@
         document.getElementById("complete-message").innerHTML = task + " IS COMPLETE?";
         var popup = document.getElementById("completed-pop-up");
         popup.style.display = "flex";
+    }
+
+    function cancel(id) {
+      const toClose = document.getElementById(id);
+      toClose.style.display = "none";
     }
 
     function save(id) {

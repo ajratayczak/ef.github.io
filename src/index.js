@@ -157,7 +157,7 @@ const todayFinish = capitalizedToday + "-finish";
 var todayEmpName;
 const todayStaffHolder = document.getElementById("today-staff-holder");
 var w = 0;
-var checkBoxDisplay;
+var checkBoxDisplay = "";
 
 const todaysEmployees = query(collection(db, "employees"), orderBy(todayStart));
 
@@ -165,12 +165,17 @@ try{
   const todayEmpSnapshot = await getDocs(todaysEmployees);
   todayEmpSnapshot.forEach((doc) => {
     todayEmpName = doc.get("name"); 
-    checkBoxDisplay += "<input type='checkbox' id='cb"+w+"' name='checkBox"+w+"' value='"+todayEmpName+"'><label for='checkBox"+w+"'> "+todayEmpName+"</label>";
+    console.log(todayEmpName);
+    checkBoxDisplay += "<div class='checkbox-holder'><input type='checkbox' id='cb"+w+"' name='checkBox"+w+"' value='"+todayEmpName+"'><label class='checkbox-label' for='checkBox"+w+"'> "+todayEmpName+"</label></div>";
     w ++;
   });
 }
 catch(error) {
   console.log(error);
+}
+
+for(let i = w+1; i<w+5; i++) {
+  checkBoxDisplay += "<div class='checkbox-holder'><input type='checkbox' id='cb"+i+"' name='checkBox"+i+"' value='empty'><label class='checkbox-label' for='checkBox"+i+"'><input type='text' id='emp-input"+i+"' name='empInput"+i+"' class='emp-entry'></label></div>"
 }
 
 if(todayStaffHolder) {
@@ -186,9 +191,8 @@ if(todayStaffHolder) {
     toGive.addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
         const myValue = toGive.value;
-        alert(myValue);
       } else {
-        alert('not checked');
+        //insert here
       }
     });
   }

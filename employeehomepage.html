@@ -721,12 +721,17 @@
       <div id="clean-form-holder">
         <form id="clean-form">
           <br>
-          <label><b>DATE: </b></label>
-          <input type="text" name="cleanDateMM" id="clean-date-mm" class="mm">
-          <label class="slash">/</label>
-          <input type="text" name="cleanDateDD" id="clean-date-dd" class="dd">
-          <label class="slash">/</label>
-          <input type="text" name="cleanDateYYYY" id="clean-date-yyyy" class="yyyy">
+          <div id="clean-date-holder">
+            <p><b>DATE: </b></p>
+            <p id="clean-date-mm"></p>
+            <p class="slash">/</p>
+            <p id="clean-date-dd"></p>
+            <p class="slash">/</p>
+            <p id="clean-date-yyyy"></p>
+            <div id="clean-date-edit">EDIT</div>
+            <div id="clean-date-submit">SUBMIT</div>
+            <div id="clean-date-cancel">CANCEL</div>
+          </div>
           <br><br>
           <label><b>SELECT AN AREA</b></label>
           <br>
@@ -735,7 +740,7 @@
               <b>FRONT ENTRYWAY</b>
             </div>
             <div class="area" id="front-bath" onclick="highlightOneofMany('front-bath')">
-              <b>FRONT BATHROOM</b>
+              <b>FRONT BATHROOMS</b>
             </div>
             <div class="area" id="office" onclick="highlightOneofMany('office')">
               <b>OFFICE AREA</b>
@@ -863,8 +868,55 @@
           <label><b>STAFF INITIALS: </b></label>
           <input type="text" name="preharvInit" id="preharv-init" class="entry">
           <br><br>
-          <button type="button" id="preharv-form-submit">SUBMIT FORM</button>
+          <button type="button" id="preharv-form-submit">NEXT</button>
           <button type="button" class="cancel" onclick="cancel('pre-harv-pop-up')">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="harv-report-pop-up">
+      <h2 class="log-name" id="harv-report">HARVEST REPORT</h2>
+      <div class="date-holder">
+        <p id="harv-date-mm">MM</p>
+        <p class="slash">/</p>
+        <p id="harv-date-dd">DD</p>
+        <p class="slash">/</p>
+        <p id="harv-date-yyyy">YYYY</p>
+      </div>
+      <div id="harv-report-form-holder">
+        <form id="harv-report-form">
+          <div id="harv-summary-holder">
+            <h4 id="harv-summary">HARVEST SUMMARY</h4>
+          </div>
+          <br><br>
+          <label><b>CROP: </b></label>
+          <select id="crop-selector">
+            <option value="nothing">SELECT</option>
+            <option value="basil"><b>BASIL</b></option>
+            <option value="parsley"><b>PARSLEY</b></option>
+            <option value="tarragon"><b>TARRAGON</b></option>
+          </select>
+          <br><br>
+          <label><b>LOCATION: </b></label>
+          <br><br>
+          <label><b>YIELD: </b></label>
+          <input type="text" name="harvReportYield" id="harv-report-yield" class="entry">
+          <label><b>lbs</b></label>
+          <br><br>
+          <label id="holder-display"><b>HOLDERS: </b></label>
+          <input type="text" name="harvReportHolders" id="harv-report-holders" class="entry">
+          <br><br>
+          <div id="run-level-holder">
+            <label id="run-slash-level"><b>RUN/LEVEL FINISHED? </b></label>
+            <div class="med-yn" id="rsl-y" onclick="highlight('rsl-y', 'rsl-n')">YES</div>
+            <div class="med-yn" id="rsl-n" onclick="highlight('rsl-n', 'rsl-y')">NO</div>
+          </div>
+          <br><br>
+          <label><b>STAFF: </b></label>
+          <div id="today-staff-holder"></div>
+          <br><br>
+          <label><b>NOTES: </b></label>
         </form>
       </div>
     </div>
@@ -1207,6 +1259,84 @@
           <br>
           <button type="button" id="unpacked-form-submit">SAVE VALUES</button>
           <button type="button" class="cancel" onclick="cancel('unpacked-pop-up')">CANCEL</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="prepack-pop-up">
+      <h2 class="log-name" id="prepack">PRE-PACKAGING CHECKLIST</h2>
+      <div id="prepack-form-holder">
+        <form id="prepack-form">
+          <br>
+          <label><b>DATE: </b></label>
+          <input type="text" name="prepackDateMM" id="prepack-date-mm" class="mm">
+          <label class="slash">/</label>
+          <input type="text" name="prepackDateDD" id="prepack-date-dd" class="dd">
+          <label class="slash">/</label>
+          <input type="text" name="prepackDateYYYY" id="prepack-date-yyyy" class="yyyy">
+          <br>
+          <div class="mini-row">
+            <p id="pp1">FOOD CONTACT SURFACES AND MACHINES FREE OF FOREIGN MATERIAL (GLASS, METAL, OR OTHER DEBRIS)? </p>
+            <div class="small-yn" id="pp1y" onclick="highlight('pp1y', 'pp1n')">YES</div>
+            <div class="small-yn" id="pp1n" onclick="highlight('pp1n', 'pp1y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp2">TABLES AND UNDERSHELVES CLEANED AND SANITIZED? </p>
+            <div class="small-yn" id="pp2y" onclick="highlight('pp2y', 'pp2n')">YES</div>
+            <div class="small-yn" id="pp2n" onclick="highlight('pp2n', 'pp2y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp3">CONVEYORS CLEANED AND SANITIZED? </p>
+            <div class="small-yn" id="pp3y" onclick="highlight('pp3y', 'pp3n')">YES</div>
+            <div class="small-yn" id="pp3n" onclick="highlight('pp3n', 'pp3y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp4">SCALES CLEANED AND SANITIZED? </p>
+            <div class="small-yn" id="pp4y" onclick="highlight('pp4y', 'pp4n')">YES</div>
+            <div class="small-yn" id="pp4n" onclick="highlight('pp4n', 'pp4y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp5">SNIPS CLEANED AND SANITIZED (IF APPLICABLE)? </p>
+            <div class="small-yn" id="pp5y" onclick="highlight('pp5y', 'pp5n')">YES</div>
+            <div class="small-yn" id="pp5n" onclick="highlight('pp5n', 'pp5y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp6">PACKAGING CARTS ARE IN OPERABLE CONDITION AND HAVE BEEN CLEANED AND SANITIZED? </p>
+            <div class="small-yn" id="pp6y" onclick="highlight('pp6y', 'pp6n')">YES</div>
+            <div class="small-yn" id="pp6n" onclick="highlight('pp6n', 'pp6y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp7">YELLOW PACKING BINS WERE PROPERLY STORED AFTER CLEANING/USE? </p>
+            <div class="small-yn" id="pp7y" onclick="highlight('pp7y', 'pp7n')">YES</div>
+            <div class="small-yn" id="pp7n" onclick="highlight('pp7n', 'pp7y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp8">GREEN PACKAGING BINS WERE PROPERLY STORED AFTER CLEANING/USE? </p>
+            <div class="small-yn" id="pp8y" onclick="highlight('pp8y', 'pp8n')">YES</div>
+            <div class="small-yn" id="pp8n" onclick="highlight('pp8n', 'pp8y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp9">CONVEYORS, LABEL MACHINES, SCALES, AND TABLES ARE IN GOOD, OPERABLE CONDITION? </p>
+            <div class="small-yn" id="pp9y" onclick="highlight('pp9y', 'pp9n')">YES</div>
+            <div class="small-yn" id="pp9n" onclick="highlight('pp9n', 'pp9y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp10">PRODUCT CLAMSHELLS AND TILLS ARE DIVIDED OUT AND DISTRIBUTED? </p>
+            <div class="small-yn" id="pp10y" onclick="highlight('pp10y', 'pp10n')">YES</div>
+            <div class="small-yn" id="pp10n" onclick="highlight('pp10n', 'pp10y')">NO</div>
+          </div>
+          <div class="mini-row">
+            <p id="pp11">PACKAGING AND COLD STORAGE AREAS ARE CLEAN AND ORDERLY? </p>
+            <div class="small-yn" id="pp11y" onclick="highlight('pp11y', 'pp11n')">YES</div>
+            <div class="small-yn" id="pp11n" onclick="highlight('pp11n', 'pp11y')">NO</div>
+          </div>
+          <br>
+          <label><b>STAFF INITIALS: </b></label>
+          <input type="text" name="prepackInit" id="prepack-init" class="entry">
+          <br><br>
+          <button type="button" id="prepack-form-submit">SUBMIT FORM</button>
+          <button type="button" class="cancel" onclick="cancel('prepack-pop-up')">CANCEL</button>
         </form>
       </div>
     </div>

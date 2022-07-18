@@ -142,13 +142,132 @@ taskList.forEach(function(task) {
 
 holder.appendChild(fragment);*/
 
-/*Staff Duties Tab*/
+//Query employees collection for employees working today
 const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 
+//Uses a date object to find what day it is today
 const d = new Date();
 let today = weekday[d.getDay()];
+
+const capitalizedToday = capitalizeFirstLetter(today);
+
+const todayStart = capitalizedToday + "-start";
+const todayFinish = capitalizedToday + "-finish";
+
+var todayEmpName;
+const todayStaffHolder = document.getElementById("today-staff-holder");
+var w = 0;
+var checkBoxDisplay;
+
+const todaysEmployees = query(collection(db, "employees"), orderBy(todayStart));
+
+try{
+  const todayEmpSnapshot = await getDocs(todaysEmployees);
+  todayEmpSnapshot.forEach((doc) => {
+    todayEmpName = doc.get("name"); 
+    checkBoxDisplay += "<input type='checkbox' id='cb"+w+"' name='checkBox"+w+"' value='"+todayEmpName+"'><label for='checkBox"+w+"'> "+todayEmpName+"</label>";
+    w ++;
+  });
+}
+catch(error) {
+  console.log(error);
+}
+
+if(todayStaffHolder) {
+  todayStaffHolder.innerHTML = checkBoxDisplay;
+
+  for(let i=0; i<w; i++) {
+    var myID = "cb"+i;
+    giveValue(myID);
+  }
+
+  function giveValue(id) {
+    var toGive = document.getElementById(id);
+    toGive.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        const myValue = toGive.value;
+        alert(myValue);
+      } else {
+        alert('not checked');
+      }
+    });
+  }
+
+  console.log(w);
+}
+
+function highlight(id, id2) {
+  var elem = document.getElementById(id);
+  var style = window.getComputedStyle(elem);
+  var color = style.backgroundColor;
+  if (color == "rgb(123, 193, 67)") {
+    document.getElementById(id).style.backgroundColor = "rgb(247, 248, 243)";
+    document.getElementById(id2).style.backgroundColor = "rgb(123, 193, 67)";
+  }
+  else if (color == "rgb(247, 248, 243)") {
+    document.getElementById(id).style.backgroundColor = "rgb(123, 193, 67)";
+    document.getElementById(id2).style.backgroundColor = "rgb(247, 248, 243)";
+  }
+}
+
+var cropHolder;
+const holderDisplay = document.getElementById("holder-display");
+const runLevelHolder = document.getElementById("run-level-holder");
+const rslYHolder = document.getElementById("rsl-y");
+const rslNHolder = document.getElementById("rsl-n");
+
+const rslYN = "<div class='med-yn' id='rsl-y'>YES</div><div class='med-yn' id='rsl-n'>NO</div>";
+
+const cropSelector = document.getElementById("crop-selector");
+if(cropSelector) {
+  cropSelector.addEventListener(
+    'change',
+    async function() {
+      var option = cropSelector.value;
+      console.log(option);
+      var transplantedCrops;
+
+      if(option == "nothing") {
+        holderDisplay.textContent = "holders: "
+        runLevelHolder.innerHTML = "<label id='run-slash-level'><b>RUN/LEVEL FINISHED? </b></label>" + rslYN;
+        rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
+        rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+      }
+      else {
+        transplantedCrops = query(collection(db, "crops"), where("crop", "==", option));
+      }
+
+      try {
+        const cropSnapshot = await getDocs(transplantedCrops);
+        cropSnapshot.forEach((doc) => {
+          cropHolder = doc.get("holder");
+          cropHolder += "s: ";
+          if(cropHolder == "trays: ") {
+            runLevelHolder.innerHTML = "<label id='run-slash-level'><b>RUN FINISHED? </b></label>" + rslYN;
+            rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
+            rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+          }
+          else {
+            runLevelHolder.innerHTML = "<label id='run-slash-level'><b>LEVEL FINISHED? </b></label>"+rslYN+"<br><br><label><b>LEVEL: </b></label>";
+            rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
+            rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+          }
+          holderDisplay.textContent = cropHolder;
+        });
+      }
+      catch(error) {
+        console.log(error);
+      }
+    },
+    false
+  );
+}
+
+/*Staff Duties Tab*/
+
 var tomorrow;
 
+//Calculates the next day of the work week
 if (today == "friday") {
   tomorrow = weekday[1];
 }
@@ -159,11 +278,13 @@ else {
   tomorrow = weekday[d.getDay() + 1];
 }
 
+//Displays the next day of the work week
 const tomorrowDisplay = document.getElementById("tomorrows-tasks");
 if (tomorrowDisplay) {
   tomorrowDisplay.textContent = tomorrow + "'S TASKS";
 }
 
+//Builds weekday fields to match those in the employee documents
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -173,9 +294,11 @@ const capitalizedTomorrow = capitalizeFirstLetter(tomorrow);
 const tomorrowStart = capitalizedTomorrow + "-start";
 const tomorrowFinish = capitalizedTomorrow + "-finish";
 
+//Queries employees collection for employees who work on the next day of the work week
 var tomEmpList = [];
 const tomorrowsEmployees = query(collection(db, "employees"), orderBy(tomorrowStart));
 
+//For each found employee, grabs name and calculates working hours for that day
 try{
   const tomorrowEmpSnapshot = await getDocs(tomorrowsEmployees);
   tomorrowEmpSnapshot.forEach((doc) => {
@@ -193,6 +316,7 @@ catch(error){
   console.log(error);
 }
 
+//Displays employees working "tomorrow" and displays their total working hours
 const tomEmpTable = document.getElementById("staff-names");
 const tomEmpFragment = document.createDocumentFragment();
 
@@ -202,6 +326,7 @@ tomEmpList.forEach(function(emp) {
   const tomEmpHolder = document.createElement("div");
   tomEmpHolder.className = "emp-holder";
   tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p>("+emp[1]+" hours)</p>";
+  //Adds the name of every working employee to list for option tag creation
   empNameList.push(emp[0]);
   tomEmpFragment.appendChild(tomEmpHolder);
 });
@@ -210,52 +335,82 @@ if (tomEmpTable) {
   tomEmpTable.appendChild(tomEmpFragment);
 }
 
+//For each employee working "tomorrow", adds an option tag to a list
 var empOption;
 var selectList = [];
 
+var selectString1;
+
 for(let i=0; i < empNameList.length; i++) {
-  empOption = "<option value='emp" + i + "'>" + empNameList[i] + "</option>";
-  selectList.push(empOption);
+  empOption = "<option value='" + empNameList[i] + "'>" + empNameList[i] + "</option>";
+  selectString1 += empOption;
 }
 
-var x = 0;
-var selectString1;
-var selectString2;
+selectString1 += "</select>";
 
+//Queries db for tasks that occur "tomorrow"
 var tomTaskList = [];
 
 const tomorrowsTasks = query(collection(db, "tasks"), where(tomorrow, "==", "X"), orderBy("time", "desc"));
 
+//For each found task, grabs task name, number of staff required, and time per employee
 try{
   const tomorrowTaskSnapshot = await getDocs(tomorrowsTasks);
   tomorrowTaskSnapshot.forEach((doc) => {
     var innerList = [];
     const tomTask = doc.get("task");
-    innerList.push(tomTask);
     const tomStaff = doc.get("staff");
-    innerList.push(tomStaff);
     const tomTime = doc.get("time");
-    innerList.push(tomTime);
-    tomTaskList.push(innerList);
-    innerList = [];
+    if(tomTime == "undefined") {
+
+    }
+    else {
+    for(let i=0; i<tomStaff; i++) {
+      innerList.push(tomTask);
+      innerList.push(tomTime);
+      tomTaskList.push(innerList);
+      innerList = [];
+    }
+    }
   });
 }
 catch(error){
   console.log(error);
 }
 
+//Displays found tasks and related information on Supervisor Homepage
 const tomTable = document.getElementById("staff-task-table");
 const tomFragment = document.createDocumentFragment();
+var x = 0;
 
 tomTaskList.forEach(function(task) {
   const tomHolder = document.createElement("div");
   tomHolder.className = "staff-task-row";
-  tomHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><p>"+task[2]+"</p><p></p>";
+  //Builds row including task name, staff number, and time per employee plus room for select element div
+  tomHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><select id='select"+x+"'>"+selectString1;
   tomFragment.appendChild(tomHolder);
+  x ++;
 });
 
 if (tomTable) {
   tomTable.appendChild(tomFragment);
+}
+
+const refreshBtn = document.getElementById("refresh-button");
+
+if(refreshBtn) {
+  refreshBtn.addEventListener("click", refreshMe);
+}
+
+function refreshMe() {
+  for(i=0; i<x; i++) {
+    var selectID = "select" + i;
+    var selected = document.getElementById(selectID);
+    if(selected) {
+      var empValue = selected.value;
+      console.log(empValue);
+    }
+  }
 }
 
 
@@ -781,15 +936,60 @@ if(editBtn) {
 const cleanForm = document.getElementById("clean-form")
 const cleanFormSubmit = document.getElementById("clean-form-submit")
 
-async function chooseArea() {
-  const cleanDateMM = cleanForm.cleanDateMM.value;
-  const cleanDateDD = cleanForm.cleanDateDD.value;
-  const cleanDateYYYY = cleanForm.cleanDateYYYY.value;
+const cleanDateMM = document.getElementById("clean-date-mm");
+const cleanDateDD = document.getElementById("clean-date-dd");
+const cleanDateYYYY = document.getElementById("clean-date-yyyy");
 
-  const dateArray = checkDate(cleanDateMM, cleanDateDD, cleanDateYYYY);
-  const cleanDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+var cleanDate = new Date();
+
+var cleanMM = cleanDate.getMonth();
+cleanMM = cleanMM + 1;
+var cleanDD = cleanDate.getDate();
+var cleanYYYY = cleanDate.getFullYear();
+
+if(cleanDateMM) {
+  cleanDateMM.innerHTML = cleanMM;
+}
+if(cleanDateDD) {
+  cleanDateDD.innerHTML = cleanDD;
+}
+if(cleanDateYYYY) {
+  cleanDateYYYY.innerHTML = cleanYYYY;
+}
+
+const changeCleanDateBtn = document.getElementById("clean-date-edit");
+const submitCleanDateBtn = document.getElementById("clean-date-submit");
+
+function changeCleanDate() {
+  cleanDateMM.innerHTML = "<input type='text' name='cleanDateMM' class='mm'>"
+  cleanDateDD.innerHTML = "<input type='text' name='cleanDateMM' class='mm'>"
+  cleanDateYYYY.innerHTML = "<input type='text' name='cleanDateYYYY' class='yyyy'>"
+};
+
+function submitCleanDate() {
+  const newCleanDateMM = cleanForm.cleanDateMM.value;
+  const newCleanDateDD = cleanForm.cleanDateDD.value;
+  const newCleanDateYYYY = cleanForm.cleanDateYYYY.value;
+
+  const dateArray = checkDate(newCleanDateMM, newCleanDateDD, newCleanDateYYYY);
+  cleanDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+
+  alert("Date submitted!");
+}
+
+if(changeCleanDateBtn) {
+  changeCleanDateBtn.addEventListener("click", changeCleanDate);
+}
+
+if(submitCleanDateBtn) {
+  submitCleanDateBtn.addEventListener("click", submitCleanDate);
+}
+
+async function chooseArea() {
   const dayIndex = cleanDate.getDay();
   const dayofWeek = weekday[dayIndex];
+
+  console.log(dayofWeek);
 
   var areaName;
 
@@ -834,7 +1034,6 @@ async function chooseArea() {
       var subtaskID = "st-" + t;
       var subtaskInput = "ST" + t;
       var innerString = "<label><b>" + subtaskName + ": </b></label><br><br><input type='text' name='" + subtaskInput + "' id='" + subtaskID + "' class='entry'>";
-      console.log(innerString);
       subtaskList.push(innerString);
       t ++;
     });
@@ -974,6 +1173,7 @@ function checkIfStringHasOnlyDigits(_string) {
   return true
 }
 
+
 //Update employee working times
 /*const employeeIDList = [];
 
@@ -1077,36 +1277,6 @@ async function convertTimes(start, finish, field1, field2, empRef) {
 
   }
 }*/
-
-/*const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", ">=", "11:00 AM"));
-
-const todaysEmployeeList = [];
-
-try {
-  const todayEmployeeSnapshot = await getDocs(todaysEmployees);
-  todayEmployeeSnapshot.forEach((doc) => {
-    const start = doc.get(capitalizedToday+"-start");
-    todaysEmployeeList.push(start);
-  });
-}
-catch(error) {
-  console.log(error);
-}
-
-console.log(todaysEmployeeList);*/
-
-/*if (pm == false) {
-  const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", "<=", currentTime));
-}
-else {
-  if(currentTime == "12:00 PM") {
-    const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start", ""))
-  }
-  else {
-    const todaysEmployees = query(collection(db, "employees"), where(capitalizedToday+"-start"))
-  }
-}*/
-
 
 //Convert task times and totals
 /*const taskIDList = [];

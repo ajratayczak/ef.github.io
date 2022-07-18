@@ -49,7 +49,7 @@ nav {
 .tab {
     background-color: #F7F8F3;
     width: 12vh;
-    height: 6vh;
+    height: 7vh;
     position: fixed;
     text-align: center;
     border-top-left-radius: 25px;
@@ -60,31 +60,26 @@ nav {
 
 #t1 {
     left: 5px;
-    height: 6vh;
     padding-bottom: 15px;
 }
 
 #t2 {
     left: 95px;
-    height: 6vh;
     padding-top: 15px;
 }
 
 #t3 {
     left: 185px;
-    height: 6vh;
     padding-top: 15px;
 }
 
 #t4 {
     left: 275px;
-    height: 6vh;
     padding-bottom: 15px;
 }
 
 #t5 {
     left: 365px;
-    height: 6vh;
     padding-top: 15px;
 }
 
@@ -242,7 +237,7 @@ p {
 #home {
     position: fixed;
     width: 100%;
-    top: 25vh;
+    top: 23vh;
     left: 0px;
     background-color: #F7F8F3;
     z-index: 1;
@@ -646,7 +641,7 @@ h2 {
     flex-direction: column;
     text-align: center;
     width: 500px;
-    height: 450px;
+    height: 500px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -662,7 +657,7 @@ h2 {
     flex-direction: column;
     text-align: center;
     width: 500px;
-    height: 450px;
+    height: 500px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -688,8 +683,24 @@ h2 {
     background-color: #F7F8F3;
 }
 
-#postpack-pop-up {
+#harv-report-pop-up {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 550px;
+    height: 650px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    position: fixed;
+    border: 2px solid;
+    background-color: #F7F8F3;
+}
+
+#postpack-pop-up {
+    display: none;
     justify-content: center;
     flex-direction: column;
     text-align: center;
@@ -747,6 +758,22 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 5;
+    position: fixed;
+    border: 2px solid;
+    background-color: #F7F8F3;
+}
+
+#prepack-pop-up {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 550px;
+    height: 675px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
     position: fixed;
     border: 2px solid;
     background-color: #F7F8F3;
@@ -982,7 +1009,7 @@ h2 {
 }
 
 #preharv-form-submit {
-    width: 10vw;
+    width: 6vw;
     padding: 7px;
     border: none;
     border-radius: 5px;
@@ -1038,6 +1065,20 @@ h2 {
 }
 
 #unpacked-form-submit {
+    width: 10vw;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: #3a3a3a;
+    cursor: pointer;
+    outline: none;
+    margin: auto auto auto auto;
+    margin-bottom: 20px;
+}
+
+#prepack-form-submit {
     width: 10vw;
     padding: 7px;
     border: none;
@@ -1554,7 +1595,7 @@ h2 {
 
 #staff-label-row {
     display: grid;
-    grid-template-columns: 35% 10% 10% 45%;
+    grid-template-columns: 31% 16% 53%;
     width: 98%;
     padding-left: 10px;
     position: relative;
@@ -1564,7 +1605,7 @@ h2 {
 
 .staff-task-row {
     display: grid;
-    grid-template-columns: 35% 10% 10% 45%;
+    grid-template-columns: 31% 16% 53%;
     width: 100%;
     position: relative;
     border-bottom: 1px groove;
@@ -1596,9 +1637,14 @@ h2 {
     display: flex;
     flex-direction: row;
     justify-content: left;
+    position: fixed;
+    width: 100%;
+    background-color: #F7F8F3;
+    top: 25vh;
+    left: 0px;
 }
 
-#refresh {
+#refresh-button {
     border: 2px solid;
     margin: 20px;
     padding: 10px;
@@ -1623,6 +1669,21 @@ h2 {
     margin-left: 5px;
     margin-right: 0px;
     background-color: rgb(247, 248, 243);
+    cursor: pointer;
+}
+
+.med-yn {
+    width: 75px;
+    position: relative;
+    display: inline;
+    border: 2px solid;
+    font-weight: bold;
+    margin: auto;
+    padding: 1px;
+    margin-left: 5px;
+    margin-right: 0px;
+    background-color: rgb(247, 248, 243);
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -1709,4 +1770,98 @@ td, th {
   
   tr:nth-child(even) {
     background-color: white;
+  }
+
+  #clean-date-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #clean-date-holder p {
+    display: inline;
+    margin: 2px;
+    font-size: 16px;
+  }
+
+  #clean-date-edit {
+    border: 2px solid;
+    margin: 3px;
+    padding: 1px;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    height: 22px;
+  }
+
+  #clean-date-submit {
+    border: 2px solid;
+    margin: 3px;
+    padding: 1px;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    height: 22px;
+  }
+
+  #clean-date-cancel {
+    border: 2px solid;
+    margin: 3px;
+    padding: 1px;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    height: 22px;
+  }
+
+  .date-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .date-holder p {
+    font-weight: bold;
+    display: inline;
+    margin: 2px;
+    font-size: 16px;
+  }
+
+  #harv-report {
+    margin: 0px auto;
+  }
+
+  #harv-report-form-holder {
+    display: flex;
+    flex-direction: column;
+    align-content: left;
+    justify-content: left;
+    width: 96%;
+    text-align: left;
+    margin-left: 10px;
+  }
+
+  #harv-summary-holder {
+    width: 100%;
+    border-bottom: 2px solid;
+  }
+
+  #harv-summary {
+    border-bottom: 2px solid;
+    width: 28%
+  }
+
+  #stt {
+    position: fixed;
+    top: 38vh;
+  }
+
+  #holder-display {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #run-slash-level {
+    font-weight: bold;
+    text-transform: uppercase;
   }

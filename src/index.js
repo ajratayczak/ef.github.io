@@ -320,19 +320,37 @@ catch(error){
 const tomEmpTable = document.getElementById("staff-names");
 const tomEmpFragment = document.createDocumentFragment();
 
-var empNameList = [];
+var empNameList = ["Select Employee"];
+var empHourList = ["Employee Hours"];
+var q = 0;
 
 tomEmpList.forEach(function(emp) {
   const tomEmpHolder = document.createElement("div");
   tomEmpHolder.className = "emp-holder";
-  tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p>("+emp[1]+" hours)</p>";
+  tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p id='emp-hour-holder-"+q+"'>("+emp[1]+" hours)</p>";
   //Adds the name of every working employee to list for option tag creation
   empNameList.push(emp[0]);
   tomEmpFragment.appendChild(tomEmpHolder);
+  q ++;
 });
 
 if (tomEmpTable) {
   tomEmpTable.appendChild(tomEmpFragment);
+}
+
+for(let i=0; i<q; i++) {
+  var empHourHolderID = "emp-hour-holder-" + i;
+  var empHourHolder = document.getElementById(empHourHolderID);
+  if(empHourHolder) {
+    var hoursTotal = empHourHolder.textContent;
+    hoursTotal = hoursTotal.slice(1, -1);
+    hoursTotal = hoursTotal.split(" ");
+    hoursTotal = hoursTotal[0];
+    var innerList = [];
+    innerList.push(hoursTotal);
+    innerList.push(i);
+    empHourList.push(innerList);
+  }
 }
 
 //For each employee working "tomorrow", adds an option tag to a list
@@ -342,7 +360,7 @@ var selectList = [];
 var selectString1;
 
 for(let i=0; i < empNameList.length; i++) {
-  empOption = "<option value='" + empNameList[i] + "'>" + empNameList[i] + "</option>";
+  empOption = "<option value='" + empHourList[i] + "'>" + empNameList[i] + "</option>";
   selectString1 += empOption;
 }
 
@@ -387,7 +405,7 @@ tomTaskList.forEach(function(task) {
   const tomHolder = document.createElement("div");
   tomHolder.className = "staff-task-row";
   //Builds row including task name, staff number, and time per employee plus room for select element div
-  tomHolder.innerHTML = "<p>"+task[0]+"</p><p>"+task[1]+"</p><select id='select"+x+"'>"+selectString1;
+  tomHolder.innerHTML = "<p>"+task[0]+"</p><p id='hour"+x+"'>"+task[1]+"</p><select id='select"+x+"'>"+selectString1;
   tomFragment.appendChild(tomHolder);
   x ++;
 });
@@ -407,8 +425,42 @@ function refreshMe() {
     var selectID = "select" + i;
     var selected = document.getElementById(selectID);
     if(selected) {
-      var empValue = selected.value;
-      console.log(empValue);
+      var empHours = selected.value;
+      var empNames = selected.options[selected.selectedIndex].text;
+    }
+    var hourID = "hour" + i;
+    var hoursNeeded = document.getElementById(hourID);
+    if(hoursNeeded) {
+      var hourValue = hoursNeeded.textContent;
+      hourValue = hourValue.split(":");
+      if(hourValue[1] == "00") {
+        var hoursSpent = hourValue[0];
+        var hr = empHours.split(",");
+        var hrVal = hr[0];
+        var hoursLeft = hrVal - hoursSpent;
+        var idNum = hr[1];
+        var holderIDString = "emp-hour-holder-" + idNum;
+        var holderObj = document.getElementById(holderIDString);
+        if(holderObj) {
+          holderObj.textContent = "(" + hoursLeft + " hours)";
+          console.log(selected.value);
+        }
+      }
+      else {
+        var leftoverMinutes = 60 - hourValue[1];
+        var hoursSpent = hourValue[0];
+        var hr = empHours.split(",");
+        var hrVal = hr[0];
+        var hoursLeft = hrVal - hoursSpent - 1;
+        var hoursLeft = hoursLeft + ":" + leftoverMinutes;
+        var idNum = hr[1];
+        var holderIDString = "emp-hour-holder-" + idNum;
+        var holderObj = document.getElementById(holderIDString);
+        if(holderObj) {
+          holderObj.textContent = "(" + hoursLeft + " hours)";
+          console.log(selected.value);
+        }
+      }
     }
   }
 }

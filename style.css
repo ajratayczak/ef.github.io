@@ -689,7 +689,7 @@ h2 {
     flex-direction: column;
     text-align: center;
     width: 670px;
-    height: 675px;
+    height: 700px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -814,6 +814,8 @@ h2 {
     display: none;
     margin-left: 10%;
     flex-direction: column;
+    justify-content: left;
+    text-align: left;
 }
 
 #or {
@@ -1205,8 +1207,8 @@ h2 {
     flex-direction: row;
     font-size: 12px;
     margin: 0px 10px;
-    justify-content: center;
-    text-align: center;
+    justify-content: left;
+    text-align: left;
 }
 
 #issue-input {
@@ -1827,16 +1829,6 @@ td, th {
     height: 22px;
   }
 
-  #clean-date-cancel {
-    border: 2px solid;
-    margin: 3px;
-    padding: 1px;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bold;
-    height: 22px;
-  }
-
   .date-holder {
     display: flex;
     flex-direction: row;
@@ -1906,4 +1898,8 @@ td, th {
     display: inline-flex;
     align-items: center;
     font-size: 13px;
+  }
+
+  .emp-hour-holders {
+    color: #0C8E26;
   }

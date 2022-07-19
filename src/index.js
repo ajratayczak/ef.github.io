@@ -331,7 +331,7 @@ var q = 0;
 tomEmpList.forEach(function(emp) {
   const tomEmpHolder = document.createElement("div");
   tomEmpHolder.className = "emp-holder";
-  tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p id='emp-hour-holder-"+q+"'>("+emp[1]+" hours)</p>";
+  tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p class='emp-hour-holders' id='emp-hour-holder-"+q+"'>"+emp[1]+" hours</p>";
   //Adds the name of every working employee to list for option tag creation
   empNameList.push(emp[0]);
   tomEmpFragment.appendChild(tomEmpHolder);
@@ -347,7 +347,6 @@ for(let i=0; i<q; i++) {
   var empHourHolder = document.getElementById(empHourHolderID);
   if(empHourHolder) {
     var hoursTotal = empHourHolder.textContent;
-    hoursTotal = hoursTotal.slice(1, -1);
     hoursTotal = hoursTotal.split(" ");
     hoursTotal = hoursTotal[0];
     var innerList = [];
@@ -446,8 +445,20 @@ function refreshMe() {
         var holderIDString = "emp-hour-holder-" + idNum;
         var holderObj = document.getElementById(holderIDString);
         if(holderObj) {
-          holderObj.textContent = "(" + hoursLeft + " hours)";
-          console.log(selected.value);
+          if(hoursLeft == 2) {
+            holderObj.style.color = "#D67C0F";
+            holderObj.textContent = hoursLeft + " hours";
+            console.log(selected.value);
+          }
+          else if(hoursLeft == 1) {
+            holderObj.style.color = "#D60F0F";
+            holderObj.textContent = hoursLeft + " hour";
+            console.log(selected.value);
+          }
+          else {
+            holderObj.textContent = hoursLeft + " hours";
+            console.log(selected.value);
+          }
         }
       }
       else {
@@ -456,13 +467,25 @@ function refreshMe() {
         var hr = empHours.split(",");
         var hrVal = hr[0];
         var hoursLeft = hrVal - hoursSpent - 1;
-        var hoursLeft = hoursLeft + ":" + leftoverMinutes;
+        var timeLeft = hoursLeft + ":" + leftoverMinutes;
         var idNum = hr[1];
         var holderIDString = "emp-hour-holder-" + idNum;
         var holderObj = document.getElementById(holderIDString);
         if(holderObj) {
-          holderObj.textContent = "(" + hoursLeft + " hours)";
-          console.log(selected.value);
+          if(hoursLeft == 1) {
+            holderObj.style.color = "#D67C0F";
+            holderObj.textContent = timeLeft + " hours";
+            console.log(selected.value);
+          }
+          else if(hoursLeft == 0) {
+            holderObj.style.color = "#D60F0F";
+            holderObj.textContent = timeLeft + " minutes";
+            console.log(selected.value);
+          }
+          else {
+            holderObj.textContent = timeLeft + " hours";
+            console.log(selected.value);
+          }
         }
       }
     }
@@ -1017,20 +1040,30 @@ const changeCleanDateBtn = document.getElementById("clean-date-edit");
 const submitCleanDateBtn = document.getElementById("clean-date-submit");
 
 function changeCleanDate() {
-  cleanDateMM.innerHTML = "<input type='text' name='cleanDateMM' class='mm'>"
-  cleanDateDD.innerHTML = "<input type='text' name='cleanDateMM' class='mm'>"
-  cleanDateYYYY.innerHTML = "<input type='text' name='cleanDateYYYY' class='yyyy'>"
+  cleanDateMM.innerHTML = "<input type='text' name='cleanDateMM' id='new-clean-date-mm' class='mm'>"
+  cleanDateDD.innerHTML = "<input type='text' name='cleanDateMM' id='new-clean-date-dd' class='mm'>"
+  cleanDateYYYY.innerHTML = "<input type='text' name='cleanDateYYYY' id='new-clean-date-yyyy' class='yyyy'>"
 };
 
 function submitCleanDate() {
-  const newCleanDateMM = cleanForm.cleanDateMM.value;
-  const newCleanDateDD = cleanForm.cleanDateDD.value;
-  const newCleanDateYYYY = cleanForm.cleanDateYYYY.value;
+  console.log(cleanDateMM);
+  const newCleanDateMM = document.getElementById("new-clean-date-mm").value;
+  const newCleanDateDD = document.getElementById("new-clean-date-dd").value;
+  const newCleanDateYYYY = document.getElementById("new-clean-date-yyyy").value;
 
   const dateArray = checkDate(newCleanDateMM, newCleanDateDD, newCleanDateYYYY);
   cleanDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
 
   alert("Date submitted!");
+  if(cleanDateMM) {
+    cleanDateMM.innerHTML = newCleanDateMM;
+  }
+  if(cleanDateDD) {
+    cleanDateDD.innerHTML = newCleanDateDD;
+  }
+  if(cleanDateYYYY) {
+    cleanDateYYYY.innerHTML = newCleanDateYYYY;
+  }
 }
 
 if(changeCleanDateBtn) {
@@ -1040,6 +1073,39 @@ if(changeCleanDateBtn) {
 if(submitCleanDateBtn) {
   submitCleanDateBtn.addEventListener("click", submitCleanDate);
 }
+
+/*async function grayOut(areaName, dayofWeek) {
+  const dayIndexToCheck = cleanDate.getDay();
+  const dayofWeek = weekday[dayIndexToCheck];
+
+  const areasToCheck = document.getElementsByClassName("area");
+  for (let i = 0; i < areas.length; i++) {
+    var elem = areas[i];
+    var style = window.getComputedStyle(elem);
+    var color = style.backgroundColor;
+    if (color != "rgb(123, 193, 67)") {
+      const text = areas[i].textContent.trim();
+      const output = text.replace(
+      /(\w)(\w*)/g,
+      (_, firstChar, rest) => firstChar + rest.toLowerCase()
+      );
+      areaName = "Clean " + output;
+
+      const toCheck = query(collection(db, "tasks"), where("task", "==", areaName), where(dayofWeek, "!=", "X"));
+
+      try {
+        const toCheckSnapshot = await getDocs(toCheck);
+        toCheckSnapshot.forEach((doc) => {
+          
+        });
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+    else {}
+  }
+}*/
 
 async function chooseArea() {
   const dayIndex = cleanDate.getDay();

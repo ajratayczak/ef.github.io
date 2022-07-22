@@ -55,12 +55,6 @@
           <h2>ASSIGNED TASKS</h2>
         </div>
         <div id="task-list-box">
-          <div class="label">
-            <h4>Placeholder</h4>
-          </div>
-          <div class="label">
-            <h4>Placeholder</h4>
-          </div>
           <div class="label" onclick="hello()">
             <h4>Task 1</h4>
           </div>
@@ -191,6 +185,7 @@
       <div id="refresh-row">
         <div id="staff-names"></div>
         <div id="refresh-button"><b>REFRESH</b></div>
+        <div id="staff-duties-submit"><b>SUBMIT</b></div>
       </div>
       <div class="task-table" id="stt">
         <div id="staff-label-row">
@@ -231,8 +226,6 @@
             <input type="text" name="timeChanger1" id="time-changer-1" class="time-changer">
             <label class="colon">:</label>
             <input type="text" name="timeChanger2" id="time-changer-2" class="time-changer">
-            <label class="colon">:</label>
-            <input type="text" name="timeChanger3" id="time-changer-3" class="time-changer">
           </form>
           <div id="time-changer-sub" class="day" onclick="changeTime('task-time')"><p class="center">CHANGE</p></div>
         </div>
@@ -454,48 +447,24 @@
       const timeChangeForm = document.getElementById("change-time-form");
       var changedTime1 = timeChangeForm.timeChanger1.value;
       var changedTime2 = timeChangeForm.timeChanger2.value;
-      var changedTime3 = timeChangeForm.timeChanger3.value;
       const check1 = checkIfStringHasOnlyDigits(changedTime1);
       const check2 = checkIfStringHasOnlyDigits(changedTime2);
-      const check3 = checkIfStringHasOnlyDigits(changedTime3);
       const realismCheckMin = changedTime2 < 59;
-      const realismCheckSec = changedTime3 < 59;
       const timeDisplay = document.getElementById(id);
-      if (changedTime1 != "" && check1 == true && changedTime2 != "" && check2 == true && realismCheckMin == true && changedTime3 != "" && check3 == true && realismCheckSec == true) {
+      if (changedTime1 != "" && check1 == true && changedTime2 != "" && check2 == true && realismCheckMin == true) {
         if (parseInt(changedTime2) < 10 && changedTime2.length == 1) {
           changedTime2 = "0" + changedTime2;
         }
         else {}
-        if (parseInt(changedTime3) < 10 && changedTime3.length == 1) {
-          changedTime3 = "0" + changedTime3;
-          if (changedTime3 == "00") {
-            timeDisplay.textContent = changedTime1 + ":" + changedTime2;
-            document.getElementById("time-changer-1").value = "";
-            document.getElementById("time-changer-2").value = "";
-            document.getElementById("time-changer-3").value = "";
-            return;
-          }
-          else {}
-        }
-        else if (changedTime3 == "00") {
-          timeDisplay.textContent = changedTime1 + ":" + changedTime2;
-          document.getElementById("time-changer-1").value = "";
-          document.getElementById("time-changer-2").value = "";
-          document.getElementById("time-changer-3").value = "";
-          return;
-        }
-        else {}
-        timeDisplay.textContent = changedTime1 + ":" + changedTime2 + ":" + changedTime3;
+        timeDisplay.textContent = changedTime1 + ":" + changedTime2;
         document.getElementById("time-changer-1").value = "";
         document.getElementById("time-changer-2").value = "";
-        document.getElementById("time-changer-3").value = "";
       }
       else {
         document.getElementById("error-message-holder").style.display = "grid";
         document.getElementById("error-message").style.opacity = 1;
         document.getElementById("time-changer-1").value = "";
         document.getElementById("time-changer-2").value = "";
-        document.getElementById("time-changer-3").value = "";
         await sleep(1000);
         document.getElementById("error-message-holder").style.display = "none";
         document.getElementById("error-message").style.opacity = 0;

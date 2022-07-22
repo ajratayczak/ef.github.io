@@ -325,8 +325,7 @@ p {
 
 #task-list-box {
     display: flex;
-    flex-grow: 1;
-    justify-content: center;
+    margin: auto;
     overflow-y: auto;
     position: fixed;
     top: 275px;
@@ -337,8 +336,7 @@ p {
 
 #emp-task-list-box {
     display: flex;
-    flex-grow: 1;
-    justify-content: center;
+    margin: auto;
     overflow-y: auto;
     position: fixed;
     top: 200px;
@@ -572,11 +570,11 @@ h2 {
 
 #dvi-log-pop-up {
     display: none;
-    justify-content: center;
+    margin: auto;
     flex-direction: column;
     text-align: center;
-    width: 500px;
-    height: 700px;
+    width: 40%;
+    height: 90%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -584,7 +582,7 @@ h2 {
     position: fixed;
     border: 2px solid;
     background-color: #F7F8F3;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #cha-log-pop-up {
@@ -636,7 +634,7 @@ h2 {
 }
 
 #clean-log-pop-up {
-    display: none;
+    display: flex;
     justify-content: center;
     flex-direction: column;
     text-align: center;
@@ -684,7 +682,7 @@ h2 {
 }
 
 #harv-report-pop-up {
-    display: flex;
+    display: none;
     justify-content: center;
     flex-direction: column;
     text-align: center;
@@ -1441,17 +1439,17 @@ h2 {
 
 #edit-sub {
     height: 3vh;
-    padding-top: 1vh;
+    padding-top: 2px;
 }
 
 #edit-del {
     height: 3vh;
-    padding-top: 1vh;
+    padding-top: 2px;
 }
 
 #edit-cancel {
     height: 3vh;
-    padding-top: 1vh;
+    padding-top: 2px;
 }
 
 .gray-word {
@@ -1654,8 +1652,9 @@ h2 {
     display: flex;
     flex-direction: column;
     border: 0px;
-    min-width: 150px;
+    min-width: fit-content;
     margin-top: 20px;
+    margin-left: 20px;
 }
 
 #refresh-row {
@@ -1672,6 +1671,16 @@ h2 {
 #refresh-button {
     border: 2px solid;
     margin: 20px;
+    padding: 10px;
+    line-height: 20px;
+    height: 45px;
+    cursor: pointer;
+}
+
+#staff-duties-submit {
+    border: 2px solid;
+    margin: 20px;
+    margin-left: 0px;
     padding: 10px;
     line-height: 20px;
     height: 45px;
@@ -1732,7 +1741,7 @@ h2 {
     margin-left: 5%;
 }
 
-.four-by-four {
+#four-by-four {
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-template-rows: auto auto auto auto;

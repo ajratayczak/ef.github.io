@@ -142,7 +142,7 @@ taskList.forEach(function(task) {
 
 holder.appendChild(fragment);*/
 
-//Query employees collection for employees working today
+//Harvest Report
 const weekday = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 
 //Uses a date object to find what day it is today
@@ -153,9 +153,9 @@ const capitalizedToday = capitalizeFirstLetter(today);
 
 const todayStart = capitalizedToday + "-start";
 const todayFinish = capitalizedToday + "-finish";
+//Will need to add configuration to check if employee is actually working at current moment
 
 var todayEmpName;
-const todayStaffHolder = document.getElementById("today-staff-holder");
 var w = 0;
 var checkBoxDisplay = "";
 
@@ -164,8 +164,10 @@ const todaysEmployees = query(collection(db, "employees"), orderBy(todayStart));
 try{
   const todayEmpSnapshot = await getDocs(todaysEmployees);
   todayEmpSnapshot.forEach((doc) => {
+    //Get name of each employee working today
     todayEmpName = doc.get("name"); 
-    console.log(todayEmpName);
+    //Create checkbox div for each employee
+    //The value of the checkbox is the employee name
     checkBoxDisplay += "<div class='checkbox-holder'><input type='checkbox' id='cb"+w+"' name='checkBox"+w+"' value='"+todayEmpName+"'><label class='checkbox-label' for='checkBox"+w+"'> "+todayEmpName+"</label></div>";
     w ++;
   });
@@ -174,30 +176,16 @@ catch(error) {
   console.log(error);
 }
 
+//Add four extra input checkbox divs to group of employee checkboxes
 for(let i = w+1; i<w+5; i++) {
   checkBoxDisplay += "<div class='checkbox-holder'><input type='checkbox' id='cb"+i+"' name='checkBox"+i+"' value='empty'><label class='checkbox-label' for='checkBox"+i+"'><input type='text' id='emp-input"+i+"' name='empInput"+i+"' class='emp-entry'></label></div>"
 }
 
+//This is the div that contains all the employee checkbox divs
+const todayStaffHolder = document.getElementById("today-staff-holder");
+
 if(todayStaffHolder) {
   todayStaffHolder.innerHTML = checkBoxDisplay;
-
-  for(let i=0; i<w; i++) {
-    var myID = "cb"+i;
-    giveValue(myID);
-  }
-
-  function giveValue(id) {
-    var toGive = document.getElementById(id);
-    toGive.addEventListener('change', (event) => {
-      if (event.currentTarget.checked) {
-        const myValue = toGive.value;
-      } else {
-        //insert here
-      }
-    });
-  }
-
-  console.log(w);
 }
 
 function highlight(id, id2) {
@@ -217,8 +205,6 @@ function highlight(id, id2) {
 var cropHolder;
 const holderDisplay = document.getElementById("holder-display");
 const runLevelHolder = document.getElementById("run-level-holder");
-const rslYHolder = document.getElementById("rsl-y");
-const rslNHolder = document.getElementById("rsl-n");
 
 const rslYN = "<div class='med-yn' id='rsl-y'>YES</div><div class='med-yn' id='rsl-n'>NO</div>";
 
@@ -228,14 +214,15 @@ if(cropSelector) {
     'change',
     async function() {
       var option = cropSelector.value;
-      console.log(option);
       var transplantedCrops;
 
       if(option == "nothing") {
         holderDisplay.textContent = "holders: "
         runLevelHolder.innerHTML = "<label id='run-slash-level'><b>RUN/LEVEL FINISHED? </b></label>" + rslYN;
-        rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
-        rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+        const rslYHolder = document.getElementById("rsl-y");
+        const rslNHolder = document.getElementById("rsl-n");
+        rslYHolder.addEventListener("click", () => {highlight("rsl-y", "rsl-n")});
+        rslNHolder.addEventListener("click", () => {highlight("rsl-n", "rsl-y")});
       }
       else {
         transplantedCrops = query(collection(db, "crops"), where("crop", "==", option));
@@ -248,13 +235,17 @@ if(cropSelector) {
           cropHolder += "s: ";
           if(cropHolder == "trays: ") {
             runLevelHolder.innerHTML = "<label id='run-slash-level'><b>RUN FINISHED? </b></label>" + rslYN;
-            rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
-            rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+            const rslYHolder = document.getElementById("rsl-y");
+            const rslNHolder = document.getElementById("rsl-n");
+            rslYHolder.addEventListener("click", () => {highlight("rsl-y", "rsl-n")});
+            rslNHolder.addEventListener("click", () => {highlight("rsl-n", "rsl-y")});
           }
           else {
             runLevelHolder.innerHTML = "<label id='run-slash-level'><b>LEVEL FINISHED? </b></label>"+rslYN+"<br><br><label><b>LEVEL: </b></label>";
-            rslYHolder.addEventListener("click", highlight("rsl-y", "rsl-n"));
-            rslNHolder.addEventListener("click", highlight("rsl-n", "rsl-y"));
+            const rslYHolder = document.getElementById("rsl-y");
+            const rslNHolder = document.getElementById("rsl-n");
+            rslYHolder.addEventListener("click", () => {highlight("rsl-y", "rsl-n")});
+            rslNHolder.addEventListener("click", () => {highlight("rsl-n", "rsl-y")});
           }
           holderDisplay.textContent = cropHolder;
         });
@@ -268,7 +259,6 @@ if(cropSelector) {
 }
 
 /*Staff Duties Tab*/
-
 var tomorrow;
 
 //Calculates the next day of the work week
@@ -324,8 +314,11 @@ catch(error){
 const tomEmpTable = document.getElementById("staff-names");
 const tomEmpFragment = document.createDocumentFragment();
 
+//These lists allow for employees to be indexed
 var empNameList = ["Select Employee"];
-var empHourList = ["Employee Hours"];
+var empHourList = [];
+var empIDList = ["Employee ID"];
+var empAssignedHours = [];
 var q = 0;
 
 tomEmpList.forEach(function(emp) {
@@ -334,6 +327,8 @@ tomEmpList.forEach(function(emp) {
   tomEmpHolder.innerHTML = "<p>"+emp[0]+"</p><p class='emp-hour-holders' id='emp-hour-holder-"+q+"'>"+emp[1]+" hours</p>";
   //Adds the name of every working employee to list for option tag creation
   empNameList.push(emp[0]);
+  //console.log(emp[0] + ": " + q);
+  empIDList.push(q);
   tomEmpFragment.appendChild(tomEmpHolder);
   q ++;
 });
@@ -342,6 +337,7 @@ if (tomEmpTable) {
   tomEmpTable.appendChild(tomEmpFragment);
 }
 
+//For each employee found in query, grabs how many hours they work tomorrow and their index
 for(let i=0; i<q; i++) {
   var empHourHolderID = "emp-hour-holder-" + i;
   var empHourHolder = document.getElementById(empHourHolderID);
@@ -349,10 +345,8 @@ for(let i=0; i<q; i++) {
     var hoursTotal = empHourHolder.textContent;
     hoursTotal = hoursTotal.split(" ");
     hoursTotal = hoursTotal[0];
-    var innerList = [];
-    innerList.push(hoursTotal);
-    innerList.push(i);
-    empHourList.push(innerList);
+    empHourList.push(hoursTotal);
+    empAssignedHours.push(0);
   }
 }
 
@@ -363,7 +357,10 @@ var selectList = [];
 var selectString1;
 
 for(let i=0; i < empNameList.length; i++) {
-  empOption = "<option value='" + empHourList[i] + "'>" + empNameList[i] + "</option>";
+  //Value of option is employee hours
+  //Text of option is employee name
+  //console.log(empNameList[i] + ": " + empIDList[i]);
+  empOption = "<option value='" + empIDList[i] + "'>" + empNameList[i] + "</option>";
   selectString1 += empOption;
 }
 
@@ -383,7 +380,6 @@ try{
     const tomStaff = doc.get("staff");
     const tomTime = doc.get("time");
     if(tomTime == "undefined") {
-
     }
     else {
     for(let i=0; i<tomStaff; i++) {
@@ -407,7 +403,7 @@ var x = 0;
 tomTaskList.forEach(function(task) {
   const tomHolder = document.createElement("div");
   tomHolder.className = "staff-task-row";
-  //Builds row including task name, staff number, and time per employee plus room for select element div
+  //Builds row including task name, time per employee, and select box of employees working tomorrow
   tomHolder.innerHTML = "<p>"+task[0]+"</p><p id='hour"+x+"'>"+task[1]+"</p><select id='select"+x+"'>"+selectString1;
   tomFragment.appendChild(tomHolder);
   x ++;
@@ -424,13 +420,23 @@ if(refreshBtn) {
 }
 
 function refreshMe() {
-  for(i=0; i<x; i++) {
-    var selectID = "select" + i;
-    var selected = document.getElementById(selectID);
-    if(selected) {
-      var empHours = selected.value;
-      var empNames = selected.options[selected.selectedIndex].text;
+  //Goes through each task row
+  for(let i=0; i<empAssignedHours.length; i++) {
+    if(typeof empAssignedHours[i] === 'undefined') {
     }
+    else {
+      empAssignedHours[i] = 0;
+    }
+  }
+  for(i=0; i<x; i++) {
+    var selectID = "select" + i
+    var selectBox = document.getElementById(selectID);
+    if(selectBox) {
+      var idNum = selectBox.value;
+      var empName = selectBox.options[selectBox.selectedIndex].text
+      //console.log(empName + ": " + idNum);
+    }
+    //Grabs how many hours it takes to complete task from row
     var hourID = "hour" + i;
     var hoursNeeded = document.getElementById(hourID);
     if(hoursNeeded) {
@@ -438,55 +444,58 @@ function refreshMe() {
       hourValue = hourValue.split(":");
       if(hourValue[1] == "00") {
         var hoursSpent = hourValue[0];
-        var hr = empHours.split(",");
-        var hrVal = hr[0];
-        var hoursLeft = hrVal - hoursSpent;
-        var idNum = hr[1];
-        var holderIDString = "emp-hour-holder-" + idNum;
-        var holderObj = document.getElementById(holderIDString);
-        if(holderObj) {
-          if(hoursLeft == 2) {
-            holderObj.style.color = "#D67C0F";
-            holderObj.textContent = hoursLeft + " hours";
-            console.log(selected.value);
-          }
-          else if(hoursLeft == 1) {
-            holderObj.style.color = "#D60F0F";
-            holderObj.textContent = hoursLeft + " hour";
-            console.log(selected.value);
+        if(typeof empAssignedHours[idNum] === 'undefined') {
+        }
+        else {
+          if(checkIfStringHasOnlyDigitsAndDecimal(empAssignedHours[idNum]) == true) {
+            empAssignedHours[idNum] = parseFloat(empAssignedHours[idNum]);
+            empAssignedHours[idNum] += parseInt(hoursSpent);
           }
           else {
-            holderObj.textContent = hoursLeft + " hours";
-            console.log(selected.value);
+            console.log("this is an error");
           }
         }
       }
       else {
-        var leftoverMinutes = 60 - hourValue[1];
+        var minutesSpent = hourValue[1];
         var hoursSpent = hourValue[0];
-        var hr = empHours.split(",");
-        var hrVal = hr[0];
-        var hoursLeft = hrVal - hoursSpent - 1;
-        var timeLeft = hoursLeft + ":" + leftoverMinutes;
-        var idNum = hr[1];
-        var holderIDString = "emp-hour-holder-" + idNum;
-        var holderObj = document.getElementById(holderIDString);
-        if(holderObj) {
-          if(hoursLeft == 1) {
-            holderObj.style.color = "#D67C0F";
-            holderObj.textContent = timeLeft + " hours";
-            console.log(selected.value);
-          }
-          else if(hoursLeft == 0) {
-            holderObj.style.color = "#D60F0F";
-            holderObj.textContent = timeLeft + " minutes";
-            console.log(selected.value);
+        var minuteDecimal = minutesSpent / 60;
+        var minuteDecimal = Math.round((minuteDecimal + Number.EPSILON) * 100) / 100;
+        hoursSpent = parseInt(hoursSpent) + minuteDecimal;
+        if(typeof empAssignedHours[idNum] === 'undefined') {
+        }
+        else {
+          if(checkIfStringHasOnlyDigitsAndDecimal(empAssignedHours[idNum]) == true) {
+            empAssignedHours[idNum] = parseFloat(empAssignedHours[idNum]);
+            empAssignedHours[idNum] += parseFloat(hoursSpent);
           }
           else {
-            holderObj.textContent = timeLeft + " hours";
-            console.log(selected.value);
+            console.log("this is an error");
           }
         }
+      }
+    }
+    //console.log(empAssignedHours[idNum]);
+  }
+  //console.log(empAssignedHours);
+  //console.log(empIDList);
+  for(let i=0; i<empAssignedHours.length; i++) {
+    var hoursLeft = empHourList[i] - empAssignedHours[i];
+    var idNum = empIDList[i+1];
+    var holderIDString = "emp-hour-holder-" + idNum;
+    var holderObj = document.getElementById(holderIDString);
+    if(holderObj) {
+      if(hoursLeft <= 1) {
+        holderObj.style.color = "#D67C0F";
+        holderObj.textContent = hoursLeft + " hour";
+      }
+      else if(hoursLeft <= 0) {
+        holderObj.style.color = "#D60F0F";
+        holderObj.textContent = hoursLeft + " hours";
+      }
+      else {
+        holderObj.style.color = "#0C8E26";
+        holderObj.textContent = hoursLeft + " hours";
       }
     }
   }
@@ -1046,10 +1055,17 @@ function changeCleanDate() {
 };
 
 function submitCleanDate() {
-  console.log(cleanDateMM);
-  const newCleanDateMM = document.getElementById("new-clean-date-mm").value;
-  const newCleanDateDD = document.getElementById("new-clean-date-dd").value;
-  const newCleanDateYYYY = document.getElementById("new-clean-date-yyyy").value;
+  var newCleanDateMM = document.getElementById("new-clean-date-mm").value;
+  var newCleanDateDD = document.getElementById("new-clean-date-dd").value;
+  var newCleanDateYYYY = document.getElementById("new-clean-date-yyyy").value;
+  if(typeof newCleanDateMM === 'undefined') {
+    newCleanDateMM = document.getElementById("clean-date-mm").innerHTML;
+    newCleanDateDD = document.getElementById("clean-date-dd").innerHTML;
+    newCleanDateYYYY = document.getElementById("clean-date-yyyy").innerHTML;
+  }
+  console.log(newCleanDateMM);
+  console.log(newCleanDateDD);
+  console.log(newCleanDateYYYY);
 
   const dateArray = checkDate(newCleanDateMM, newCleanDateDD, newCleanDateYYYY);
   cleanDate = new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
@@ -1064,6 +1080,7 @@ function submitCleanDate() {
   if(cleanDateYYYY) {
     cleanDateYYYY.innerHTML = newCleanDateYYYY;
   }
+  createCleanDivs();
 }
 
 if(changeCleanDateBtn) {
@@ -1074,24 +1091,54 @@ if(submitCleanDateBtn) {
   submitCleanDateBtn.addEventListener("click", submitCleanDate);
 }
 
-/*async function grayOut(areaName, dayofWeek) {
-  const dayIndexToCheck = cleanDate.getDay();
-  const dayofWeek = weekday[dayIndexToCheck];
+const areas = ["front-entry", "front-bath", "office", "emp-break",
+               "proc", "air-shower", "mush-store", "gar",
+               "mush-fruit", "mush-inoc", "rough", "power-control",
+               "grow", "load-bay", "outside", "misc"];
 
-  const areasToCheck = document.getElementsByClassName("area");
+const areaNames = ["FRONT ENTRYWAY", "FRONT BATHROOMS", "OFFICE AREA", "EMPLOYEE BREAKROOM",
+                   "PROCESSING ROOM", "AIR SHOWER ROOM", "MUSHROOM STORAGE ROOM", "GARAGE",
+                   "MUSHROOM FRUITING ROOMS", "MUSHROOM INOCULATION AREA", "ROUGH PROCESSING", "POWER CONTROL ROOM",
+                   "GROW ROOM", "LOADING BAY", "OUTSIDE BUILDING", "MISC"];
+
+const areaHolder = document.getElementById("four-by-four");
+
+function createCleanDivs() {
+  console.log("inside createCleanDivs");
+  for(let i = 0; i<areas.length; i++) {
+    var newDiv = document.createElement("div");
+    newDiv.id = areas[i];
+    newDiv.innerHTML = areaNames[i];
+    newDiv.className = 'area';
+    console.log(newDiv);
+    
+    document.getElementById("four-by-four").appendChild(newDiv);
+  }
+}
+
+if(areaHolder) {
+  //console.log("area holder exists");
+  window.addEventListener("DOMContentLoaded", createCleanDivs);
+}
+
+async function grayOut() {
+  const dayIndexToCheck = cleanDate.getDay();
+  const dayofWeektoCheck = weekday[dayIndexToCheck];
+
   for (let i = 0; i < areas.length; i++) {
-    var elem = areas[i];
+    const thisArea = document.getElementById(areas[i]);
+    var elem = thisArea;
     var style = window.getComputedStyle(elem);
     var color = style.backgroundColor;
     if (color != "rgb(123, 193, 67)") {
-      const text = areas[i].textContent.trim();
+      const text = thisArea.textContent.trim();
       const output = text.replace(
       /(\w)(\w*)/g,
       (_, firstChar, rest) => firstChar + rest.toLowerCase()
       );
-      areaName = "Clean " + output;
+      var areaName = "Clean " + output;
 
-      const toCheck = query(collection(db, "tasks"), where("task", "==", areaName), where(dayofWeek, "!=", "X"));
+      const toCheck = query(collection(db, "tasks"), where("task", "==", areaName), where(dayofWeektoCheck, "!=", "X"));
 
       try {
         const toCheckSnapshot = await getDocs(toCheck);
@@ -1105,7 +1152,7 @@ if(submitCleanDateBtn) {
     }
     else {}
   }
-}*/
+}
 
 async function chooseArea() {
   const dayIndex = cleanDate.getDay();
@@ -1128,7 +1175,9 @@ async function chooseArea() {
       );
       areaName = "Clean " + output;
     }
-    else {}
+    else {
+
+    }
   }
 
   const cleanDoc = query(collection(db, "tasks"), where("task", "==", areaName), where(dayofWeek, "==", "X"));
@@ -1290,6 +1339,15 @@ function checkIfStringHasOnlyDigits(_string) {
   for (let i = _string.length - 1; i >= 0; i--) {
     const codeValue = _string.charCodeAt(i);
     if (codeValue < 48 || codeValue > 57) 
+    return false
+  }
+  return true
+}
+
+function checkIfStringHasOnlyDigitsAndDecimal(_string) {
+  for (let i = _string.length - 1; i >= 0; i--) {
+    const codeValue = _string.charCodeAt(i);
+    if (codeValue < 44 || codeValue > 57) 
     return false
   }
   return true
